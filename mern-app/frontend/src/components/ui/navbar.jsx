@@ -6,7 +6,7 @@ export default function NavBar() {
             <div className="flex flex-col text-right pr-8 py-11">
                 <Link to="/" className="py-9">Home</Link>
                 <Link to="/profile" className="py-9">Profile</Link>
-                <Link to="/content" className="py-9">Content</Link>
+                <Link to="/content" className="py-9">Scheduled Posts</Link>
                 <Link to="/generate" className="py-9">Generate Content</Link>
             </div>
         </div>

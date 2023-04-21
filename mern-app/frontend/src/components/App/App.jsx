@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 
 import HomePage from '../HomePage/index.jsx'
 import ProfilePage from '../ProfilePage/index.jsx'
+import GeneratePage from '../GeneratePage/index.jsx'
 
 import Button from '../ui/button.jsx'
 import NavBar from '../ui/NavBar.jsx'
@@ -11,14 +12,14 @@ function App() {
 
 
   return (
-      <div className="w-screen">
+      <div className="w-screen h-screen">
 
         <div className="bg-teal-800 text-white py-11 flex justify-between px-11">
           <h1>Socai</h1>
           <Link to="/">Home</Link>
         </div>
 
-        <div className="flex w-screen">
+        <div className="flex w-screen h-4/5">
 
           <NavBar />
 
@@ -26,6 +27,8 @@ function App() {
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/profile" element={<ProfilePage />} />
+              <Route path="/content" element={<ProfilePage />} />
+              <Route path="/generate" element={<GeneratePage />} />
             </Routes>
           </div>
 
