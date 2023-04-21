@@ -9,11 +9,12 @@ import NavBar from '../ui/NavBar.jsx'
 
 function App() {
 
+
   return (
       <div className="w-screen">
 
         <div className="bg-teal-800 text-white py-11 flex justify-between px-11">
-          <h1>Craftai</h1>
+          <h1>Socai</h1>
           <Link to="/">Home</Link>
         </div>
 
