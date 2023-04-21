@@ -8,7 +8,7 @@ function App() {
   return (
     <>
       <NavBar />
-      <p>test test</p>
+      <p className='font-bold'>test test</p>
       <Button />
     </>
   )
