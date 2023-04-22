@@ -2,6 +2,7 @@
   "name": "mern-app",
   "private": true,
   "version": "0.0.0",
+  "main": "backend/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "frontend": "vite",

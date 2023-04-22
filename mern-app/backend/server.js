@@ -38,26 +38,26 @@ app.use(express.static(path.join(path.dirname(__dirname), 'frontend', 'dist')))
 
 /* Mount routes
 --------------------------------------------------------------- */
-// When a GET request is sent to `/seed`, the pets collection is seeded
+// When a GET request is sent to `/seed`, the posts collection is seeded
 app.get('/api/seed', function (req, res) {
-    // Remove any existing pets
-    db.Pet.deleteMany({})
-        .then(removedPets => {
-            console.log(`Removed ${removedPets.length} pets`)
+    // Remove any existing posts
+    db.Post.deleteMany({})
+        .then(removedPosts => {
+            console.log(`Removed ${removedPosts.length} posts`)
 
-            // Seed the pets collection with the seed data
-            db.Pet.insertMany(db.seedPets)
-                .then(addedPets => {
-                    console.log(`Added ${addedPets.length} pets to be adopted`)
-                    res.json(addedPets)
+            // Seed the posts collection with the seed data
+            db.Post.insertMany(db.seedPosts)
+                .then(addedPosts => {
+                    console.log(`Added ${addedPosts.length} posts`)
+                    res.json(addedPosts)
                 })
         })
 });
 
 
-// This tells our app to look at the `controllers/pets.js` file 
-// to handle all routes that begin with `localhost:3000/pets`
-app.use('/api/pets', postsCtrl)
+// This tells our app to look at the `controllers/posts.js` file 
+// to handle all routes that begin with `localhost:3000/posts`
+app.use('/api/posts', postsCtrl)
 
 // add second file for other models (e.g. users)
 

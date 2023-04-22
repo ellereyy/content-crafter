@@ -20,42 +20,42 @@ const db = require('../models')
 /* Routes
 --------------------------------------------------------------- */
 // Index Route (GET/Read): Will display all comments
-router.get('/country/:countryId', function (req, res) {
-    db.Comment.find({ countryId: req.params.countryId })
+router.get('/', function (req, res) {
+    db.Post.find({})
         .then(comments => res.json(comments))
 })
 
 // Create Route (POST/Create): This route receives the POST request sent from the new route,
-// creates a new comment document using the form data, 
-// and redirects the user to the new comment's show page
+// creates a new post document using the form data, 
+// and redirects the user to the new post's show page
 router.post('/', (req, res) => {
-    db.Comment.create(req.body)
-        .then(comment => res.json(comment))
+    db.Post.create(req.body)
+        .then(post => res.json(post))
 })
 
-// Show Route (GET/Read): Will display an individual comment document
+// Show Route (GET/Read): Will display an individual post document
 // using the URL parameter (which is the document _id)
 router.get('/:id', function (req, res) {
-    db.Comment.findById(req.params.id)
-        .then(comment => res.json(comment))
+    db.Post.findById(req.params.id)
+        .then(post => res.json(post))
 })
 
 // Update Route (PUT/Update): This route receives the PUT request sent from the edit route, 
-// edits the specified comment document using the form data,
+// edits the specified post document using the form data,
 router.put('/:id', (req, res) => {
-    db.Comment.findByIdAndUpdate(
+    db.Post.findByIdAndUpdate(
         req.params.id,
         req.body,
         { new: true }
     )
-        .then(comment => res.json(comment))
+        .then(post => res.json(post))
 })
 
-// Destroy Route (DELETE/Delete): This route deletes a comment document 
-// using the URL parameter (which will always be the comment document's ID)
+// Destroy Route (DELETE/Delete): This route deletes a post document 
+// using the URL parameter (which will always be the post document's ID)
 router.delete('/:id', (req, res) => {
-    db.Comment.findByIdAndRemove(req.params.id)
-        .then(() => res.send('You deleted comment ' + req.params.id))
+    db.Post.findByIdAndRemove(req.params.id)
+        .then(() => res.send('You deleted post ' + req.params.id))
 })
 
 
