@@ -1,11 +1,12 @@
-import { useState, useEffect } from "react"
-import { getContent, postContent } from "../../../utils/backend"
-import openai from 'openai';
+import { Link } from "react-router-dom"
+import { useState } from "react"
+
+import { postContent } from "../../../utils/backend"
 
 export default function GeneratePage() {
 
     // state
-    const [content, setContent] = useState([])
+    const [generatedPost, setGeneratedPost] = useState(null);
     const [createFormData, setCreateFormData] = useState({
         image: '',
         description: '',
@@ -13,12 +14,6 @@ export default function GeneratePage() {
         hashtags: '',
         date: '',
     })
-
-    useEffect
-    useEffect(() => {
-        getContent()
-            .then(content => setContent(content))
-    }, [])
 
     // functions
     function handleInputChange(event) {
@@ -28,45 +23,15 @@ export default function GeneratePage() {
         })
     }
 
-    function handleSubmit(event) {
+    async function handleSubmit(event) {
         event.preventDefault()
         setCreateFormData({
             image: '',
             description: ''
         })
-        postContent({...createFormData})
+        const newPost = await postContent({...createFormData})
+        setGeneratedPost(newPost);
     }
-
-    // async function handleSubmit(event) {
-    //     event.preventDefault();
-    //     // const { caption, hashtags, date } = await generatePostContent(createFormData);
-    //     setCreateFormData({
-    //       image: "",
-    //       description: "",
-    //     //   caption,
-    //     //   hashtags,
-    //     //   date,
-    //     });
-    //     // await postContent({ ...createFormData, caption, hashtags, date });
-    // }
-
-
-    // conditional rendering for posts
-    let postDisplay = <p>No posts to display</p>;
-    if (content.length > 0) {
-        postDisplay = content.map(post => {
-            return (
-                <div key={post._id}>
-                    <img src={post.image} />
-                    <p>{post.description}</p>
-                    <p>{post.caption}</p>
-                    <p>{post.hashtags}</p>
-                    <p>{post.date}</p>
-                </div>
-            )
-        })
-    }
-
 
     return (
         <>
@@ -96,12 +61,21 @@ export default function GeneratePage() {
                     <br />
                     <button type="submit" className="bg-slate-400">Generate Post</button>
                 </form>
-                <br />
                 <div>
-                    {postDisplay}
+                    {generatedPost && (
+                        <div>
+                            <h2>Generated Post:</h2>
+                            <img src={generatedPost.image} />
+                            <p>Description: {generatedPost.description}</p>
+                        </div>
+                    )}
+                    <Link to="/content" className="py-9">
+                        <button className="bg-teal-500 p-3 my-3 rounded">
+                            View in Schedule
+                        </button>
+                    </Link>
                 </div>
             </div>
         </>
     )
 };
-

@@ -12,13 +12,13 @@ import NavBar from '../ui/NavBar.jsx'
 function App() {
 
   return (
-      <div className="mx-11 mt-11">
+      <div className="mx-11 mt-11 bg-white p-11">
         <div className="flex justify-between">
           <h1>Socai</h1>
           <Link to="/">Home</Link>
         </div>
 
-        <div className="flex justify-between text-white">
+        <div className="flex justify-between">
           <Link to="/" className="py-9">Home</Link>
           <Link to="/profile" className="py-9">Profile</Link>
           <Link to="/content" className="py-9">Scheduled Posts</Link>
