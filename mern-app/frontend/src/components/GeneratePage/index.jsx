@@ -1,9 +1,6 @@
 import { useState } from "react";
 import { postContent } from "../../../utils/backend";
 
-const API_KEY = import.meta.env.VITE_OPENAI_KEY;
-console.log(API_KEY);
-console.log(API_KEY_DISP)
 
 export default function GeneratePage() {
 
@@ -11,7 +8,6 @@ export default function GeneratePage() {
         image: '',
         description: '',
     });
-
     const [generatedData, setGeneratedData] = useState({
         caption: '',
         hashtags: '',
@@ -25,10 +21,24 @@ export default function GeneratePage() {
         });
     }
 
+    function generateAi() {
+        console.log('calling ai api....')
+    }
+
     function handleSubmit(event) {
         event.preventDefault();
+
+        setGeneratedData({
+            caption: generatedCaption,
+            hashtags: generatedHashtags,
+            date: generatedDate,
+        });
+
         postContent({
             ...createFormData,
+            caption: generatedCaption,
+            hashtags: generatedHashtags,
+            date: generatedDate,
         });
     }
 
@@ -63,16 +73,12 @@ export default function GeneratePage() {
                 </form>
 
                 <div>
+                    {generatedData !== null ? 
+                    <h3>Generated Post will appear here</h3>
+                    :
+                    null
+                    }
                 </div>
-                {generatedData.caption && (
-                    <div>
-                        <h2>New Post</h2>
-                        <p>Caption: {createFormData.caption}</p>
-                        <p>Hashtags: {generatedData.hashtags}</p>
-                        <p>Date: {generatedData.date}</p>
-                    </div>
-                )}
-
             </div>
         </>
     );
