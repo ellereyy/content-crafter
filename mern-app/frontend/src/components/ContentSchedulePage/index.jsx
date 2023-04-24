@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { getContent } from '../../../utils/backend';
 
 
@@ -20,10 +21,7 @@ export default function ContentSchedulePage() {
             return (
                 <div key={post._id}>
                     <img src={post.image} className="max-h-80"/>
-                    <p>{post.description}</p>
-                    {/* <p>{post.caption}</p>
-                    <p>{post.hashtags}</p>
-                    <p>{post.date}</p> */}
+                    <p>{post.caption}</p>
                 </div>
             )
         })

@@ -13,13 +13,13 @@ export default function GeneratePage() {
         hashtags: '',
         date: '',
     });
-    const [fullPostObject, setFullPostObject] = useState({
-        image: '',
-        description: '',
-        caption: '',
-        hashtags: '',
-        date: '',
-    });
+    // const [fullPostObject, setFullPostObject] = useState({
+    //     image: '',
+    //     description: '',
+    //     caption: '',
+    //     hashtags: '',
+    //     date: '',
+    // });
 
     function handleInputChange(event) {
         setCreateFormData({
@@ -30,10 +30,10 @@ export default function GeneratePage() {
 
     const APIBody = {
         "model": "text-davinci-003",
-        "prompt": `Generate a caption, hashtags, and post time for an Instagram post about the following image:\n\n${createFormData.description}\n\nMake sure the caption is catchy and includes important details about the image. The hashtags should be relevant and help increase the post's visibility. The post time should be optimized for maximum engagement. Separate the caption, hashtags, and post time with a \n`,
+        "prompt": `Generate a caption with hashtags for an Instagram post about the following image: ${createFormData.description}. Make sure the caption is catchy, includes important details about the image and is optimized for maximum engagement.`,
 
         "temperature": 0,
-        "max_tokens": 100,
+        "max_tokens": 200,
         "top_p": 1.0,
         "frequency_penalty": 0.5,
         "presence_penalty": 0.0
@@ -55,20 +55,30 @@ export default function GeneratePage() {
         })
             .then((data) => {
             console.log(data)
-            setGeneratedData(data.choices[0].text.trim())
+            const aiResponse = data.choices[0].text
+            // const generatedCaption = data.choices[0].text.split('\n')[0]
+            // const generatedHashtags = data.choices[0].text.split('\n')[1]
+            // const generatedDate = data.choices[0].text.split('\n')[2]
+            console.log(aiResponse)
+            // console.log(generatedCaption)
+            // console.log(generatedHashtags)
+            // console.log(generatedDate)
+            setGeneratedData({
+                caption: aiResponse,
+            })
         })
     }
 
     function handleSubmit(event) {
         event.preventDefault()
-        setFullPostObject({
-            image: '',
-            description: '',
+        setGeneratedData({
+            image: createFormData.image,
+            description: createFormData.description,
             caption: '',
             hashtags: '',
             date: '',
         });
-        postContent(fullPostObject)
+        postContent(generatedData)
     }
 
     // console.log(createFormData)
@@ -106,11 +116,10 @@ export default function GeneratePage() {
                     {generatedData.caption !== "" ?
                         <div>
                             <h2>Post</h2>
-                            <p> {generatedData} </p>
-
+                            <img src={createFormData.image}/>
                             <p>Caption: {generatedData.caption}</p>
-                            <p>Hashtags: {generatedData.hashtags}</p>
-                            <p>Date: {generatedData.date}</p>
+                            {/* <p>Hashtags: {generatedData.hashtags}</p>
+                            <p>Date: {generatedData.date}</p> */}
                             <button onClick={handleSubmit} className="bg-slate-400"> 
                                 Add to Calendar
                             </button>
