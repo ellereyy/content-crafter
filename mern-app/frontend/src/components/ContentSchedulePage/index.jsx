@@ -2,9 +2,11 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getContent } from '../../../utils/backend';
 
+import Card from '../Card';
 
 export default function ContentSchedulePage() {
     const [content, setContent] = useState([])
+    const [detailsPage, setDetailsPage] = useState([])
 
     // useEffect
     useEffect(() => {

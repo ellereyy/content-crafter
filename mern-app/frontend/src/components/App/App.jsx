@@ -19,17 +19,17 @@ function App() {
         </div>
 
         <div className="flex justify-between">
-          <Link to="/" className="py-9">Home</Link>
+          <Link to="/home" className="py-9">Home</Link>
           <Link to="/profile" className="py-9">Profile</Link>
           <Link to="/content" className="py-9">Scheduled Posts</Link>
-          <Link to="/generate" className="py-9">Generate Content</Link>
+          <Link to="/" className="py-9">Generate Content</Link>
         </div>
 
         <Routes>
-          <Route path="/" element={<HomePage />} />
+          <Route path="/home" element={<HomePage />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/content" element={<ContentSchedulePage />} />
-          <Route path="/generate" element={<GeneratePage />} />
+          <Route path="/" element={<GeneratePage />} />
         </Routes>
 
       </div>

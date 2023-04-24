@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { postContent } from "../../../utils/backend";
 
+const API_KEY_DISP = import.meta.env.REACT_APP_API_KEY_DISP
 
 export default function GeneratePage() {
 
