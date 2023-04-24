@@ -1,20 +1,20 @@
 const seedPosts = [
   {
-    image: 'https://example.com/image1.jpg',
+    image: 'https://images.pexels.com/photos/1139541/pexels-photo-1139541.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
     description: 'A beautiful sunset at the beach',
     caption: 'Enjoying the breathtaking sunset at the beach',
     hashtags: '#beachlife #sunsetlovers',
     date: new Date('2023-05-01T15:00:00Z'),
   },
   {
-    image: 'https://example.com/image2.jpg',
+    image: 'https://images.pexels.com/photos/3860306/pexels-photo-3860306.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
     description: 'A cute puppy playing with a ball',
     caption: 'Meet my new furry friend!',
     hashtags: '#puppylove #dogsofinstagram',
     date: new Date('2023-05-03T10:00:00Z'),
   },
   {
-    image: 'https://example.com/image3.jpg',
+    image: 'https://images.pexels.com/photos/8951203/pexels-photo-8951203.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
     description: 'A delicious plate of sushi',
     caption: 'Satisfying my cravings for sushi',
     hashtags: '#sushilove #foodie',

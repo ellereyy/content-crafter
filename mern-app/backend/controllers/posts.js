@@ -1,6 +1,6 @@
 /* 
 ---------------------------------------------------------------------------------------
-NOTE: Remember that all routes on this page are prefixed with `localhost:3000/comments`
+NOTE: Remember that all routes on this page are prefixed with `localhost:3000/posts`
 ---------------------------------------------------------------------------------------
 */
 
@@ -19,10 +19,10 @@ const db = require('../models')
 
 /* Routes
 --------------------------------------------------------------- */
-// Index Route (GET/Read): Will display all comments
+// Index Route (GET/Read): Will display all posts
 router.get('/', function (req, res) {
     db.Post.find({})
-        .then(comments => res.json(comments))
+        .then(posts => res.json(posts))
 })
 
 // Create Route (POST/Create): This route receives the POST request sent from the new route,
