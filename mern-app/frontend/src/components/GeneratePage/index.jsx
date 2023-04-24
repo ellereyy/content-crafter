@@ -8,12 +8,18 @@ export default function GeneratePage() {
         image: '',
         description: '',
     });
-    // const [generatedData, setGeneratedData] = useState({
-    //     caption: '',
-    //     hashtags: '',
-    //     date: '',
-    // });
-    const [generatedData, setGeneratedData] = useState('');
+    const [generatedData, setGeneratedData] = useState({
+        caption: '',
+        hashtags: '',
+        date: '',
+    });
+    const [fullPostObject, setFullPostObject] = useState({
+        image: '',
+        description: '',
+        caption: '',
+        hashtags: '',
+        date: '',
+    });
 
     function handleInputChange(event) {
         setCreateFormData({
@@ -24,15 +30,17 @@ export default function GeneratePage() {
 
     const APIBody = {
         "model": "text-davinci-003",
-        "prompt": `Generate a caption for an instagram post about an image with the following description: ${createFormData.description}`,
+        "prompt": `Generate a caption, hashtags, and post time for an Instagram post about the following image:\n\n${createFormData.description}\n\nMake sure the caption is catchy and includes important details about the image. The hashtags should be relevant and help increase the post's visibility. The post time should be optimized for maximum engagement. Separate the caption, hashtags, and post time with a \n`,
+
         "temperature": 0,
         "max_tokens": 100,
         "top_p": 1.0,
         "frequency_penalty": 0.5,
         "presence_penalty": 0.0
     }
-
-    async function generateAi() {
+    
+    async function generateAi(event) {
+        event.preventDefault()
         console.log('calling ai api....')
         await fetch("https://api.openai.com/v1/completions", {
             method: "POST",
@@ -41,9 +49,11 @@ export default function GeneratePage() {
                 "Authorization": `Bearer ${API_KEY_DISP}`
             },
             body: JSON.stringify(APIBody)
-        }).then((data) =>  {
+        })
+            .then((data) =>  {
             return data.json()
-        }).then((data) => {
+        })
+            .then((data) => {
             console.log(data)
             setGeneratedData(data.choices[0].text.trim())
         })
@@ -51,22 +61,23 @@ export default function GeneratePage() {
 
     function handleSubmit(event) {
         event.preventDefault()
-        generateAi()
-        setCreateFormData({
+        setFullPostObject({
             image: '',
             description: '',
+            caption: '',
+            hashtags: '',
+            date: '',
         });
-
-        postContent(createFormData)
+        postContent(fullPostObject)
     }
 
-    console.log(createFormData)
+    // console.log(createFormData)
     return (
         <>
             <div className="flex flex-col">
                 <h1>Generate Content</h1>
                 <br />
-                <form onSubmit={handleSubmit} className="flex flex-col">
+                <form onSubmit={generateAi} className="flex flex-col">
                     <label className="flex flex-col">
                         Image:
                         <input
@@ -90,27 +101,24 @@ export default function GeneratePage() {
                     <button type="submit" className="bg-slate-400">Generate Post</button>
                 </form>
                 <br />
-                <button onClick={generateAi} className="bg-slate-400"> Generate AI </button>
 
-                {/* <div>
+                <div>
                     {generatedData.caption !== "" ?
                         <div>
-                            <h2>Generated Data</h2>
+                            <h2>Post</h2>
+                            <p> {generatedData} </p>
+
                             <p>Caption: {generatedData.caption}</p>
                             <p>Hashtags: {generatedData.hashtags}</p>
                             <p>Date: {generatedData.date}</p>
-                        </div>
-                        : null
-                    }
-                </div> */}
-                <div>
-                    {generatedData !== "" ?
-                        <div>
-                            <h2>Caption: {generatedData}</h2>
+                            <button onClick={handleSubmit} className="bg-slate-400"> 
+                                Add to Calendar
+                            </button>
                         </div>
                         : null
                     }
                 </div>
+                {/* <p> {generatedData} </p> */}
 
 
             </div>

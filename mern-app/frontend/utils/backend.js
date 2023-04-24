@@ -1,5 +1,4 @@
 import axios from 'axios';
-import openai from 'openai';
 
 export async function getContent() {
   const { data } = await axios.get('/api/posts');
