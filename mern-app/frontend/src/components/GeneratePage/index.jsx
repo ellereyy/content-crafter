@@ -1,37 +1,67 @@
-import { Link } from "react-router-dom"
-import { useState } from "react"
+import { useState } from "react";
+import { postContent } from "../../../utils/backend";
+import axios from 'axios';
+import { Configuration, OpenAIApi, openai } from "openai";
 
-import { postContent } from "../../../utils/backend"
 
 export default function GeneratePage() {
 
-    // state
-    const [generatedPost, setGeneratedPost] = useState(null);
     const [createFormData, setCreateFormData] = useState({
         image: '',
         description: '',
+    });
+
+    const [generatedData, setGeneratedData] = useState({
         caption: '',
         hashtags: '',
         date: '',
-    })
+    });
 
-    // functions
     function handleInputChange(event) {
         setCreateFormData({
             ...createFormData,
             [event.target.name]: event.target.value
-        })
+        });
     }
 
     async function handleSubmit(event) {
-        event.preventDefault()
+        event.preventDefault();
+        const configuration = new Configuration({
+            apiKey: import.meta.env.OPENAI_API_KEY,
+        });
+        // openai.apiKey = 'process.env.OPENAI_API_KEY';
+        const prompt = `Generate caption, hashtags, and date for a social media post about an image of ${createFormData.description}`;
+
+        const response = await openai.complete({
+            engine: 'text-davinci-002',
+            prompt,
+            temperature: 0.7,
+            maxTokens: 100,
+            n: 1,
+            stop: '\n',
+        });
+
+        const [generatedCaption, generatedHashtags, generatedDate] = response.choices[0].text.split('\n');
+
+        setGeneratedData({
+            caption: generatedCaption,
+            hashtags: generatedHashtags,
+            date: generatedDate,
+        });
+
         setCreateFormData({
             image: '',
-            description: ''
-        })
-        const newPost = await postContent({...createFormData})
-        setGeneratedPost(newPost);
+            description: '',
+        });
+
+        postContent({
+            ...createFormData,
+            caption: generatedCaption,
+            hashtags: generatedHashtags,
+            date: generatedDate,
+        });
     }
+
 
     return (
         <>
@@ -61,21 +91,15 @@ export default function GeneratePage() {
                     <br />
                     <button type="submit" className="bg-slate-400">Generate Post</button>
                 </form>
-                <div>
-                    {generatedPost && (
-                        <div>
-                            <h2>Generated Post:</h2>
-                            <img src={generatedPost.image} />
-                            <p>Description: {generatedPost.description}</p>
-                        </div>
-                    )}
-                    <Link to="/content" className="py-9">
-                        <button className="bg-teal-500 p-3 my-3 rounded">
-                            View in Schedule
-                        </button>
-                    </Link>
-                </div>
+                {generatedData.caption && (
+                    <div>
+                        <h2>Generated Data</h2>
+                        <p>Caption: {generatedData.caption}</p>
+                        <p>Hashtags: {generatedData.hashtags}</p>
+                        <p>Date: {generatedData.date}</p>
+                    </div>
+                )}
             </div>
         </>
-    )
+    );
 };
