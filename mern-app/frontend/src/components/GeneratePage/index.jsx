@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { postContent } from "../../../utils/backend";
-import axios from 'axios';
-import { Configuration, OpenAIApi, openai } from "openai";
 
+const API_KEY = import.meta.env.VITE_OPENAI_KEY;
+console.log(API_KEY);
+console.log(API_KEY_DISP)
 
 export default function GeneratePage() {
 
@@ -24,41 +25,10 @@ export default function GeneratePage() {
         });
     }
 
-    async function handleSubmit(event) {
+    function handleSubmit(event) {
         event.preventDefault();
-        const configuration = new Configuration({
-            apiKey: import.meta.env.OPENAI_API_KEY,
-        });
-        // openai.apiKey = 'process.env.OPENAI_API_KEY';
-        const prompt = `Generate caption, hashtags, and date for a social media post about an image of ${createFormData.description}`;
-
-        const response = await openai.complete({
-            engine: 'text-davinci-002',
-            prompt,
-            temperature: 0.7,
-            maxTokens: 100,
-            n: 1,
-            stop: '\n',
-        });
-
-        const [generatedCaption, generatedHashtags, generatedDate] = response.choices[0].text.split('\n');
-
-        setGeneratedData({
-            caption: generatedCaption,
-            hashtags: generatedHashtags,
-            date: generatedDate,
-        });
-
-        setCreateFormData({
-            image: '',
-            description: '',
-        });
-
         postContent({
             ...createFormData,
-            caption: generatedCaption,
-            hashtags: generatedHashtags,
-            date: generatedDate,
         });
     }
 
@@ -91,14 +61,18 @@ export default function GeneratePage() {
                     <br />
                     <button type="submit" className="bg-slate-400">Generate Post</button>
                 </form>
+
+                <div>
+                </div>
                 {generatedData.caption && (
                     <div>
-                        <h2>Generated Data</h2>
-                        <p>Caption: {generatedData.caption}</p>
+                        <h2>New Post</h2>
+                        <p>Caption: {createFormData.caption}</p>
                         <p>Hashtags: {generatedData.hashtags}</p>
                         <p>Date: {generatedData.date}</p>
                     </div>
                 )}
+
             </div>
         </>
     );
