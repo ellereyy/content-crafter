@@ -1,4 +1,6 @@
-export default function ContentSchedulePage({ postDisplay }) {
+import { getContent } from "../../../utils/backend"
+
+export default function ContentSchedulePage({ postDisplay  }) {
 
     return (
         <>

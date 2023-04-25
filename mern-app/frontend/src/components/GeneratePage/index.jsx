@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { postContent, getContent } from "../../../utils/backend";
 
 
 export default function GeneratePage() {
 
     const API_KEY_DISP = import.meta.env.VITE_OPENAI_KEY
+    const navigate = useNavigate();
 
     const [createFormData, setCreateFormData] = useState({
         image: '',
@@ -52,11 +53,8 @@ export default function GeneratePage() {
             return data.json()
         })
             .then((data) => {
-            console.log(data)
             const aiResponse = data.choices[0].text.trim()
-
             console.log(aiResponse)
-
             setGeneratedData({
                 image: createFormData.image,
                 description: createFormData.description,
@@ -67,19 +65,11 @@ export default function GeneratePage() {
 
     function handleSubmit(event) {
         event.preventDefault()
-        setGeneratedData({
-            image: '',
-            description: '',
-            caption: '',
-        });
         postContent(generatedData)
-        console.log(`posted ${generatedData.caption} to backend`)
-
-    }
-    function refreshFeed() {
-        getContent()
-            .then(newData => setGeneratedData(newData))
-            console.log("refreshing schedule...")
+            .then(() => {
+                console.log(`posted ${generatedData.caption} to backend`)
+                navigate('/')
+            })
     }
 
     // console.log(createFormData)
@@ -119,8 +109,8 @@ export default function GeneratePage() {
                             <h2>Post</h2>
                             <img src={createFormData.image}/>
                             <p>Caption: {generatedData.caption}</p>
-                            <Link to="/profile" onClick={handleSubmit}>
-                                <button className="bg-slate-500 px-5 py-2 rounded text-white"> 
+                            <Link to="/profile">
+                                <button onClick={handleSubmit} className="bg-slate-500 px-5 py-2 rounded text-white"> 
                                     Add to Calendar
                                 </button>
                             </Link>

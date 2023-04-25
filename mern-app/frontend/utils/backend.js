@@ -5,6 +5,11 @@ export async function getContent() {
   return data;
 }
 
+export async function getPost(id) {
+  const { data } = await axios.get(`/api/posts/${id}`);
+  return data;
+}
+
 export async function postContent(content) {
   const { data } = await axios.post('/api/posts', content)
   return data;
@@ -17,6 +22,5 @@ export async function updateContent(post, id) {
 
 export async function deleteContent(id) {
   const { data } = await axios.delete(`/api/posts/${id}`)
-  console.log(data)
   return data;
 }

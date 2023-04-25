@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 
 import { getContent, deleteContent, updateContent } from "../../../utils/backend"
 
 export default function DetailsPage({ updatePosts, postInfo }) {
+
+    const navigate = useNavigate()
 
     const [showEditForm, setShowEditForm] = useState(false)
     const [editDetails, setEditDetails] = useState({
@@ -22,6 +24,7 @@ export default function DetailsPage({ updatePosts, postInfo }) {
 
     function handleDelete() {
         deleteContent(postInfo._id)
+            .then(() => navigate('/'))
     }
 
     function handleEditChange(event) {
@@ -37,7 +40,7 @@ export default function DetailsPage({ updatePosts, postInfo }) {
         updateContent(editDetails, postInfo._id)
             .then(() => updatePosts(editDetails))
     }
-
+    
     return (
         <>
             <h1>Post Details</h1>
@@ -92,31 +95,3 @@ export default function DetailsPage({ updatePosts, postInfo }) {
         </>
     )
 }
-
-
-    // const [showEditForm, setShowEditForm] = useState(false)
-    // const [editFormData, setEditFormData] = useState({
-    //     image: data.name,
-    //     content: data.content,
-    //     description: data.description,
-    //     caption: data.caption,
-    //     hashtags: '',
-    //     date: '',
-    // })
-
-     // function handleInputChange(event) {
-    //     setEditFormData({
-    //         ...editFormData,
-    //         [event.target.name]: event.target.value
-    //     })
-    // }
-
-    // function handleSubmit(event) {
-    //     // prevent the page from reloading
-    //     event.preventDefault()
-    //     // close the form
-    //     setShowEditForm(false)
-    //     // update the comment in the backend
-    //     updateComment(editFormData, data._id)
-    //         .then(() => refreshComments())
-    // }

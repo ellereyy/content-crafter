@@ -1,4 +1,4 @@
-import { Routes, Route, Link } from 'react-router-dom'
+import { Routes, Route, Link, useLocation } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 
 import HomePage from '../HomePage/index.jsx'
@@ -16,13 +16,19 @@ function App() {
   const [content, setContent] = useState([])
   const [detailsPage, setDetailsPage] = useState([])
 
+  const location = useLocation()
   // useEffect
   useEffect(() => {
       getContent()
           .then(res => setContent(res))
-  }, [])
+  }, [location])
 
   // functions
+  function refreshCurrent() {
+    getContent()
+        .then(newData => setContent(newData))
+        console.log("refreshing content...")
+  }
 
   // conditional rendering for posts
   let postDisplay = <p>No posts to display</p>
@@ -35,7 +41,7 @@ function App() {
   return (
       <div className="mx-11 mt-11 bg-white p-11">
         <div className="flex justify-between">
-          <h1>Socai</h1>
+          <h1 className="text-2xl font-bold text-gray-800">Socai</h1>
           <Link to="/home">Home</Link>
         </div>
 
@@ -54,8 +60,13 @@ function App() {
         </Routes>
 
       </div>
+  )
+}
 
-    // <div className="w-screen h-screen">
+export default App;
+
+
+// <div className="w-screen h-screen">
 
     //   <div className="bg-teal-800 text-white py-11 flex justify-between px-11">
     //     <h1>Socai</h1>
@@ -78,9 +89,3 @@ function App() {
     //   </div>
 
     // </div>
-
-  
-  )
-}
-
-export default App;
