@@ -5,6 +5,8 @@ import { postContent, getContent } from "../../../utils/backend";
 
 export default function GeneratePage() {
 
+    const API_KEY_DISP = import.meta.env.VITE_OPENAI_KEY
+
     const [createFormData, setCreateFormData] = useState({
         image: '',
         description: '',
@@ -51,7 +53,7 @@ export default function GeneratePage() {
         })
             .then((data) => {
             console.log(data)
-            const aiResponse = data.choices[0].text
+            const aiResponse = data.choices[0].text.trim()
 
             console.log(aiResponse)
 

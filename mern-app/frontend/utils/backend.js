@@ -10,8 +10,8 @@ export async function postContent(content) {
   return data;
 }
 
-export async function updateContent(content) {
-  const { data } = await axios.put('/api/posts', content)
+export async function updateContent(post, id) {
+  const { data } = await axios.put(`/api/posts/${id}`, post)
   return data;
 }
 
