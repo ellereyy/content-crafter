@@ -15,7 +15,8 @@ export async function updateContent(content) {
   return data;
 }
 
-export async function deleteContent(content) {
-  const { data } = await axios.delete('/api/posts', content)
+export async function deleteContent(id) {
+  const { data } = await axios.delete(`/api/posts/${id}`)
+  console.log(data)
   return data;
 }

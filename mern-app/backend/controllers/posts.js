@@ -1,6 +1,6 @@
 /* 
 ---------------------------------------------------------------------------------------
-NOTE: Remember that all routes on this page are prefixed with `localhost:3000/posts`
+NOTE: Remember that all routes on this page are prefixed with `localhost:3000/api/posts`
 ---------------------------------------------------------------------------------------
 */
 

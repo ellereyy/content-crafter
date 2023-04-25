@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { postContent } from "../../../utils/backend";
 
-const API_KEY_DISP = import.meta.env.REACT_APP_API_KEY_DISP
+// const API_KEY_DISP = import.meta.env.REACT_APP_API_KEY_DISP
 
 export default function GeneratePage() {
 
@@ -10,6 +10,8 @@ export default function GeneratePage() {
         description: '',
     });
     const [generatedData, setGeneratedData] = useState({
+        image: '',
+        description: '',
         caption: '',
         hashtags: '',
         date: '',
@@ -109,7 +111,7 @@ export default function GeneratePage() {
                         />
                     </label>
                     <br />
-                    <button type="submit" className="bg-slate-400">Generate Post</button>
+                    <button type="submit" className="bg-slate-500 px-5 py-2 rounded text-white">Generate Post</button>
                 </form>
                 <br />
 
@@ -121,7 +123,7 @@ export default function GeneratePage() {
                             <p>Caption: {generatedData.caption}</p>
                             {/* <p>Hashtags: {generatedData.hashtags}</p>
                             <p>Date: {generatedData.date}</p> */}
-                            <button onClick={handleSubmit} className="bg-slate-400"> 
+                            <button onClick={handleSubmit} className="bg-slate-500 px-5 py-2 rounded text-white"> 
                                 Add to Calendar
                             </button>
                         </div>
