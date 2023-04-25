@@ -49,7 +49,7 @@ function App() {
           <Route path="/home" element={<HomePage />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/" element={<ContentSchedulePage postDisplay={postDisplay} detailsPage={detailsPage}/>} />
-          <Route path="/content/:id" element={<DetailsPage postInfo={detailsPage} />} />
+          <Route path="/content/:id" element={<DetailsPage postInfo={detailsPage} updatePosts={setDetailsPage}/>} />
           <Route path="/generate" element={<GeneratePage postInfo={detailsPage}/>} />
         </Routes>
 

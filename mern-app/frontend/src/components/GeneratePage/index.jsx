@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { postContent } from "../../../utils/backend";
+import { Link } from "react-router-dom";
+import { postContent, getContent } from "../../../utils/backend";
 
-// const API_KEY_DISP = import.meta.env.REACT_APP_API_KEY_DISP
 
 export default function GeneratePage() {
 
@@ -16,13 +16,6 @@ export default function GeneratePage() {
         hashtags: '',
         date: '',
     });
-    // const [fullPostObject, setFullPostObject] = useState({
-    //     image: '',
-    //     description: '',
-    //     caption: '',
-    //     hashtags: '',
-    //     date: '',
-    // });
 
     function handleInputChange(event) {
         setCreateFormData({
@@ -59,14 +52,12 @@ export default function GeneratePage() {
             .then((data) => {
             console.log(data)
             const aiResponse = data.choices[0].text
-            // const generatedCaption = data.choices[0].text.split('\n')[0]
-            // const generatedHashtags = data.choices[0].text.split('\n')[1]
-            // const generatedDate = data.choices[0].text.split('\n')[2]
+
             console.log(aiResponse)
-            // console.log(generatedCaption)
-            // console.log(generatedHashtags)
-            // console.log(generatedDate)
+
             setGeneratedData({
+                image: createFormData.image,
+                description: createFormData.description,
                 caption: aiResponse,
             })
         })
@@ -75,13 +66,18 @@ export default function GeneratePage() {
     function handleSubmit(event) {
         event.preventDefault()
         setGeneratedData({
-            image: createFormData.image,
-            description: createFormData.description,
+            image: '',
+            description: '',
             caption: '',
-            hashtags: '',
-            date: '',
         });
         postContent(generatedData)
+        console.log(`posted ${generatedData.caption} to backend`)
+
+    }
+    function refreshFeed() {
+        getContent()
+            .then(newData => setGeneratedData(newData))
+            console.log("refreshing schedule...")
     }
 
     // console.log(createFormData)
@@ -121,19 +117,24 @@ export default function GeneratePage() {
                             <h2>Post</h2>
                             <img src={createFormData.image}/>
                             <p>Caption: {generatedData.caption}</p>
-                            {/* <p>Hashtags: {generatedData.hashtags}</p>
-                            <p>Date: {generatedData.date}</p> */}
-                            <button onClick={handleSubmit} className="bg-slate-500 px-5 py-2 rounded text-white"> 
-                                Add to Calendar
-                            </button>
+                            <Link to="/profile" onClick={handleSubmit}>
+                                <button className="bg-slate-500 px-5 py-2 rounded text-white"> 
+                                    Add to Calendar
+                                </button>
+                            </Link>
                         </div>
                         : null
                     }
                 </div>
-                {/* <p> {generatedData} </p> */}
-
-
             </div>
         </>
     );
 };
+
+            // console.log(generatedCaption)
+            // console.log(generatedHashtags)
+            // console.log(generatedDate)
+
+                        // const generatedCaption = data.choices[0].text.split('\n')[0]
+            // const generatedHashtags = data.choices[0].text.split('\n')[1]
+            // const generatedDate = data.choices[0].text.split('\n')[2]
