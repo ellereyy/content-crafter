@@ -7,6 +7,8 @@ import GeneratePage from '../GeneratePage/index.jsx'
 import ContentSchedulePage from '../ContentSchedulePage/index.jsx'
 import Card from '../Card/index.jsx'
 import DetailsPage from '../DetailsPage/index.jsx'
+import AuthFormPage from '../AuthFormPage'
+
 
 import { getContent } from '../../../utils/backend.js'
 
@@ -39,17 +41,19 @@ function App() {
         </div>
 
         <div className="flex justify-between">
+          <Link to="/auth/login" className="p-4 my-5 text-lg hover:bg-slate-100 rounded-lg">Log In</Link>
           <Link to="/profile" className="p-4 my-5 text-lg hover:bg-slate-100 rounded-lg">Profile</Link>
           <Link to="/" className="p-4 my-5 text-lg hover:bg-slate-100 rounded-lg">Scheduled Posts</Link>          
           <Link to="/generate" className="p-4 my-5 text-lg hover:bg-slate-100 rounded-lg">Generate Content</Link>
         </div>
 
         <Routes>
+          <Route path="/" element={<ContentSchedulePage postDisplay={postDisplay} detailsPage={detailsPage}/>} />
           <Route path="/home" element={<HomePage />} />
           <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/" element={<ContentSchedulePage postDisplay={postDisplay} detailsPage={detailsPage}/>} />
           <Route path="/content/:id" element={<DetailsPage postInfo={detailsPage} updatePosts={setDetailsPage}/>} />
           <Route path="/generate" element={<GeneratePage postInfo={detailsPage}/>} />
+          <Route path="/auth/:formType" element={<AuthFormPage />} />
         </Routes>
 
       </div>
