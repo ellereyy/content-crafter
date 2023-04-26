@@ -7,6 +7,11 @@ const postSchema = new mongoose.Schema(
     caption: { type: String, required: false },
     hashtags: { type: String, required: false },
     date: { type: Date, required: false },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true,
+        },
     },
     { timestamps: true }
 );
