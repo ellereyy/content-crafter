@@ -14,7 +14,7 @@ to use this app locally, you'll need to aquire an API key from OpenAI
 
 
 
-## Sources
+# Sources
 
 Button design: https://codepen.io/andrewmcodes/pen/KKzqyBq?editors=1010
 
