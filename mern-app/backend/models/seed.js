@@ -22,4 +22,14 @@ const seedPosts = [
   },
 ];
 
+
+// const seedUser = [
+//   {
+//     email: 'name@example.com',
+//     password: 'password123',
+//     name: 'John Doe',
+//     goals: 'increase sales with call to action posts',
+//   },
+// ]
+
 module.exports = seedPosts;

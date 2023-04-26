@@ -17,6 +17,7 @@ function App() {
 
   const [content, setContent] = useState([])
   const [detailsPage, setDetailsPage] = useState([])
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
 
   const location = useLocation()
 
@@ -24,6 +25,11 @@ function App() {
       getContent()
           .then(res => setContent(res))
   }, [location])
+
+  let navBtn = <Link to="/home" className=" text-lg hover:text-xl">Home</Link>
+
+
+
 
   // TO DO: improve conditional rendering for when there are no posts to display
   let postDisplay = <p>No posts to display</p>
@@ -34,7 +40,10 @@ function App() {
   }
 
   return (
+
+    
       <div className="mx-11 mt-11 bg-white p-11">
+
         <div className="flex justify-between">
           <h1 className="text-3xl font-bold text-gray-800">Socai</h1>
           <Link to="/home" className=" text-lg hover:text-xl">Home</Link>
