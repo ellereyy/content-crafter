@@ -17,20 +17,13 @@ function App() {
   const [detailsPage, setDetailsPage] = useState([])
 
   const location = useLocation()
-  // useEffect
+
   useEffect(() => {
       getContent()
           .then(res => setContent(res))
   }, [location])
 
-  // functions
-  function refreshCurrent() {
-    getContent()
-        .then(newData => setContent(newData))
-        console.log("refreshing content...")
-  }
-
-  // conditional rendering for posts
+  // TO DO: improve conditional rendering for when there are no posts to display
   let postDisplay = <p>No posts to display</p>
   
   if (content.length > 0) {
@@ -41,14 +34,14 @@ function App() {
   return (
       <div className="mx-11 mt-11 bg-white p-11">
         <div className="flex justify-between">
-          <h1 className="text-2xl font-bold text-gray-800">Socai</h1>
-          <Link to="/home">Home</Link>
+          <h1 className="text-3xl font-bold text-gray-800">Socai</h1>
+          <Link to="/home" className=" text-lg hover:text-xl">Home</Link>
         </div>
 
         <div className="flex justify-between">
-          <Link to="/profile" className="py-9">Profile</Link>
-          <Link to="/" className="py-9">Scheduled Posts</Link>          
-          <Link to="/generate" className="py-9">Generate Content</Link>
+          <Link to="/profile" className="p-4 my-5 text-lg hover:bg-slate-100 rounded-lg">Profile</Link>
+          <Link to="/" className="p-4 my-5 text-lg hover:bg-slate-100 rounded-lg">Scheduled Posts</Link>          
+          <Link to="/generate" className="p-4 my-5 text-lg hover:bg-slate-100 rounded-lg">Generate Content</Link>
         </div>
 
         <Routes>

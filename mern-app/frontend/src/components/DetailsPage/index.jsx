@@ -66,20 +66,21 @@ export default function DetailsPage({ updatePosts, postInfo }) {
 
                 :
 
-                <form onSubmit={handleEditSubmit} className="flex flex-col">
+                <form onSubmit={handleEditSubmit} className="flex flex-col mt-2">
                     <input 
                         name="image"
                         value={editDetails.image}
                         onChange={handleEditChange}
-                        className="my-3 rounded-lg"
+                        className="my-3 p-2 rounded-lg"
                     />
                     <textarea 
                         name="caption"
                         value={editDetails.caption}
                         onChange={handleEditChange}
-                        className="my-3 rounded-lg"
+                        className="my-3 p-2 rounded-lg"
+                        rows={5}
                     />
-                    <button type="submit" className="bg-slate-500 px-5 py-2 rounded text-white hover:bg-slate-600">
+                    <button type="submit" className="bg-slate-500 py-2 my-2 rounded text-white hover:bg-slate-600">
                         Submit
                     </button>
                 </form>
