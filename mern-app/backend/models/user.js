@@ -10,7 +10,9 @@ const UserSchema = new mongoose.Schema({
         type: String, 
         minlength: 6,
         required: true,
-    }
+    },
+    name: { type: String },
+    goals: { type: String }
 })
 
 module.exports = mongoose.model('User', UserSchema)
