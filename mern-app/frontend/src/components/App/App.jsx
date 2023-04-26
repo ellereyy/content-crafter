@@ -39,15 +39,15 @@ function App() {
         </div>
 
         <div className="flex justify-between">
-          <Link to="/profile" className="p-4 my-5 text-lg hover:bg-slate-100 rounded-lg">Profile</Link>
-          <Link to="/" className="p-4 my-5 text-lg hover:bg-slate-100 rounded-lg">Scheduled Posts</Link>          
+          <Link to="/" className="p-4 my-5 text-lg hover:bg-slate-100 rounded-lg">Scheduled Posts</Link>
           <Link to="/generate" className="p-4 my-5 text-lg hover:bg-slate-100 rounded-lg">Generate Content</Link>
+          <Link to="/profile" className="p-4 my-5 text-lg hover:bg-slate-100 rounded-lg">Profile</Link>
         </div>
 
         <Routes>
+          <Route path="/" element={<ContentSchedulePage postDisplay={postDisplay} detailsPage={detailsPage}/>} />
           <Route path="/home" element={<HomePage />} />
           <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/" element={<ContentSchedulePage postDisplay={postDisplay} detailsPage={detailsPage}/>} />
           <Route path="/content/:id" element={<DetailsPage postInfo={detailsPage} updatePosts={setDetailsPage}/>} />
           <Route path="/generate" element={<GeneratePage postInfo={detailsPage}/>} />
         </Routes>
