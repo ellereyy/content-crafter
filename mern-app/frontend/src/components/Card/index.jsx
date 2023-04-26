@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 export default function Card({ postInfo, updateDetailsPage }) {
     return (
-        <div className="w-80 h-96 bg-white rounded-lg overflow-hidden shadow-lg transform hover:-translate-y-1 transition-all duration-300 m-10">
+        <div className="bg-white rounded-lg overflow-hidden shadow-lg transform hover:-translate-y-1 transition-all duration-300 m-10">
             <Link 
                 to={"/content/" + postInfo._id}
                 onClick={() => updateDetailsPage(postInfo)}

@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { postContent, getContent } from "../../../utils/backend";
 
-
 export default function GeneratePage() {
 
     const API_KEY_DISP = import.meta.env.VITE_OPENAI_KEY
@@ -12,6 +11,7 @@ export default function GeneratePage() {
         image: '',
         description: '',
     });
+
     const [generatedData, setGeneratedData] = useState({
         image: '',
         description: '',
@@ -75,42 +75,41 @@ export default function GeneratePage() {
     // console.log(createFormData)
     return (
         <>
-            <div className="flex flex-col">
-                <h1>Generate Content</h1>
-                <br />
+            <div className="flex flex-col bg-slate-100 rounded-xl shadow-xl p-5 m-3">
+                <h1 className="text-2xl font-bold mb-6">Generate Content</h1>
                 <form onSubmit={generateAi} className="flex flex-col">
-                    <label className="flex flex-col">
+                    <label className="flex flex-col mb-2">
                         Image:
                         <input
                             name="image"
                             placeholder="url"
                             value={createFormData.image}
                             onChange={handleInputChange}
+                            className="border border-gray-400 p-2 rounded mt-2"
                         />
                     </label>
-                    <br />
-                    <label className="flex flex-col">
+                    <label className="flex flex-col mb-2">
                         Description:
                         <textarea 
                             name="description"
                             placeholder="Describe your image here"
                             value={createFormData.description}
                             onChange={handleInputChange}
+                            className="border border-gray-400 p-2 rounded mt-2"
                         />
                     </label>
-                    <br />
-                    <button type="submit" className="bg-slate-500 px-5 py-2 rounded text-white">Generate Post</button>
+                    <button type="submit" className="bg-slate-500 text-white px-5 py-2 rounded mt-4">
+                        Generate Post
+                    </button>
                 </form>
-                <br />
-
-                <div>
+                <div className="mt-4">
                     {generatedData.caption !== "" ?
                         <div>
-                            <h2>Post</h2>
-                            <img src={createFormData.image}/>
-                            <p>Caption: {generatedData.caption}</p>
+                            <h2 className="text-xl font-bold mb-2">Post</h2>
+                            <img src={createFormData.image} className="mb-2" />
+                            <p className="mb-2"><span className="font-bold">Caption:</span> {generatedData.caption}</p>
                             <Link to="/profile">
-                                <button onClick={handleSubmit} className="bg-slate-500 px-5 py-2 rounded text-white"> 
+                                <button onClick={handleSubmit} className="bg-slate-500 text-white px-5 py-2 rounded">
                                     Add to Calendar
                                 </button>
                             </Link>

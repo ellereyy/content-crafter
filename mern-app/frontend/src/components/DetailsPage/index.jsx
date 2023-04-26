@@ -43,22 +43,22 @@ export default function DetailsPage({ updatePosts, postInfo }) {
     
     return (
         <>
-            <h1>Post Details</h1>
-            <div className="bg-emerald-300 p-5 m-5">
+            <h1 className="text-2xl font-bold mb-6">Post Details</h1>
+            <div className="bg-slate-100 rounded-xl shadow-xl p-5 m-3">
             
-                <img src={postInfo.image} />
+                <img src={postInfo.image} className="rounded-xl object-cover h-96 w-full"/>
 
             {showEditForm === false ?
                 <div className="flex flex-col">
-                    <p>{postInfo.caption}</p>
+                    <p className="py-5 text-lg">{postInfo.caption}</p>
                     <div className="flex justify-between p-5">
                         <button 
                             onClick={() => { setShowEditForm(true) }}
-                            className="bg-slate-500 px-5 py-2 rounded text-white"
+                            className="bg-slate-500 px-5 py-2 rounded text-white hover:bg-slate-600"
                         >
                             Edit
                         </button>
-                        <button className="bg-slate-500 px-5 py-2 rounded text-white" onClick={handleDelete}>
+                        <button className="bg-slate-500 px-5 py-2 rounded text-white hover:bg-red-500" onClick={handleDelete}>
                             Delete
                         </button>
                     </div>
@@ -71,15 +71,15 @@ export default function DetailsPage({ updatePosts, postInfo }) {
                         name="image"
                         value={editDetails.image}
                         onChange={handleEditChange}
-                        className="my-3"
+                        className="my-3 rounded-lg"
                     />
                     <textarea 
                         name="caption"
                         value={editDetails.caption}
                         onChange={handleEditChange}
-                        className="my-3"
+                        className="my-3 rounded-lg"
                     />
-                    <button type="submit" className="bg-slate-500 px-5 py-2 rounded text-white">
+                    <button type="submit" className="bg-slate-500 px-5 py-2 rounded text-white hover:bg-slate-600">
                         Submit
                     </button>
                 </form>
@@ -89,7 +89,7 @@ export default function DetailsPage({ updatePosts, postInfo }) {
 
             <div>
                 <Link to="/">
-                    <button className="bg-slate-500 px-5 py-2 rounded text-white">View All</button>
+                    <button className="bg-slate-500 px-5 py-2 mt-6 rounded text-white hover:bg-slate-600">View All</button>
                 </Link>
             </div>
         </>
