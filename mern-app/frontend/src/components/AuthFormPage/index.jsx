@@ -21,7 +21,6 @@ export default function AuthFormPage() {
 
     // Execute auth logic on form submit
     async function handleSubmit(event) {
-        // prevent the page from refreshing when the form is submitted
         event.preventDefault()
         // check what the URL parameter is to determine what request to make
         if (formType === 'login') {
@@ -31,7 +30,6 @@ export default function AuthFormPage() {
             const { token } = await signUp(formData)
             localStorage.setItem('userToken', token)
         }
-        // redirect to the home page after signing/logging in
         navigate('/')
     }
 

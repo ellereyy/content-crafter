@@ -15,7 +15,6 @@ function App() {
 
   const [content, setContent] = useState([])
   const [detailsPage, setDetailsPage] = useState([])
-  const [isAuthenticated, setIsAuthenticated] = useState(true)
 
   const location = useLocation()
 
@@ -24,17 +23,6 @@ function App() {
           .then(res => setContent(res))
   }, [location])
 
-  let navBtn = <button onClick={handleLogin} className="text-lg hover:text-xl">Log In</button>
-  if (isAuthenticated) {
-    navBtn = <button onClick={handleLogout} className="text-lg hover:text-xl">Log Out</button>
-  }
-
-  function handleLogout() {
-    setIsAuthenticated(false)
-  }
-  function handleLogin() {
-    setIsAuthenticated(true)
-  }
   let postDisplay = <p>No posts to display</p>
   
   if (content.length > 0) {
@@ -48,39 +36,33 @@ function App() {
 
         <div className="flex justify-between">
           <h1 className="text-3xl font-bold text-gray-800">Socai</h1>
-          {navBtn}
+          <button className="text-lg hover:text-xl">Log Out</button>
         </div>
 
-        {isAuthenticated ? (
         <div className="flex flex-col">
+
+          <div className="flex justify-between">
+              <Link to="/home" className="text-lg hover:text-xl">Home</Link>
+              <Link to="/auth/login" className="text-lg hover:text-xl">Log In</Link>
+          </div> 
           <div className="flex justify-between">
             <Link to="/profile" className="p-4 my-5 text-lg hover:bg-slate-100 rounded-lg">Profile</Link>
             <Link to="/" className="p-4 my-5 text-lg hover:bg-slate-100 rounded-lg">Scheduled Posts</Link>          
             <Link to="/generate" className="p-4 my-5 text-lg hover:bg-slate-100 rounded-lg">Generate Content</Link>
           </div>
+          
         </div> 
-        ) : (
-        <div className="flex justify-between">
-          <Link to="/home" className="p-4 my-5 text-lg hover:bg-slate-100 rounded-lg">Home</Link>
-          <Link to="/auth/login" className="p-4 my-5 text-lg hover:bg-slate-100 rounded-lg">Log In</Link>
-        </div> 
-        )}
+      
 
-        {isAuthenticated ? (
-          <Routes>
-            <Route path="/" element={<ContentSchedulePage postDisplay={postDisplay} detailsPage={detailsPage}/>} />
-            <Route path="/home" element={<HomePage />} />
-            <Route path="/auth/:formType" element={<AuthFormPage />} />
-            <Route path="/profile" element={<ProfilePage />} />
-            <Route path="/content/:id" element={<DetailsPage postInfo={detailsPage} updatePosts={setDetailsPage}/>} />
-            <Route path="/generate" element={<GeneratePage postInfo={detailsPage}/>} />
-          </Routes> 
-        ) : (
-          <Routes>
-            <Route path="/home" element={<HomePage />} />
-            <Route path="/auth/:formType" element={<AuthFormPage />} />
-          </Routes> 
-        )}
+        <Routes>
+          <Route path="/" element={<ContentSchedulePage postDisplay={postDisplay} detailsPage={detailsPage}/>} />
+          <Route path="/home" element={<HomePage />} />
+          <Route path="/auth/:formType" element={<AuthFormPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/content/:id" element={<DetailsPage postInfo={detailsPage} updatePosts={setDetailsPage}/>} />
+          <Route path="/generate" element={<GeneratePage postInfo={detailsPage}/>} />
+        </Routes> 
+
 
       </div>
   )

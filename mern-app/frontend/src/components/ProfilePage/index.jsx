@@ -7,7 +7,7 @@ export default function ProfilePage() {
 
   function handleSubmit(event) {
     event.preventDefault()
-    // Do something with the form data (e.g., submit it to a backend API)
+    // add to db 
     console.log({ name, handle, goal })
   }
 
@@ -18,16 +18,36 @@ export default function ProfilePage() {
 
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
-          <label htmlFor="name" className="block font-bold mb-2">Name</label>
-          <input type="text" id="name" value={name} onChange={e => setName(e.target.value)} className="px-2 py-1 rounded w-full" />
+          <label htmlFor="name" className="block font-bold mb-2">
+            Name
+          </label>
+          <input 
+            name="name" 
+            value={name} 
+            onChange={event => setName(event.target.value)} 
+            className="px-2 py-1 rounded w-full border" 
+          />
         </div>
         <div className="mb-4">
-          <label htmlFor="handle" className="block font-bold mb-2">Instagram Handle</label>
-          <input type="text" id="handle" value={handle} onChange={e => setHandle(e.target.value)} className="px-2 py-1 rounded w-full" />
+          <label htmlFor="handle" className="block font-bold mb-2">
+            Instagram Handle
+          </label>
+          <input 
+            name="handle"
+            value={handle} 
+            onChange={event => setHandle(event.target.value)}
+            className="px-2 py-1 rounded w-full" 
+          />
         </div>
         <div className="mb-4">
           <label htmlFor="goal" className="block font-bold mb-2">Goals</label>
-          <textarea id="goal" value={goal} onChange={e => setGoal(e.target.value)} className="px-2 py-1 rounded w-full"></textarea>
+          <textarea 
+            name="goal" 
+            value={goal} 
+            onChange={event => setGoal(event.target.value)} 
+            className="px-2 py-1 rounded w-full"
+          >
+          </textarea>
         </div>
         <button type="submit" className="bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded">
           Save Profile
