@@ -66,6 +66,7 @@ export default function GeneratePage() {
         .finally(() => setLoading(false))
     }
 
+    // mock ai api call for testing 
     async function fakeGenerate(event) {
         event.preventDefault()
         setLoading(true)

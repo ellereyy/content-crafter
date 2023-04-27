@@ -69,48 +69,51 @@ router.get('/:id', function (req, res) {
 })
 
 // Update Route (PUT/Update)
-// router.put('/:id', (req, res) => {
-//     db.Post.findByIdAndUpdate(
-//         req.params.id,
-//         req.body,
-//         { new: true }
-//     )
-//         .then(post => res.json(post))
-// })
-
-router.put('/:id', authMiddleware, async (req, res) => {
-    // Check if the user who sent the update request is the same user who created the comment
-    const userContent = await db.Post.findById(req.params.id)
-    if (userContent.userId === req.user.id) {
-        // If it is the original author, update the comment
-        const newContent = await db.Post.findByIdAndUpdate(
-            req.params.id,
-            req.body,
-            { new: true }
-        )
-        res.json(newContent)
-    } else {
-        res.status(401).json({ message: 'Invalid user or token' });
-    }
+router.put('/:id', (req, res) => {
+    db.Post.findByIdAndUpdate(
+        req.params.id,
+        req.body,
+        { new: true }
+    )
+        .then(post => res.json(post))
 })
+
+// // JWT Update Route (DELETE/Delete)
+// router.put('/:id', authMiddleware, async (req, res) => {
+//     // Check if the user who sent the update request is the same user who created the comment
+//     const userContent = await db.Post.findById(req.params.id)
+//     if (userContent.userId === req.user.id) {
+//         // If it is the original author, update the comment
+//         const newContent = await db.Post.findByIdAndUpdate(
+//             req.params.id,
+//             req.body,
+//             { new: true }
+//         )
+//         res.json(newContent)
+//     } else {
+//         res.status(401).json({ message: 'Invalid user or token' });
+//     }
+// })
 
 
 // Destroy Route (DELETE/Delete)
-// router.delete('/:id', authMiddleware, (req, res) => {
-//     db.Post.findByIdAndRemove(req.params.id)
-//         .then(() => res.send('You deleted post ' + req.params.id))
-// })
-
-router.delete('/:id', authMiddleware, async (req, res) => {
-    // Check if the user who sent the delete request is the same user who created the comment
-    const userContent = await db.Post.findById(req.params.id)
-    if (userContent.userId === req.user.id) {
-        const deletedContent = await db.Post.findByIdAndRemove(req.params.id)
-        res.send('You deleted comment ' + deletedContent._id)
-    } else {
-        res.status(401).json({ message: 'Invalid user or token' });
-    }
+router.delete('/:id', authMiddleware, (req, res) => {
+    db.Post.findByIdAndRemove(req.params.id)
+        .then(() => res.send('You deleted post ' + req.params.id))
 })
+
+
+// // JWT Destroy Route (DELETE/Delete)
+// router.delete('/:id', authMiddleware, async (req, res) => {
+//     // Check if the user who sent the delete request is the same user who created the comment
+//     const userContent = await db.Post.findById(req.params.id)
+//     if (userContent.userId === req.user.id) {
+//         const deletedContent = await db.Post.findByIdAndRemove(req.params.id)
+//         res.send('You deleted comment ' + deletedContent._id)
+//     } else {
+//         res.status(401).json({ message: 'Invalid user or token' });
+//     }
+// })
 
 // ISSUES ON EDIT/DELETE ROUTES:
 // {
