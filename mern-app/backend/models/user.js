@@ -12,6 +12,7 @@ const UserSchema = new mongoose.Schema({
         required: true,
     },
     name: { type: String },
+    handle: { type: String },
     goals: { type: String }
 })
 

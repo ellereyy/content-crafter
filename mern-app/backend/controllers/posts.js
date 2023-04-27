@@ -23,7 +23,6 @@ const config = require('../../jwt.config.js')
 
 
 /* Middleware that checks if a JWT sent from the client is valid.
-   Used for all routes that require authorization
 --------------------------------------------------------------- */
 const authMiddleware = (req, res, next) => {
     // Check if the 'Authorization' header is present and has the token
@@ -44,7 +43,6 @@ const authMiddleware = (req, res, next) => {
     }
 };
 
-
 /* Routes
 --------------------------------------------------------------- */
 // Index Route (GET/Read)
@@ -52,6 +50,7 @@ router.get('/', function (req, res) {
     db.Post.find({})
         .then(posts => res.json(posts))
 })
+//userId: '6448c5a2a71a436ec9376db7'
 
 // Create Route (POST/Create)
 router.post('/', authMiddleware, (req, res) => {
@@ -68,52 +67,39 @@ router.get('/:id', function (req, res) {
         .then(post => res.json(post))
 })
 
-// Update Route (PUT/Update)
-router.put('/:id', (req, res) => {
-    db.Post.findByIdAndUpdate(
-        req.params.id,
-        req.body,
-        { new: true }
-    )
-        .then(post => res.json(post))
+// JWT Update Route (PUT/update)
+router.put('/:id', authMiddleware, async (req, res) => {
+    // Check if the user who sent the update request is the same user who created the comment
+    const userContent = await db.Post.findById(req.params.id)
+    if (userContent.userId === req.user.id) {
+        // If it is the original author, update the comment
+        const newContent = await db.Post.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            { new: true }
+        )
+        res.json(newContent)
+    } else {
+        res.status(401).json({ message: 'Invalid user or token' });
+    }
 })
 
-// // JWT Update Route (DELETE/Delete)
-// router.put('/:id', authMiddleware, async (req, res) => {
-//     // Check if the user who sent the update request is the same user who created the comment
-//     const userContent = await db.Post.findById(req.params.id)
-//     if (userContent.userId === req.user.id) {
-//         // If it is the original author, update the comment
-//         const newContent = await db.Post.findByIdAndUpdate(
-//             req.params.id,
-//             req.body,
-//             { new: true }
-//         )
-//         res.json(newContent)
-//     } else {
-//         res.status(401).json({ message: 'Invalid user or token' });
-//     }
-// })
-
-
-// Destroy Route (DELETE/Delete)
-router.delete('/:id', authMiddleware, (req, res) => {
-    db.Post.findByIdAndRemove(req.params.id)
-        .then(() => res.send('You deleted post ' + req.params.id))
+// JWT Destroy Route (DELETE/Delete)
+router.delete('/:id', authMiddleware, async (req, res) => {
+    // Check if the user who sent the delete request is the same user who created the comment
+    const userContent = await db.Post.findById(req.params.id)
+    if (userContent.userId === req.user.id) {
+        const deletedContent = await db.Post.findByIdAndRemove(req.params.id)
+        res.send('You deleted comment ' + deletedContent._id)
+    } else {
+        res.status(401).json({ message: 'Invalid user or token' });
+    }
 })
 
+/* Export these routes so that they are accessible in `server.js`
+--------------------------------------------------------------- */
+module.exports = router
 
-// // JWT Destroy Route (DELETE/Delete)
-// router.delete('/:id', authMiddleware, async (req, res) => {
-//     // Check if the user who sent the delete request is the same user who created the comment
-//     const userContent = await db.Post.findById(req.params.id)
-//     if (userContent.userId === req.user.id) {
-//         const deletedContent = await db.Post.findByIdAndRemove(req.params.id)
-//         res.send('You deleted comment ' + deletedContent._id)
-//     } else {
-//         res.status(401).json({ message: 'Invalid user or token' });
-//     }
-// })
 
 // ISSUES ON EDIT/DELETE ROUTES:
 // {
@@ -121,6 +107,20 @@ router.delete('/:id', authMiddleware, (req, res) => {
 // }
 // seems like I may be entering the wrong token information?? not sure 
 
-/* Export these routes so that they are accessible in `server.js`
---------------------------------------------------------------- */
-module.exports = router
+// // Update Route (PUT/Update)
+// router.put('/:id', (req, res) => {
+//     db.Post.findByIdAndUpdate(
+//         req.params.id,
+//         req.body,
+//         { new: true }
+//     )
+//         .then(post => res.json(post))
+// })
+
+
+
+// // Destroy Route (DELETE/Delete)
+// router.delete('/:id', authMiddleware, (req, res) => {
+//     db.Post.findByIdAndRemove(req.params.id)
+//         .then(() => res.send('You deleted post ' + req.params.id))
+// })

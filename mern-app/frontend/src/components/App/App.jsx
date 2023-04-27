@@ -9,9 +9,7 @@ import Card from '../Card/index.jsx'
 import DetailsPage from '../DetailsPage/index.jsx'
 import AuthFormPage from '../AuthFormPage'
 
-
 import { getContent } from '../../../utils/backend.js'
-
 
 function App() {
 
@@ -26,8 +24,7 @@ function App() {
           .then(res => setContent(res))
   }, [location])
 
-  let navLink = <Link to="/auth/login" className="text-lg hover:text-xl">Log In</Link>
-  let navBtn = <button onClick={handleLogin} className="text-lg hover:text-xl">Fake Log In</button>
+  let navBtn = <button onClick={handleLogin} className="text-lg hover:text-xl">Log In</button>
   if (isAuthenticated) {
     navBtn = <button onClick={handleLogout} className="text-lg hover:text-xl">Log Out</button>
   }
@@ -35,13 +32,9 @@ function App() {
   function handleLogout() {
     setIsAuthenticated(false)
   }
-
   function handleLogin() {
     setIsAuthenticated(true)
   }
-
-
-  // TO DO: improve conditional rendering for when there are no posts to display
   let postDisplay = <p>No posts to display</p>
   
   if (content.length > 0) {
@@ -55,7 +48,7 @@ function App() {
 
         <div className="flex justify-between">
           <h1 className="text-3xl font-bold text-gray-800">Socai</h1>
-          {/* {navBtn} */}
+          {navBtn}
         </div>
 
         {isAuthenticated ? (
@@ -64,10 +57,6 @@ function App() {
             <Link to="/profile" className="p-4 my-5 text-lg hover:bg-slate-100 rounded-lg">Profile</Link>
             <Link to="/" className="p-4 my-5 text-lg hover:bg-slate-100 rounded-lg">Scheduled Posts</Link>          
             <Link to="/generate" className="p-4 my-5 text-lg hover:bg-slate-100 rounded-lg">Generate Content</Link>
-          </div>
-          <div className="flex justify-between bg-teal-500 mb-5">
-            <Link to="/home">Home</Link>
-            <Link to="/auth/login">Log In</Link>
           </div>
         </div> 
         ) : (
@@ -123,3 +112,13 @@ export default App;
     //   </div>
 
     // </div>
+
+
+      // let navLink = <Link to="/auth/login" className="text-lg hover:text-xl">Log In</Link>
+
+      // <div className="flex justify-between bg-teal-500 mb-5">
+      //       <Link to="/home">Home</Link>
+      //       <Link to="/auth/login">Log In</Link>
+      //     </div>
+
+      

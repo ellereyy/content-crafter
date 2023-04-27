@@ -81,7 +81,7 @@ export default function AuthFormPage() {
                     <div>
                         <button
                             type="submit"
-                            className="w-full py-2 px-4 bg-green-700 text-gray-100 rounded-md hover:bg-green-800 transition duration-300">
+                            className="w-full py-2 px-4 bg-teal-700 text-gray-100 rounded-md hover:bg-teal-800 transition duration-300">
                             {actionText}
                         </button>
                     </div>
