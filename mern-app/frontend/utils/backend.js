@@ -13,6 +13,9 @@ export async function getPost(id) {
   return data;
 }
 
+/* AUTHORIZATION REQUESTS
+------------------------------------------------------------------------ */
+
 export async function postContent(content) {
   const { data } = await axios.post('/api/posts', content, authHeader)
   return data;
@@ -28,12 +31,15 @@ export async function deleteContent(id) {
   return data;
 }
 
+/* AUTHENTICATION REQUESTS
+------------------------------------------------------------------------ */
+
 export async function signUp(user) {
   const { data } = await axios.post('/api/users/signup', user)
   return data
 }
 
 export async function logIn(user) {
-  const { data } = await axios.put('/api/users/login', user)
+  const { data } = await axios.post('/api/users/login', user)
   return data
 }

@@ -3,15 +3,18 @@ import { useParams, useNavigate } from "react-router-dom";
 import { signUp, logIn } from "../../../utils/backend"
 
 export default function AuthFormPage() {
-
-    const { formType } = useParams();
-    const navigate = useNavigate();
-
+    // Store the form data
     const [formData, setFormData] = useState({
         email: "",
         password: "",
     });
 
+    // Determine which action should be taken depending on the URL
+    const { formType } = useParams()
+
+    const navigate = useNavigate();
+
+    // Update the form as a user types
     const handleInputChange = (event) => {
         setFormData({ ...formData, [event.target.name]: event.target.value });
     };
@@ -32,19 +35,18 @@ export default function AuthFormPage() {
         navigate('/')
     }
 
-
+    // Condtionally render the form title and submit button text
     let actionText
     formType === 'login' ? actionText = 'Log In' : actionText = 'Sign Up'
-
 
     return (
         <div className="flex items-center justify-center h-[90vh]">
             <div className="bg-gray-800 rounded-lg shadow-xl p-8 w-full max-w-md">
-            <h2
-                className="text-3xl text-center font-bold text-gray-100 mb-8">
-                {actionText}
-            </h2>
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <h2
+                    className="text-3xl text-center font-bold text-gray-100 mb-8">
+                    {actionText}
+                </h2>
+                <form className="space-y-6" onSubmit={handleSubmit}>
                     <div>
                         <label className="block text-gray-100 font-bold mb-2" htmlFor="email">
                             Email
@@ -56,6 +58,8 @@ export default function AuthFormPage() {
                             type="email"
                             required
                             placeholder="Email address"
+                            value={formData.email}
+                            onChange={handleInputChange}
                         />
                     </div>
                     <div>
@@ -70,14 +74,16 @@ export default function AuthFormPage() {
                             minLength="6"
                             required
                             placeholder="Password"
+                            value={formData.password}
+                            onChange={handleInputChange}
                         />
                     </div>
                     <div>
-                    <button
-                        type="submit"
-                        className="w-full py-2 px-4 bg-green-700 text-gray-100 rounded-md hover:bg-green-800 transition duration-300">
-                        {actionText}
-                    </button>
+                        <button
+                            type="submit"
+                            className="w-full py-2 px-4 bg-green-700 text-gray-100 rounded-md hover:bg-green-800 transition duration-300">
+                            {actionText}
+                        </button>
                     </div>
                 </form>
             </div>

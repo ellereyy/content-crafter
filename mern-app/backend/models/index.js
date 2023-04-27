@@ -15,5 +15,4 @@ module.exports = {
     Post: require('./post'),
     seedPosts: require('./seed'),
     User: require('./user')
-
 }

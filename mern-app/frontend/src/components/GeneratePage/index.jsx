@@ -66,6 +66,23 @@ export default function GeneratePage() {
         .finally(() => setLoading(false))
     }
 
+    async function fakeGenerate(event) {
+        event.preventDefault()
+        setLoading(true)
+        console.log('calling fake ai api....')
+    
+        await new Promise(resolve => setTimeout(resolve, 2000))
+    
+        setGeneratedData({
+            image: createFormData.image,
+            description: createFormData.description,
+            caption: 'Sick instagram caption goes here!! #ad',
+        })
+    
+        setLoading(false)
+    }
+    
+
     function handleSubmit(event) {
         event.preventDefault()
         postContent(generatedData)
@@ -80,7 +97,7 @@ export default function GeneratePage() {
         <>
             <div className="flex flex-col bg-slate-100 rounded-xl shadow-xl p-5 m-3">
                 <h1 className="text-2xl font-bold mb-6">Generate Content</h1>
-                <form onSubmit={generateAi} className="flex flex-col">
+                <form onSubmit={fakeGenerate} className="flex flex-col">
                     <label className="flex flex-col mb-2">
                         Image:
                         <input
