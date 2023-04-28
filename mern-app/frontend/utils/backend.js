@@ -10,7 +10,6 @@ console.log(authHeader)
 export async function getContent() {
   const { data } = await axios.get('/api/posts', authHeader);
   console.log('getting content')
-  console.log({data})
   return data;
 }
 

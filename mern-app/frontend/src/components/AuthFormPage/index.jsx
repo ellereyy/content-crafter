@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { signUp, logIn } from "../../../utils/backend"
 
 export default function AuthFormPage() {
@@ -40,52 +40,57 @@ export default function AuthFormPage() {
     formType === 'login' ? actionText = 'Log In' : actionText = 'Sign Up'
 
     return (
-        <div className="flex items-center justify-center h-[90vh]">
-            <div className="bg-gray-800 rounded-lg shadow-xl p-8 w-full max-w-md">
-                <h2
-                    className="text-3xl text-center font-bold text-gray-100 mb-8">
-                    {actionText}
-                </h2>
-                <form className="space-y-6" onSubmit={handleSubmit}>
-                    <div>
-                        <label className="block text-gray-100 font-bold mb-2" htmlFor="email">
-                            Email
-                        </label>
-                        <input
-                            className="w-full p-2 text-gray-900 rounded-md focus:outline-none focus:ring focus:border-blue-600"
-                            id="email"
-                            name="email"
-                            type="email"
-                            required
-                            placeholder="Email address"
-                            value={formData.email}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-                    <div>
-                        <label className="block text-gray-100 font-bold mb-2" htmlFor="password">
-                            Password
-                        </label>
-                        <input
-                            className="w-full p-2 text-gray-900 rounded-md focus:outline-none focus:ring focus:border-blue-600"
-                            id="password"
-                            name="password"
-                            type="password"
-                            minLength="6"
-                            required
-                            placeholder="Password"
-                            value={formData.password}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-                    <div>
-                        <button
-                            type="submit"
-                            className="w-full py-2 px-4 bg-teal-700 text-gray-100 rounded-md hover:bg-teal-800 transition duration-300">
-                            {actionText}
-                        </button>
-                    </div>
-                </form>
+        <div>
+            
+
+            <div className="flex items-center justify-center">
+                <div className="bg-gray-800 rounded-lg shadow-xl m-11 p-8 w-full max-w-md">
+                    <h2
+                        className="text-3xl text-center font-bold text-gray-100 mb-8">
+                        {actionText}
+                    </h2>
+                    <form className="space-y-6" onSubmit={handleSubmit}>
+                        <div>
+                            <label className="block text-gray-100 font-bold mb-2" htmlFor="email">
+                                Email
+                            </label>
+                            <input
+                                className="w-full p-2 text-gray-900 rounded-md focus:outline-none focus:ring focus:border-blue-600"
+                                id="email"
+                                name="email"
+                                type="email"
+                                required
+                                placeholder="Email address"
+                                value={formData.email}
+                                onChange={handleInputChange}
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-gray-100 font-bold mb-2" htmlFor="password">
+                                Password
+                            </label>
+                            <input
+                                className="w-full p-2 text-gray-900 rounded-md focus:outline-none focus:ring focus:border-blue-600"
+                                id="password"
+                                name="password"
+                                type="password"
+                                minLength="6"
+                                required
+                                placeholder="Password"
+                                autoComplete="suggested-password"
+                                value={formData.password}
+                                onChange={handleInputChange}
+                            />
+                        </div>
+                        <div>
+                            <button
+                                type="submit"
+                                className="w-full py-2 px-4 bg-teal-700 text-gray-100 rounded-md hover:bg-teal-800 transition duration-300">
+                                {actionText}
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     );

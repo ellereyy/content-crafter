@@ -89,7 +89,7 @@ export default function GeneratePage() {
         postContent(generatedData)
             .then(() => {
                 console.log(`posted ${generatedData.caption} to backend`)
-                navigate('/')
+                navigate('/content')
             })
     }
 

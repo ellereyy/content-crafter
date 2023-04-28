@@ -24,7 +24,7 @@ export default function DetailsPage({ updatePosts, postInfo }) {
 
     function handleDelete() {
         deleteContent(postInfo._id)
-            .then(() => navigate('/'))
+            .then(() => navigate('/content'))
     }
 
     function handleEditChange(event) {
@@ -89,7 +89,7 @@ export default function DetailsPage({ updatePosts, postInfo }) {
 
 
             <div>
-                <Link to="/">
+                <Link to="/content">
                     <button className="bg-slate-500 px-5 py-2 mt-6 rounded text-white hover:bg-slate-600">View All</button>
                 </Link>
             </div>
