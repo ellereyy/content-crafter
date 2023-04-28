@@ -2,10 +2,10 @@ export default function LandingPage() {
 
     let isAuthenticated = localStorage.getItem("isAuthenticated")
 
-    let welcome = <p>Welcome @NonUser! Join Socai</p>
+    let welcome = <p>Welcome New User!! Join Socai</p>
 
     if (isAuthenticated === "true" ) {
-        welcome = <p>Hello NewUser or ReturningUser</p>
+        welcome = <p>Hello Returning User! </p>
     } 
 
     return (

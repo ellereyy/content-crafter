@@ -41,9 +41,9 @@ function App() {
 
   let isAuthenticated = localStorage.getItem("isAuthenticated")
   let logOutBtn = null
+  
   if (isAuthenticated === "true") {
     logOutBtn = <button onClick={handleLogOut} className="text-lg hover:text-xl">Log Out</button>
-
   }
 
   return (
