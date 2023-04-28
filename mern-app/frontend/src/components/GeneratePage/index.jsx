@@ -28,8 +28,11 @@ export default function GeneratePage() {
     useEffect(() => {
         getCurrentUser()
           .then(goals => setGoals(goals))
-          .then(console.log(goals.goals))
-      }, []);
+          .then(console.log(goals))
+    }, []);
+
+    let goalInput = goals.goals;
+    console.log(goalInput)
 
     function handleInputChange(event) {
         setCreateFormData({
@@ -40,7 +43,7 @@ export default function GeneratePage() {
 
     const APIBody = {
         "model": "text-davinci-003",
-        "prompt": `Generate a caption with hashtags for an Instagram post about the following image: ${createFormData.description}. Make sure the caption is catchy, includes important details about the image and is optimized for maximum engagement. The user would like to ${goals.goals} on their page.`,
+        "prompt": `Generate a caption with hashtags for an Instagram post about the following image: ${createFormData.description}. Make sure the caption is catchy, includes important details about the image and is optimized for maximum engagement. The user would like to ${goalInput} on their page.`,
 
         "temperature": 0,
         "max_tokens": 200,

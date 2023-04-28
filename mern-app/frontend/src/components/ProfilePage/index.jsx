@@ -18,7 +18,6 @@ export default function ProfilePage() {
   }, []);
 
   let userId = user._id
-  // console.log(userId)
 
   if (!user) {
     return <p>no user data</p>;
@@ -34,8 +33,7 @@ export default function ProfilePage() {
   function handleSubmit(event) {
     event.preventDefault()
     updateCurrentUser(userPreferences, userId)
-    console.log(userPreferences, userId)
-    // navigate('/generate')
+    navigate('/generate')
   }
 
   return (
@@ -52,6 +50,7 @@ export default function ProfilePage() {
           </label>
           <input 
             name="name" 
+            placeholder={user.name}
             value={userPreferences.name} 
             onChange={handleInputChange} 
             className="px-2 py-1 rounded w-full border" 
@@ -63,6 +62,7 @@ export default function ProfilePage() {
           </label>
           <input 
             name="handle"
+            placeholder={user.handle}
             value={userPreferences.handle} 
             onChange={handleInputChange} 
             className="px-2 py-1 rounded w-full" 
@@ -72,6 +72,7 @@ export default function ProfilePage() {
           <label htmlFor="goals" className="block font-bold mb-2">Goals</label>
           <textarea 
             name="goals" 
+            placeholder={user.goals}
             value={userPreferences.goals} 
             onChange={handleInputChange} 
             className="px-2 py-1 rounded w-full"
