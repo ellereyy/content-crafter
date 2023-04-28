@@ -1,6 +1,10 @@
 import { getContent } from "../../../utils/backend"
+import { useState, useEffect } from 'react'
+import Card from '../Card/index.jsx'
 
-export default function ContentSchedulePage({ postDisplay  }) {
+import { Routes, Route, Link, useLocation, useNavigate } from 'react-router-dom'
+
+export default function ContentSchedulePage({ postDisplay }) {
 
     function handleDelete() {
         console.log("delete posts from schedule page, coming soon...")
@@ -19,5 +23,6 @@ export default function ContentSchedulePage({ postDisplay  }) {
                 </button>
             </div>
         </div>
+
     )
 }

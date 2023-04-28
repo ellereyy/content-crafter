@@ -1,3 +1,6 @@
+// mock ai api call for testing 
+
+
 
 // export async function generateAi() {
 //     console.log('ai loading.....')

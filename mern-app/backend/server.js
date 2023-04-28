@@ -14,6 +14,8 @@ const db = require('./models');
 /* Require the routes in the controllers folder
 --------------------------------------------------------------- */
 const postsCtrl = require('./controllers/posts')
+const usersCtrl = require('./controllers/users')
+
 
 
 /* Create the Express app
@@ -58,6 +60,11 @@ app.get('/api/seed', function (req, res) {
 // This tells our app to look at the `controllers/posts.js` file 
 // to handle all routes that begin with `localhost:3000/posts`
 app.use('/api/posts', postsCtrl)
+
+// This tells our app to look at the `controllers/users.js` file 
+// to handle all routes that begin with `localhost:3000/api/users`
+app.use('/api/users', usersCtrl)
+
 
 // add second file for other models (e.g. users)
 

@@ -1,33 +1,82 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom';
+import { updateCurrentUser, getCurrentUser } from '../../../utils/backend'
 
 export default function ProfilePage() {
-  const [name, setName] = useState('')
-  const [handle, setHandle] = useState('')
-  const [goal, setGoal] = useState('')
+  const navigate = useNavigate();
+  const [user, setUser] = useState({});
+  const [userPreferences, setUserPreferences] = useState({
+    name: '',
+    handle: '',
+    goals: '',
+  })
+
+  useEffect(() => {
+    getCurrentUser()
+      .then(user => setUser(user))
+      .then(console.log(user))
+  }, []);
+
+  let userId = user._id
+  // console.log(userId)
+
+  if (!user) {
+    return <p>no user data</p>;
+  } 
+
+  function handleInputChange(event) {
+    setUserPreferences({
+        ...userPreferences,
+        [event.target.name]: event.target.value
+    });
+  }
 
   function handleSubmit(event) {
     event.preventDefault()
-    // Do something with the form data (e.g., submit it to a backend API)
-    console.log({ name, handle, goal })
+    updateCurrentUser(userPreferences, userId)
+    console.log(userPreferences, userId)
+    // navigate('/generate')
   }
 
   return (
     <div className="bg-slate-100 rounded-xl shadow-xl p-5 m-3">
 
       <h1 className="text-2xl font-bold mb-6">Profile</h1>
+      <h1>Welcome, {user.name}!</h1>
+
 
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
-          <label htmlFor="name" className="block font-bold mb-2">Name</label>
-          <input type="text" id="name" value={name} onChange={e => setName(e.target.value)} className="px-2 py-1 rounded w-full" />
+          <label htmlFor="name" className="block font-bold mb-2">
+            Name
+          </label>
+          <input 
+            name="name" 
+            value={userPreferences.name} 
+            onChange={handleInputChange} 
+            className="px-2 py-1 rounded w-full border" 
+          />
         </div>
         <div className="mb-4">
-          <label htmlFor="handle" className="block font-bold mb-2">Instagram Handle</label>
-          <input type="text" id="handle" value={handle} onChange={e => setHandle(e.target.value)} className="px-2 py-1 rounded w-full" />
+          <label htmlFor="handle" className="block font-bold mb-2">
+            Instagram Handle
+          </label>
+          <input 
+            name="handle"
+            value={userPreferences.handle} 
+            onChange={handleInputChange} 
+            className="px-2 py-1 rounded w-full" 
+          />
         </div>
         <div className="mb-4">
-          <label htmlFor="goal" className="block font-bold mb-2">Goals</label>
-          <textarea id="goal" value={goal} onChange={e => setGoal(e.target.value)} className="px-2 py-1 rounded w-full"></textarea>
+          <label htmlFor="goals" className="block font-bold mb-2">Goals</label>
+          <textarea 
+            name="goals" 
+            value={userPreferences.goals} 
+            onChange={handleInputChange} 
+            className="px-2 py-1 rounded w-full"
+          >
+          </textarea>
         </div>
         <button type="submit" className="bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded">
           Save Profile

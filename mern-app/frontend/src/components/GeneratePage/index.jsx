@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { postContent, getContent } from "../../../utils/backend";
+import { postContent, getContent, getCurrentUser } from "../../../utils/backend";
 
 import '../../index.css';
 
@@ -23,6 +23,14 @@ export default function GeneratePage() {
         date: '',
     });
 
+    const [goals, setGoals] = useState({});
+
+    useEffect(() => {
+        getCurrentUser()
+          .then(goals => setGoals(goals))
+          .then(console.log(goals.goals))
+      }, []);
+
     function handleInputChange(event) {
         setCreateFormData({
             ...createFormData,
@@ -32,7 +40,7 @@ export default function GeneratePage() {
 
     const APIBody = {
         "model": "text-davinci-003",
-        "prompt": `Generate a caption with hashtags for an Instagram post about the following image: ${createFormData.description}. Make sure the caption is catchy, includes important details about the image and is optimized for maximum engagement.`,
+        "prompt": `Generate a caption with hashtags for an Instagram post about the following image: ${createFormData.description}. Make sure the caption is catchy, includes important details about the image and is optimized for maximum engagement. The user would like to ${goals.goals} on their page.`,
 
         "temperature": 0,
         "max_tokens": 200,
@@ -66,16 +74,32 @@ export default function GeneratePage() {
         .finally(() => setLoading(false))
     }
 
+    // mock ai api call for testing 
+    async function fakeGenerate(event) {
+        event.preventDefault()
+        setLoading(true)
+        console.log('calling fake ai api....')
+    
+        await new Promise(resolve => setTimeout(resolve, 1000))
+    
+        setGeneratedData({
+            image: createFormData.image,
+            description: createFormData.description,
+            caption: 'instagram caption goes here!! #ad',
+        })
+    
+        setLoading(false)
+    }
+    
+
     function handleSubmit(event) {
         event.preventDefault()
         postContent(generatedData)
             .then(() => {
-                console.log(`posted ${generatedData.caption} to backend`)
-                navigate('/')
+                navigate('/content')
             })
     }
 
-    // console.log(createFormData)
     return (
         <>
             <div className="flex flex-col bg-slate-100 rounded-xl shadow-xl p-5 m-3">
@@ -130,6 +154,6 @@ export default function GeneratePage() {
             // console.log(generatedHashtags)
             // console.log(generatedDate)
 
-                        // const generatedCaption = data.choices[0].text.split('\n')[0]
+            // const generatedCaption = data.choices[0].text.split('\n')[0]
             // const generatedHashtags = data.choices[0].text.split('\n')[1]
             // const generatedDate = data.choices[0].text.split('\n')[2]
