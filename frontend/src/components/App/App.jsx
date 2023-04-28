@@ -18,7 +18,6 @@ function App() {
   const [detailsPage, setDetailsPage] = useState([])
 
   const location = useLocation();
-  const navigate = useNavigate();
 
   useEffect(() => {
     getContent()
@@ -32,7 +31,7 @@ function App() {
       .map((post, i) => <Card key={i} postInfo={post} updateDetailsPage={setDetailsPage}/> );
   }
 
-  // add function for handleLogout
+  const navigate = useNavigate();
   function handleLogOut() {
     localStorage.removeItem("userToken");
     localStorage.setItem("isAuthenticated", false);
@@ -68,7 +67,6 @@ function App() {
             <Link to="/auth/Sign Up" className="text-center p-4 my-5 text-lg hover:bg-slate-100 rounded-lg">Sign Up</Link>
           </div> 
           }
-        
       </div> 
 
       <Routes>
@@ -81,13 +79,8 @@ function App() {
         <Route path="/generate" element={<GeneratePage postInfo={detailsPage}/>} />
       </Routes> 
 
-
     </div>
   )
 }
 
 export default App;
-
-//postInfo={detailsPage} updatePosts={setDetailsPage}
-// postInfo={detailsPage}
-//  postDisplay={postDisplay} detailsPage={detailsPage}

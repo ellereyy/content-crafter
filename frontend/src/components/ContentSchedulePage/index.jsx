@@ -1,8 +1,9 @@
-import { getContent } from "../../../utils/backend"
-import { useState, useEffect } from 'react'
-import Card from '../Card/index.jsx'
-
 import { Routes, Route, Link, useLocation, useNavigate } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { getContent } from "../../../utils/backend"
+
+import Card from '../Card/index.jsx'
+import DetailsPage from '../DetailsPage/index.jsx'
 
 export default function ContentSchedulePage({ postDisplay }) {
 

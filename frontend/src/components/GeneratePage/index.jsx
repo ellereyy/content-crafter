@@ -4,7 +4,6 @@ import { postContent, getContent, getCurrentUser } from "../../../utils/backend"
 
 import '../../index.css';
 
-
 export default function GeneratePage() {
 
     const API_KEY_DISP = import.meta.env.VITE_OPENAI_KEY
