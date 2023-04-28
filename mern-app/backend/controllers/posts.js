@@ -64,8 +64,6 @@ router.get('/:id', function (req, res) {
         .then(post => res.json(post))
 })
 
-
-
 // JWT Update Route (PUT/update)
 router.put('/:id', authMiddleware, async (req, res) => {
     // Check if the user who sent the update request is the same user who created the comment

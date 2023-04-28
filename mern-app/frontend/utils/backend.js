@@ -3,7 +3,7 @@ import axios from 'axios';
 const authHeader = { headers: { 'Authorization': localStorage.getItem('userToken') } }
 
 
-/* AUTHORIZATION REQUESTS
+/* AUTHORIZATION REQUESTS - POSTS
 ------------------------------------------------------------------------ */
 
 export async function getContent() {
@@ -25,6 +25,23 @@ export async function deleteContent(id) {
   const { data } = await axios.delete(`/api/posts/${id}`, authHeader)
   return data;
 }
+
+/* AUTHORIZATION REQUESTS - USER
+------------------------------------------------------------------------ */
+
+export async function updateCurrentUser(user, id) {
+  console.log('backend.js function')
+  console.log(user, id);
+  const { data } = await axios.put(`/api/users/${id}`, user);
+  return data;
+}
+
+
+export async function getCurrentUser() {
+  const { data } = await axios.get('/api/users', authHeader)
+  return data;
+}
+
 
 /* AUTHENTICATION REQUESTS
 ------------------------------------------------------------------------ */

@@ -11,6 +11,9 @@ const UserSchema = new mongoose.Schema({
         minlength: 6,
         required: true,
     },
+    name: { type: String, required: false },
+    handle: { type: String, required: false },
+    goals: { type: String, required: false },
 })
 
 module.exports = mongoose.model('User', UserSchema)

@@ -1,20 +1,48 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { updateCurrentUser, getCurrentUser } from '../../../utils/backend'
 
 export default function ProfilePage() {
-  const [name, setName] = useState('')
-  const [handle, setHandle] = useState('')
-  const [goal, setGoal] = useState('')
+
+  const [user, setUser] = useState({});
+  const [userPreferences, setUserPreferences] = useState({
+    name: '',
+    handle: '',
+    goals: '',
+  })
+
+  useEffect(() => {
+    getCurrentUser()
+      .then(user => setUser(user))
+      // .then(console.log(user.id))
+  }, []);
+
+  let userId = user.id
+  console.log(userId)
+
+  if (!user) {
+    return <p>no user data</p>;
+  } 
+
+  function handleInputChange(event) {
+    setUserPreferences({
+        ...userPreferences,
+        [event.target.name]: event.target.value
+    });
+    console.log(userPreferences)
+  }
 
   function handleSubmit(event) {
     event.preventDefault()
-    // add to db 
-    console.log({ name, handle, goal })
+    updateCurrentUser(userPreferences, userId)
+    console.log(userPreferences, userId)
   }
 
   return (
     <div className="bg-slate-100 rounded-xl shadow-xl p-5 m-3">
 
       <h1 className="text-2xl font-bold mb-6">Profile</h1>
+      <h1>Welcome, {user.name}!</h1>
+
 
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
@@ -23,8 +51,8 @@ export default function ProfilePage() {
           </label>
           <input 
             name="name" 
-            value={name} 
-            onChange={event => setName(event.target.value)} 
+            value={userPreferences.name} 
+            onChange={handleInputChange} 
             className="px-2 py-1 rounded w-full border" 
           />
         </div>
@@ -34,17 +62,17 @@ export default function ProfilePage() {
           </label>
           <input 
             name="handle"
-            value={handle} 
-            onChange={event => setHandle(event.target.value)}
+            value={userPreferences.handle} 
+            onChange={handleInputChange} 
             className="px-2 py-1 rounded w-full" 
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="goal" className="block font-bold mb-2">Goals</label>
+          <label htmlFor="goals" className="block font-bold mb-2">Goals</label>
           <textarea 
-            name="goal" 
-            value={goal} 
-            onChange={event => setGoal(event.target.value)} 
+            name="goals" 
+            value={userPreferences.goals} 
+            onChange={handleInputChange} 
             className="px-2 py-1 rounded w-full"
           >
           </textarea>
@@ -56,3 +84,12 @@ export default function ProfilePage() {
     </div>
   )
 }
+
+
+// useEffect(() => {
+//   async function fetchData() {
+//     const currentUser = await getCurrentUser();
+//     setUser(currentUser);
+//   }
+//   fetchData();
+// }, []);
