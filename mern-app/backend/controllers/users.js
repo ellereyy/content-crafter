@@ -71,13 +71,7 @@ router.get('/', async (req, res) => {
         const userId = decodedToken.id
         const foundUser = await db.User.findById(userId)
         if (foundUser) {
-            res.json({
-                email: foundUser.email,
-                name: foundUser.name,
-                handle: foundUser.handle,
-                goals: foundUser.goals,
-                id: foundUser.id
-            })
+            res.json(foundUser)
         } else {
             res.sendStatus(404)
         }
@@ -86,22 +80,35 @@ router.get('/', async (req, res) => {
     }
 })
 
-// update the user model 
-router.put('/:id', async (req, res) => {
-    const userProfile = await db.User.findById(req.params.id)
-    if (userProfile.userId == req.user.id) {
-        // If it is the original author, update the comment
-        const newUser = await db.User.findByIdAndUpdate(
-            req.params.id,
-            req.body,
-            { new: true }
-        )
-        res.json(newUser)
-    } else {
-        res.status(401).json({ message: 'Invalid user or token' });
-    }
+// router.get('/:id', function (req, res) {
+//     db.Post.findById(req.params.id)
+//         .then(post => res.json(post))
+// })
+
+router.put('/:id', (req, res) => {
+    db.User.findByIdAndUpdate(
+        req.params.id,
+        req.body,
+        { new: true }
+    )
+        .then(updatedUser => res.json(updatedUser))
 })
 
+// update the user model 
+// router.put('/:id', async (req, res) => {
+//     const userProfile = await db.User.findById(req.params.id)
+//     if (userProfile.userId == req.user.id) {
+//         // If it is the original author, update the comment
+//         const newUser = await db.User.findByIdAndUpdate(
+//             req.params.id,
+//             req.body,
+//             { new: true }
+//         )
+//         res.json(newUser)
+//     } else {
+//         res.status(401).json({ message: 'Invalid user or token' });
+//     }
+// })
 
 /* Export these routes so that they are accessible in `server.js`
 -------------------------------------- */

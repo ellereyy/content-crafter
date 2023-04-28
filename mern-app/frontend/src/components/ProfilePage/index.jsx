@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom';
 import { updateCurrentUser, getCurrentUser } from '../../../utils/backend'
 
 export default function ProfilePage() {
-
+  const navigate = useNavigate();
   const [user, setUser] = useState({});
   const [userPreferences, setUserPreferences] = useState({
     name: '',
@@ -13,11 +14,11 @@ export default function ProfilePage() {
   useEffect(() => {
     getCurrentUser()
       .then(user => setUser(user))
-      // .then(console.log(user.id))
+      .then(console.log(user))
   }, []);
 
-  let userId = user.id
-  console.log(userId)
+  let userId = user._id
+  // console.log(userId)
 
   if (!user) {
     return <p>no user data</p>;
@@ -28,13 +29,13 @@ export default function ProfilePage() {
         ...userPreferences,
         [event.target.name]: event.target.value
     });
-    console.log(userPreferences)
   }
 
   function handleSubmit(event) {
     event.preventDefault()
     updateCurrentUser(userPreferences, userId)
     console.log(userPreferences, userId)
+    // navigate('/generate')
   }
 
   return (
@@ -84,12 +85,3 @@ export default function ProfilePage() {
     </div>
   )
 }
-
-
-// useEffect(() => {
-//   async function fetchData() {
-//     const currentUser = await getCurrentUser();
-//     setUser(currentUser);
-//   }
-//   fetchData();
-// }, []);

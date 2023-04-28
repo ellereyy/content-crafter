@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { postContent, getContent } from "../../../utils/backend";
+import { postContent, getContent, getCurrentUser } from "../../../utils/backend";
 
 import '../../index.css';
 
@@ -23,6 +23,14 @@ export default function GeneratePage() {
         date: '',
     });
 
+    const [goals, setGoals] = useState({});
+
+    useEffect(() => {
+        getCurrentUser()
+          .then(goals => setGoals(goals))
+          .then(console.log(goals.goals))
+      }, []);
+
     function handleInputChange(event) {
         setCreateFormData({
             ...createFormData,
@@ -32,7 +40,7 @@ export default function GeneratePage() {
 
     const APIBody = {
         "model": "text-davinci-003",
-        "prompt": `Generate a caption with hashtags for an Instagram post about the following image: ${createFormData.description}. Make sure the caption is catchy, includes important details about the image and is optimized for maximum engagement.`,
+        "prompt": `Generate a caption with hashtags for an Instagram post about the following image: ${createFormData.description}. Make sure the caption is catchy, includes important details about the image and is optimized for maximum engagement. The user would like to ${goals.goals} on their page.`,
 
         "temperature": 0,
         "max_tokens": 200,
@@ -96,7 +104,7 @@ export default function GeneratePage() {
         <>
             <div className="flex flex-col bg-slate-100 rounded-xl shadow-xl p-5 m-3">
                 <h1 className="text-2xl font-bold mb-6">Generate Content</h1>
-                <form onSubmit={fakeGenerate} className="flex flex-col">
+                <form onSubmit={generateAi} className="flex flex-col">
                     <label className="flex flex-col mb-2">
                         Image:
                         <input
