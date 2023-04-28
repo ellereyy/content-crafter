@@ -13,14 +13,14 @@ export default function DetailsPage({ updatePosts, postInfo }) {
         caption: postInfo.caption
     })
 
-    const { id } = useParams()
+    // const { id } = useParams()
 
-    useEffect(() => {
-        if (!postInfo) {
-            getContent(`/api/posts/${id}`)
-                .then(res => updatePosts(res.data))
-        }
-    }, [])
+    // useEffect(() => {
+    //     if (!postInfo) {
+    //         getContent(`/api/posts/${id}`)
+    //             .then(res => updatePosts(res.data))
+    //     }
+    // }, [])
 
     function handleDelete() {
         deleteContent(postInfo._id)

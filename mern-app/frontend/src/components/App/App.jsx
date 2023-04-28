@@ -21,8 +21,8 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
-      getContent()
-          .then(res => setContent(res))
+    getContent()
+        .then(res => setContent(res))
   }, [location])
 
   let postDisplay = <p>No posts to display</p>
@@ -88,41 +88,6 @@ function App() {
 
 export default App;
 
-
-{/* <Route path="/" element={<ContentSchedulePage postDisplay={postDisplay} detailsPage={detailsPage}/>} />
-<Route path="/content/:id" element={<DetailsPage postInfo={detailsPage} updatePosts={setDetailsPage}/>} />
-<Route path="/generate" element={<GeneratePage postInfo={detailsPage}/>} /> */}
-
-// <div className="w-screen h-screen">
-
-    //   <div className="bg-teal-800 text-white py-11 flex justify-between px-11">
-    //     <h1>Socai</h1>
-    //     <Link to="/">Home</Link>
-    //   </div>
-
-    //   <div className="flex w-screen h-4/5">
-
-    //     <NavBar />
-
-    //     <div className="w-3/4 bg-white rounded-xl m-5 p-5">
-    //       <Routes>
-    //         <Route path="/" element={<HomePage />} />
-    //         <Route path="/profile" element={<ProfilePage />} />
-    //         <Route path="/content" element={<ContentSchedulePage />} />
-    //         <Route path="/generate" element={<GeneratePage />} />
-    //       </Routes>
-    //     </div>
-
-    //   </div>
-
-    // </div>
-
-
-      // let navLink = <Link to="/auth/login" className="text-lg hover:text-xl">Log In</Link>
-
-      // <div className="flex justify-between bg-teal-500 mb-5">
-      //       <Link to="/home">Home</Link>
-      //       <Link to="/auth/login">Log In</Link>
-      //     </div>
-
-      
+//postInfo={detailsPage} updatePosts={setDetailsPage}
+// postInfo={detailsPage}
+//  postDisplay={postDisplay} detailsPage={detailsPage}

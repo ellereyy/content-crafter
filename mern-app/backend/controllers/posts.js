@@ -45,7 +45,6 @@ const authMiddleware = (req, res, next) => {
 // Index Route (GET/Read)
 router.get('/', authMiddleware, function (req, res) {
     const userId = req.user.id
-    // console.log(userId)
     db.Post.find({ userId })
         .then(posts => res.json(posts))
 })
@@ -71,7 +70,6 @@ router.get('/:id', function (req, res) {
 router.put('/:id', authMiddleware, async (req, res) => {
     // Check if the user who sent the update request is the same user who created the comment
     const userContent = await db.Post.findById(req.params.id)
-    console.log(userContent.userId)
     if (userContent.userId == req.user.id) {
         // If it is the original author, update the comment
         const newContent = await db.Post.findByIdAndUpdate(

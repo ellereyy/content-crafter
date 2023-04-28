@@ -77,7 +77,7 @@ export default function GeneratePage() {
         setGeneratedData({
             image: createFormData.image,
             description: createFormData.description,
-            caption: 'Sick instagram caption goes here!! #ad',
+            caption: 'instagram caption goes here!! #ad',
         })
     
         setLoading(false)
@@ -88,12 +88,10 @@ export default function GeneratePage() {
         event.preventDefault()
         postContent(generatedData)
             .then(() => {
-                console.log(`posted ${generatedData.caption} to backend`)
                 navigate('/content')
             })
     }
 
-    // console.log(createFormData)
     return (
         <>
             <div className="flex flex-col bg-slate-100 rounded-xl shadow-xl p-5 m-3">
@@ -148,6 +146,6 @@ export default function GeneratePage() {
             // console.log(generatedHashtags)
             // console.log(generatedDate)
 
-                        // const generatedCaption = data.choices[0].text.split('\n')[0]
+            // const generatedCaption = data.choices[0].text.split('\n')[0]
             // const generatedHashtags = data.choices[0].text.split('\n')[1]
             // const generatedDate = data.choices[0].text.split('\n')[2]

@@ -1,11 +1,9 @@
 import { getContent } from "../../../utils/backend"
 import { useState, useEffect } from 'react'
-import { useLocation, Route, Routes } from 'react-router-dom'
 import Card from '../Card/index.jsx'
-import DetailsPage from '../DetailsPage/index.jsx'
 
+import { Routes, Route, Link, useLocation, useNavigate } from 'react-router-dom'
 
-//postDisplay
 export default function ContentSchedulePage({ postDisplay }) {
 
     function handleDelete() {

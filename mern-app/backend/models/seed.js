@@ -15,7 +15,7 @@ const seedPosts = [
     caption: 'Meet my new furry friend!',
     hashtags: '#puppylove #dogsofinstagram',
     date: new Date('2023-05-03T10:00:00Z'),
-    userId: new mongoose.Types.ObjectId('644ad43a1bda6a83440ae5aa'),
+    userId: new mongoose.Types.ObjectId('644ad59f9f1e02894322664b'),
   },
   {
     image: 'https://images.pexels.com/photos/8951203/pexels-photo-8951203.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
