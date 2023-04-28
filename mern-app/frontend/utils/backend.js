@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const authHeader = { headers: { 'Authorization': localStorage.getItem('userToken') } }
+console.log(authHeader)
 
 
 /* AUTHORIZATION REQUESTS
@@ -8,6 +9,8 @@ const authHeader = { headers: { 'Authorization': localStorage.getItem('userToken
 
 export async function getContent() {
   const { data } = await axios.get('/api/posts', authHeader);
+  console.log('getting content')
+  console.log({data})
   return data;
 }
 

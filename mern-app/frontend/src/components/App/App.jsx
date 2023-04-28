@@ -30,21 +30,33 @@ function App() {
       .map((post, i) => <Card key={i} postInfo={post} updateDetailsPage={setDetailsPage}/> );
   }
 
+  // add function for handleLogout
+  function handleLogOut() {
+    localStorage.removeItem("userToken");
+    localStorage.removeItem("isAuthenticated")
+  }
+
+  // create state for isAuthenticated 
+  // pass setAuth as a prop to AuthFormPage
+  // setAuth to true when user logs in
+
   return (
     
       <div className="mx-11 mt-11 bg-white p-11">
 
         <div className="flex justify-between">
           <h1 className="text-3xl font-bold text-gray-800">Socai</h1>
-          <button className="text-lg hover:text-xl">Log Out</button>
+          <button onClick={handleLogOut} className="text-lg hover:text-xl">Log Out</button>
         </div>
 
         <div className="flex flex-col">
 
-          <div className="flex justify-between">
+          <div className="flex justify-between py-7 bg-slate-100">
               <Link to="/home" className="text-lg hover:text-xl">Home</Link>
               <Link to="/auth/login" className="text-lg hover:text-xl">Log In</Link>
+              <Link to="/auth/Sign Up" className="text-lg hover:text-xl">Sign Up</Link>
           </div> 
+
           <div className="flex justify-between">
             <Link to="/profile" className="p-4 my-5 text-lg hover:bg-slate-100 rounded-lg">Profile</Link>
             <Link to="/" className="p-4 my-5 text-lg hover:bg-slate-100 rounded-lg">Scheduled Posts</Link>          

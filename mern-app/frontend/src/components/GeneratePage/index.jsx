@@ -72,7 +72,7 @@ export default function GeneratePage() {
         setLoading(true)
         console.log('calling fake ai api....')
     
-        await new Promise(resolve => setTimeout(resolve, 2000))
+        await new Promise(resolve => setTimeout(resolve, 1000))
     
         setGeneratedData({
             image: createFormData.image,

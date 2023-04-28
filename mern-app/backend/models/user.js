@@ -11,9 +11,15 @@ const UserSchema = new mongoose.Schema({
         minlength: 6,
         required: true,
     },
-    name: { type: String },
-    handle: { type: String },
-    goals: { type: String }
 })
 
 module.exports = mongoose.model('User', UserSchema)
+
+
+// eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjY0NGFkNTlmOWYxZTAyODk0MzIyNjY0YiJ9._xm9KOW1oTsBxejm9VJ_NV39EZ1_wJTqHQKYoKZFjrM
+
+// eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjY0NGFkNTlmOWYxZTAyODk0MzIyNjY0YiJ9._xm9KOW1oTsBxejm9VJ_NV39EZ1_wJTqHQKYoKZFjrM
+
+// eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjY0NGFkNDNhMWJkYTZhODM0NDBhZTVhYSJ9.g1FLSaK3XJD8bP0bUsI-DG2TGNNGm9tYwppp10gyEYY
+
+// 

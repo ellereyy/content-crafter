@@ -26,9 +26,11 @@ export default function AuthFormPage() {
         if (formType === 'login') {
             const { token } = await logIn(formData)
             localStorage.setItem('userToken', token)
+            localStorage.setItem('isAuthenticated', true)
         } else {
             const { token } = await signUp(formData)
             localStorage.setItem('userToken', token)
+            localStorage.setItem('isAuthenticated', true)
         }
         navigate('/')
     }
