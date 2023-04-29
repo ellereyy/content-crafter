@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { postContent, getCurrentUser } from "../../../utils/backend";
+import { postContent } from "../../../utils/backend";
 
 import '../../index.css';
 
-export default function GeneratePage({ authHeader }) {
+export default function GeneratePage({ user }) {
 
     const API_KEY_DISP = import.meta.env.VITE_OPENAI_KEY
     const navigate = useNavigate();
@@ -14,6 +14,7 @@ export default function GeneratePage({ authHeader }) {
         image: '',
         description: '',
     });
+
     const [generatedData, setGeneratedData] = useState({
         image: '',
         description: '',
@@ -22,20 +23,6 @@ export default function GeneratePage({ authHeader }) {
         date: '',
     });
 
-    const [goals, setGoals] = useState({});
-
-    useEffect(() => {
-        console.log('in generate page')
-        getCurrentUser(authHeader)
-          .then(goals => {
-            console.log(goals)
-            setGoals(goals)
-        })
-    }, []);
-
-    let goalInput = goals.goals;
-    console.log(goalInput)
-
     function handleInputChange(event) {
         setCreateFormData({
             ...createFormData,
@@ -43,9 +30,12 @@ export default function GeneratePage({ authHeader }) {
         });
     }
 
+    let userGoals = user.goals
+    console.log('✨GOALS:', userGoals)
+
     const APIBody = {
         "model": "text-davinci-003",
-        "prompt": `Generate a caption with hashtags for an Instagram post about the following image: ${createFormData.description}. Make sure the caption is catchy, includes important details about the image and is optimized for maximum engagement. The user would like to ${goalInput} on their page.`,
+        "prompt": `Generate a caption with hashtags for an Instagram post about the following image: ${createFormData.description}. Make sure the caption is catchy, includes important details about the image and is optimized for maximum engagement.`,
 
         "temperature": 0,
         "max_tokens": 200,
@@ -96,7 +86,6 @@ export default function GeneratePage({ authHeader }) {
         setLoading(false)
     }
     
-
     function handleSubmit(event) {
         event.preventDefault()
         postContent(generatedData)

@@ -10,14 +10,48 @@ import DetailsPage from '../DetailsPage/index.jsx'
 import AuthFormPage from '../AuthFormPage'
 import LandingPage from '../LandingPage/index.jsx'
 
-import { getContent } from '../../../utils/backend.js'
+import { getContent, getCurrentUser } from '../../../utils/backend.js'
 
 function App() {
 
+  const [authHeader, setAuthHeader] = useState({})
+  const [content, setContent] = useState([])
+  const [detailsPage, setDetailsPage] = useState([])
+  const [user, setUser] = useState({});
+
   let isAuthenticated = localStorage.getItem("isAuthenticated")
+  // console.log('Authentication satus:', isAuthenticated)
   const navigate = useNavigate();
   const location = useLocation();
-  
+
+  useEffect(() => {
+    if (isAuthenticated === 'true') {
+      // console.log('3. Checking auth for user:', isAuthenticated)
+      getCurrentUser()
+        .then(res => { 
+          setUser(res)
+          console.log(`User: ${res.name}`)
+        })
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isAuthenticated === 'true') {
+      // console.log('2. Checking auth for posts:', isAuthenticated)
+      getContent()
+        .then(res => {
+          setContent(res)
+          console.log(`Content: ${res.length} posts`)
+        })
+    }
+  }, [location])
+
+  let postDisplay = <p>No posts to display</p>
+  if (content.length > 0) {
+    postDisplay = content
+      .map((post, i) => <Card key={i} postInfo={post} updateDetailsPage={setDetailsPage}/> );
+  }
+
   function handleLogOut() {
     localStorage.removeItem("userToken");
     localStorage.setItem("isAuthenticated", false);
@@ -28,31 +62,6 @@ function App() {
   if (isAuthenticated === "true") {
     logOutBtn = <button onClick={handleLogOut} className="text-lg hover:text-xl">Log Out</button>
   }
-
-  const [authHeader, setAuthHeader] = useState({})
-  const [content, setContent] = useState([])
-  const [detailsPage, setDetailsPage] = useState([])
-
-  useEffect(() => {
-    // let authStatus = localStorage.getItem("isAuthenticated")
-    // console.log(authStatus)
-    if (isAuthenticated === "true") {
-      const authHeader = { headers: { 'Authorization': localStorage.getItem('userToken') } }
-      setAuthHeader(authHeader)
-      // console.log(localStorage.getItem('userToken'))
-      getContent(authHeader)
-        .then(res => setContent(res))
-    }
-  }, [])
-
-  let postDisplay = <p>No posts to display</p>
-  
-  if (content.length > 0) {
-    postDisplay = content
-      .map((post, i) => <Card key={i} postInfo={post} updateDetailsPage={setDetailsPage}/> );
-  }
-
-
 
   return (
     <div className="mx-11 mt-11 bg-white p-11">
@@ -81,11 +90,11 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/content" element={<ContentSchedulePage postDisplay={postDisplay} detailsPage={detailsPage}/>} />
+        <Route path="/content/:id" element={<DetailsPage postInfo={detailsPage} updatePosts={setDetailsPage}/>} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/auth/:formType" element={<AuthFormPage />} />
-        <Route path="/profile" element={<ProfilePage />} />
-        <Route path="/content/:id" element={<DetailsPage postInfo={detailsPage} updatePosts={setDetailsPage}/>} />
-        <Route path="/generate" element={<GeneratePage postInfo={detailsPage} authHeader={authHeader}/>} />
+        <Route path="/profile" element={<ProfilePage user={user} />} />
+        <Route path="/generate" element={<GeneratePage postInfo={detailsPage} user={user}/>} />
       </Routes> 
 
     </div>
@@ -93,3 +102,17 @@ function App() {
 }
 
 export default App;
+
+
+// useEffect(() => {
+//   let authStatus = localStorage.getItem("isAuthenticated")
+//   console.log('grabbing posts')
+//   console.log(isAuthenticated)
+//   if (authStatus === "true") {
+//     const authHeader = { headers: { 'Authorization': localStorage.getItem('userToken') } }
+//     setAuthHeader(authHeader)
+//     // console.log(localStorage.getItem('userToken'))
+//     getContent(authHeader)
+//       .then(res => setContent(res))
+//   }
+// }, [location])

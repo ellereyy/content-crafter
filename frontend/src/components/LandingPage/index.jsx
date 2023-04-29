@@ -15,19 +15,19 @@ export default function LandingPage() {
         <h1 className="text-3xl font-bold text-center mb-8">Socai</h1>
         {isAuthenticated === "true" ? (
           <div className="flex flex-col items-center justify-center">
-            <Link to="/newpost" className="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded mb-4">
+            <Link to="/generate" className="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded mb-4">
               Create a new post
             </Link>
-            <Link to="/scheduled" className="bg-teal-700 hover:bg-teal-800 text-white font-bold py-2 px-4 rounded">
+            <Link to="/content" className="bg-teal-700 hover:bg-teal-800 text-white font-bold py-2 px-4 rounded">
               View scheduled posts
             </Link>
           </div>
         ) : (
           <div className="flex flex-col items-center justify-center">
-            <Link to="/login" className="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded mb-4">
+            <Link to="/auth/login" className="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded mb-4">
               Log in
             </Link>
-            <Link to="/signup" className="bg-teal-600 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded">
+            <Link to="/auth/signup" className="bg-teal-600 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded">
               Sign up
             </Link>
           </div>

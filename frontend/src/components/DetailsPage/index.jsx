@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 
-import { getContent, deleteContent, updateContent } from "../../../utils/backend"
+import { getContent, deleteContent, updateContent, getPost } from "../../../utils/backend"
 
 export default function DetailsPage({ updatePosts, postInfo }) {
 
@@ -14,11 +14,14 @@ export default function DetailsPage({ updatePosts, postInfo }) {
     })
 
     // const { id } = useParams()
-
     // useEffect(() => {
-    //     if (!postInfo) {
-    //         getContent(`/api/posts/${id}`)
-    //             .then(res => updatePosts(res.data))
+    //     if (postInfo = []) {
+    //         console.log('🚫')
+    //         getContent()
+    //             .then(res => {
+    //                 updatePosts(res.id)
+    //                 console.log('🚫', res)
+    //             })
     //     }
     // }, [])
 
@@ -63,9 +66,7 @@ export default function DetailsPage({ updatePosts, postInfo }) {
                         </button>
                     </div>
                 </div>
-
-                :
-
+            :
                 <form onSubmit={handleEditSubmit} className="flex flex-col mt-2">
                     <input 
                         name="image"

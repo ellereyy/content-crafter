@@ -7,27 +7,6 @@ import DetailsPage from '../DetailsPage/index.jsx'
 
 export default function ContentSchedulePage({ postDisplay }) {
 
-    // const [content, setContent] = useState([])
-    // const [detailsPage, setDetailsPage] = useState([])
-
-    // useEffect(() => {
-    //     let randomVar = localStorage.getItem("isAuthenticated")
-    //     console.log(randomVar)
-    //     if (randomVar === "true") {
-    //       console.log(localStorage.getItem('userToken'))
-    //       getContent()
-    //         .then(res => setContent(res))
-    //     }
-    //   }, [localStorage.getItem('userToken')])
-    
-    //   let postDisplay = <p>No posts to display</p>
-      
-    //   if (content.length > 0) {
-    //     postDisplay = content
-    //       .map((post, i) => <Card key={i} postInfo={post} updateDetailsPage={setDetailsPage}/> );
-    // }
-
-
     function handleDelete() {
         console.log("delete posts from schedule page, coming soon...")
     }
