@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { postContent, getContent, getCurrentUser } from "../../../utils/backend";
+import { postContent, getCurrentUser } from "../../../utils/backend";
 
 import '../../index.css';
 
-export default function GeneratePage() {
+export default function GeneratePage({ authHeader }) {
 
     const API_KEY_DISP = import.meta.env.VITE_OPENAI_KEY
     const navigate = useNavigate();
@@ -25,9 +25,12 @@ export default function GeneratePage() {
     const [goals, setGoals] = useState({});
 
     useEffect(() => {
-        getCurrentUser()
-          .then(goals => setGoals(goals))
-          .then(console.log(goals))
+        console.log('in generate page')
+        getCurrentUser(authHeader)
+          .then(goals => {
+            console.log(goals)
+            setGoals(goals)
+        })
     }, []);
 
     let goalInput = goals.goals;

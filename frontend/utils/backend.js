@@ -6,23 +6,27 @@ const authHeader = { headers: { 'Authorization': localStorage.getItem('userToken
 /* AUTHORIZATION REQUESTS - POSTS
 ------------------------------------------------------------------------ */
 
-export async function getContent() {
-  const { data } = await axios.get('/api/posts', authHeader);
+// option 1
+export async function getContent(auth) {
+  console.log(authHeader)
+  const { data } = await axios.get('/api/posts', auth);
   return data;
 }
 
+// option 2
 export async function postContent(content) {
+  const authHeader = { headers: { 'Authorization': localStorage.getItem('userToken') } }
   const { data } = await axios.post('/api/posts', content, authHeader)
   return data;
 }
 
-export async function updateContent(post, id) {
-  const { data } = await axios.put(`/api/posts/${id}`, post, authHeader)
+export async function updateContent(post, id, auth) {
+  const { data } = await axios.put(`/api/posts/${id}`, post, auth)
   return data;
 }
 
-export async function deleteContent(id) {
-  const { data } = await axios.delete(`/api/posts/${id}`, authHeader)
+export async function deleteContent(id, auth) {
+  const { data } = await axios.delete(`/api/posts/${id}`, auth)
   return data;
 }
 
@@ -37,8 +41,9 @@ export async function updateCurrentUser(user, id) {
 }
 
 
-export async function getCurrentUser() {
-  const { data } = await axios.get('/api/users', authHeader)
+export async function getCurrentUser( auth ) {
+  console.log(auth)
+  const { data } = await axios.get('/api/users', auth)
   return data;
 }
 

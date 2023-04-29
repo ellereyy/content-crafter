@@ -14,15 +14,36 @@ import { getContent } from '../../../utils/backend.js'
 
 function App() {
 
+  let isAuthenticated = localStorage.getItem("isAuthenticated")
+  const navigate = useNavigate();
+  const location = useLocation();
+  
+  function handleLogOut() {
+    localStorage.removeItem("userToken");
+    localStorage.setItem("isAuthenticated", false);
+    navigate("/");
+  }
+
+  let logOutBtn = null
+  if (isAuthenticated === "true") {
+    logOutBtn = <button onClick={handleLogOut} className="text-lg hover:text-xl">Log Out</button>
+  }
+
+  const [authHeader, setAuthHeader] = useState({})
   const [content, setContent] = useState([])
   const [detailsPage, setDetailsPage] = useState([])
 
-  const location = useLocation();
-
   useEffect(() => {
-    getContent()
+    // let authStatus = localStorage.getItem("isAuthenticated")
+    // console.log(authStatus)
+    if (isAuthenticated === "true") {
+      const authHeader = { headers: { 'Authorization': localStorage.getItem('userToken') } }
+      setAuthHeader(authHeader)
+      // console.log(localStorage.getItem('userToken'))
+      getContent(authHeader)
         .then(res => setContent(res))
-  }, [location])
+    }
+  }, [])
 
   let postDisplay = <p>No posts to display</p>
   
@@ -31,19 +52,7 @@ function App() {
       .map((post, i) => <Card key={i} postInfo={post} updateDetailsPage={setDetailsPage}/> );
   }
 
-  const navigate = useNavigate();
-  function handleLogOut() {
-    localStorage.removeItem("userToken");
-    localStorage.setItem("isAuthenticated", false);
-    navigate("/");
-  }
 
-  let isAuthenticated = localStorage.getItem("isAuthenticated")
-  let logOutBtn = null
-  
-  if (isAuthenticated === "true") {
-    logOutBtn = <button onClick={handleLogOut} className="text-lg hover:text-xl">Log Out</button>
-  }
 
   return (
     <div className="mx-11 mt-11 bg-white p-11">
@@ -64,7 +73,7 @@ function App() {
           <div className="flex justify-between">
             <Link to="/home" className="text-center p-4 my-5 text-lg hover:bg-slate-100 rounded-lg">Home</Link>
             <Link to="/auth/login" className="text-center p-4 my-5 text-lg hover:bg-slate-100 rounded-lg">Log In</Link>
-            <Link to="/auth/Sign Up" className="text-center p-4 my-5 text-lg hover:bg-slate-100 rounded-lg">Sign Up</Link>
+            <Link to="/auth/signup" className="text-center p-4 my-5 text-lg hover:bg-slate-100 rounded-lg">Sign Up</Link>
           </div> 
           }
       </div> 
@@ -76,7 +85,7 @@ function App() {
         <Route path="/auth/:formType" element={<AuthFormPage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/content/:id" element={<DetailsPage postInfo={detailsPage} updatePosts={setDetailsPage}/>} />
-        <Route path="/generate" element={<GeneratePage postInfo={detailsPage}/>} />
+        <Route path="/generate" element={<GeneratePage postInfo={detailsPage} authHeader={authHeader}/>} />
       </Routes> 
 
     </div>
