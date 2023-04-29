@@ -13,18 +13,6 @@ export default function DetailsPage({ updatePosts, postInfo }) {
         caption: postInfo.caption
     })
 
-    // const { id } = useParams()
-    // useEffect(() => {
-    //     if (postInfo = []) {
-    //         console.log('🚫')
-    //         getContent()
-    //             .then(res => {
-    //                 updatePosts(res.id)
-    //                 console.log('🚫', res)
-    //             })
-    //     }
-    // }, [])
-
     function handleDelete() {
         deleteContent(postInfo._id)
             .then(() => navigate('/content'))
@@ -97,3 +85,16 @@ export default function DetailsPage({ updatePosts, postInfo }) {
         </>
     )
 }
+
+
+    // const { id } = useParams()
+    // useEffect(() => {
+    //     if (postInfo = []) {
+    //         console.log('🚫')
+    //         getContent()
+    //             .then(res => {
+    //                 updatePosts(res.id)
+    //                 console.log('🚫', res)
+    //             })
+    //     }
+    // }, [])

@@ -31,7 +31,7 @@ export default function GeneratePage({ user }) {
     }
 
     let userGoals = user.goals
-    console.log('✨GOALS:', userGoals)
+    console.log('GENERATE PAGE GOALS:', userGoals)
 
     const APIBody = {
         "model": "text-davinci-003",

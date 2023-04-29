@@ -14,7 +14,7 @@ import { getContent, getCurrentUser } from '../../../utils/backend.js'
 
 function App() {
 
-  const [authHeader, setAuthHeader] = useState({})
+  // const [authHeader, setAuthHeader] = useState({})
   const [content, setContent] = useState([])
   const [detailsPage, setDetailsPage] = useState([])
   const [user, setUser] = useState({});
