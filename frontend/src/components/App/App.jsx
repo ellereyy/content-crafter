@@ -28,9 +28,9 @@ function App() {
     if (isAuthenticated === 'true') {
       // console.log('3. Checking auth for user:', isAuthenticated)
       getCurrentUser()
-        .then(res => { 
-          setUser(res)
-          console.log(`User: ${res.name}`)
+        .then(user => { 
+          setUser(user)
+          console.log(`User: ${user.name}`)
         })
     }
   }, []);
@@ -39,9 +39,9 @@ function App() {
     if (isAuthenticated === 'true') {
       // console.log('2. Checking auth for posts:', isAuthenticated)
       getContent()
-        .then(res => {
-          setContent(res)
-          console.log(`Content: ${res.length} posts`)
+        .then(content => {
+          setContent(content)
+          console.log(`Content: ${content.length} posts`)
         })
     }
   }, [location])
@@ -49,7 +49,7 @@ function App() {
   let postDisplay = <p>No posts to display</p>
   if (content.length > 0) {
     postDisplay = content
-      .map((post, i) => <Card key={i} postInfo={post} updateDetailsPage={setDetailsPage}/> );
+      .map((post, i) => <Card key={i} user={user} postInfo={post} updateDetailsPage={setDetailsPage}/> );
   }
 
   function handleLogOut() {
@@ -88,12 +88,12 @@ function App() {
       </div> 
 
       <Routes>
-        <Route path="/" element={<LandingPage />} />
+        <Route path="/" element={<LandingPage user={user} />} />
         <Route path="/content" element={<ContentSchedulePage postDisplay={postDisplay} detailsPage={detailsPage}/>} />
-        <Route path="/content/:id" element={<DetailsPage postInfo={detailsPage} updatePosts={setDetailsPage}/>} />
+        <Route path="/content/:id" element={<DetailsPage postInfo={detailsPage} updatePosts={setDetailsPage} user={user}/>} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/auth/:formType" element={<AuthFormPage />} />
-        <Route path="/profile" element={<ProfilePage user={user} />} />
+        <Route path="/profile" element={<ProfilePage user={user} updateUser={setUser} />} />
         <Route path="/generate" element={<GeneratePage postInfo={detailsPage} user={user}/>} />
       </Routes> 
 

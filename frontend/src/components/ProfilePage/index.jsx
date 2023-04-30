@@ -2,15 +2,22 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { updateCurrentUser, getCurrentUser } from '../../../utils/backend'
 
-export default function ProfilePage({ user }) {
+export default function ProfilePage({ user, updateUser }) {
   const navigate = useNavigate();
 
   const [editPreferences, setEditPreferences] = useState(false)
   const [userPreferences, setUserPreferences] = useState({
     name: user.name,
+    businessName: user.businessName,
     handle: user.handle,
     goals: user.goals,
-  })
+    industry: user.industry,
+    brandingKeywords: user.brandingKeywords,
+    competitiveAdvantage: user.competitiveAdvantage,
+    valueProposition: user.valueProposition,
+    missionStatement: user.missionStatement,
+  });
+  
 
   function handleInputChange(event) {
     setUserPreferences({
@@ -23,7 +30,7 @@ export default function ProfilePage({ user }) {
     event.preventDefault()
     setEditPreferences(false)
     updateCurrentUser(userPreferences, user._id)
-      .then
+      // .then(() => updateUser(userPreferences))
     // navigate('/generate')
   }
   
@@ -42,12 +49,36 @@ export default function ProfilePage({ user }) {
             <p className="text-lg font-bold mb-2">{user.name}</p>
           </div>
           <div className="flex flex-col mb-4">
+            <p className="text-sm font-medium text-gray-600 mb-2">Business Name:</p>
+            <p className="text-lg font-bold mb-2">{user.businessName}</p>
+          </div>
+          <div className="flex flex-col mb-4">
             <p className="text-sm font-medium text-gray-600 mb-2">Instagram Handle:</p>
             <p className="text-lg font-bold mb-2">{user.handle}</p>
           </div>
           <div className="flex flex-col mb-4">
             <p className="text-sm font-medium text-gray-600 mb-2">Goals:</p>
             <p className="text-lg font-bold mb-2">{user.goals}</p>
+          </div>
+          <div className="flex flex-col mb-4">
+            <p className="text-sm font-medium text-gray-600 mb-2">Industry:</p>
+            <p className="text-lg font-bold mb-2">{user.industry}</p>
+          </div>
+          <div className="flex flex-col mb-4">
+            <p className="text-sm font-medium text-gray-600 mb-2">Branding Keywords:</p>
+            <p className="text-lg font-bold mb-2">{user.brandingKeywords}</p>
+          </div>
+          <div className="flex flex-col mb-4">
+            <p className="text-sm font-medium text-gray-600 mb-2">Competitive Advantage:</p>
+            <p className="text-lg font-bold mb-2">{user.competitiveAdvantage}</p>
+          </div>
+          <div className="flex flex-col mb-4">
+            <p className="text-sm font-medium text-gray-600 mb-2">Value Proposition:</p>
+            <p className="text-lg font-bold mb-2">{user.valueProposition}</p>
+          </div>
+          <div className="flex flex-col mb-4">
+            <p className="text-sm font-medium text-gray-600 mb-2">Mission Statement:</p>
+            <p className="text-lg font-bold mb-2">{user.missionStatement}</p>
           </div>
           <button 
             onClick={() => { setEditPreferences(true) }}
@@ -78,11 +109,65 @@ export default function ProfilePage({ user }) {
             />
           </div>
           <div className="mb-4">
+            <label htmlFor="businessName" className="block text-gray-700 font-bold mb-2">Business Name:</label>
+            <input 
+              name="businessName" 
+              value={userPreferences.businessName} 
+              onChange={handleInputChange} 
+              className="px-3 py-2 rounded-lg border-2 border-gray-300 w-full focus:outline-none focus:border-teal-500" 
+            />
+          </div>
+          <div className="mb-4">
             <label htmlFor="goals" className="block text-gray-700 font-bold mb-2">Goals:</label>
             <textarea 
               name="goals" 
               value={userPreferences.goals} 
               onChange={handleInputChange} 
+              className="px-3 py-2 rounded-lg border-2 border-gray-300 w-full focus:outline-none focus:border-teal-500"
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="industry" className="block text-gray-700 font-bold mb-2">Industry:</label>
+            <input
+              name="industry"
+              value={userPreferences.industry}
+              onChange={handleInputChange}
+              className="px-3 py-2 rounded-lg border-2 border-gray-300 w-full focus:outline-none focus:border-teal-500"
+            />
+          </div>
+          <div className="mb-4"> 
+            <label htmlFor="brandingKeywords" className="block text-gray-700 font-bold mb-2">Branding Keywords:</label>
+            <input
+              name="brandingKeywords"
+              value={userPreferences.brandingKeywords}
+              onChange={handleInputChange}
+              className="px-3 py-2 rounded-lg border-2 border-gray-300 w-full focus:outline-none focus:border-teal-500"
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="competitiveAdvantage" className="block text-gray-700 font-bold mb-2">Competitive Advantage:</label>
+            <input
+              name="competitiveAdvantage"
+              value={userPreferences.competitiveAdvantage}
+              onChange={handleInputChange}
+              className="px-3 py-2 rounded-lg border-2 border-gray-300 w-full focus:outline-none focus:border-teal-500"
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="valueProposition" className="block text-gray-700 font-bold mb-2">Value Proposition:</label>
+            <input
+              name="valueProposition"
+              value={userPreferences.valueProposition}
+              onChange={handleInputChange}
+              className="px-3 py-2 rounded-lg border-2 border-gray-300 w-full focus:outline-none focus:border-teal-500"
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="missionStatement" className="block text-gray-700 font-bold mb-2">Mission Statement:</label>
+            <input
+              name="missionStatement"
+              value={userPreferences.missionStatement}
+              onChange={handleInputChange}
               className="px-3 py-2 rounded-lg border-2 border-gray-300 w-full focus:outline-none focus:border-teal-500"
             />
           </div>

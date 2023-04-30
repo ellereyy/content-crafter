@@ -6,6 +6,16 @@ import '../../index.css';
 
 export default function GeneratePage({ user }) {
 
+    function handleInputChange(event) {
+        setCreateFormData({
+            ...createFormData,
+            [event.target.name]: event.target.value
+        });
+    }
+
+    let userGoals = user.goals
+    console.log('GENERATE PAGE GOALS:', userGoals)
+
     const API_KEY_DISP = import.meta.env.VITE_OPENAI_KEY
     const navigate = useNavigate();
 
@@ -23,19 +33,9 @@ export default function GeneratePage({ user }) {
         date: '',
     });
 
-    function handleInputChange(event) {
-        setCreateFormData({
-            ...createFormData,
-            [event.target.name]: event.target.value
-        });
-    }
-
-    let userGoals = user.goals
-    console.log('GENERATE PAGE GOALS:', userGoals)
-
     const APIBody = {
         "model": "text-davinci-003",
-        "prompt": `Generate a caption with hashtags for an Instagram post about the following image: ${createFormData.description}. Make sure the caption is catchy, includes important details about the image and is optimized for maximum engagement.`,
+        "prompt": `Create a social media caption for a ${user.industry} company that provides ${user.goals}. The post features an image with the following description: ${createFormData.description}, showcasing the ${user.competitiveAdvantage}. Here are some keywords to consider ${createFormData.keywords} ${user.brandingKeywords}`,
 
         "temperature": 0,
         "max_tokens": 200,
