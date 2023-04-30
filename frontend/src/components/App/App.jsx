@@ -10,37 +10,55 @@ import DetailsPage from '../DetailsPage/index.jsx'
 import AuthFormPage from '../AuthFormPage'
 import LandingPage from '../LandingPage/index.jsx'
 
-import { getContent } from '../../../utils/backend.js'
+import { getContent, getCurrentUser } from '../../../utils/backend.js'
 
 function App() {
 
+  // const [authHeader, setAuthHeader] = useState({})
   const [content, setContent] = useState([])
   const [detailsPage, setDetailsPage] = useState([])
+  const [user, setUser] = useState({});
 
+  let isAuthenticated = localStorage.getItem("isAuthenticated")
+  // console.log('Authentication satus:', isAuthenticated)
+  const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
-    getContent()
-        .then(res => setContent(res))
+    if (isAuthenticated === 'true') {
+      // console.log('3. Checking auth for user:', isAuthenticated)
+      getCurrentUser()
+        .then(user => { 
+          setUser(user)
+          console.log(`User: ${user.name}`)
+        })
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isAuthenticated === 'true') {
+      // console.log('2. Checking auth for posts:', isAuthenticated)
+      getContent()
+        .then(content => {
+          setContent(content)
+          console.log(`Content: ${content.length} posts`)
+        })
+    }
   }, [location])
 
   let postDisplay = <p>No posts to display</p>
-  
   if (content.length > 0) {
     postDisplay = content
-      .map((post, i) => <Card key={i} postInfo={post} updateDetailsPage={setDetailsPage}/> );
+      .map((post, i) => <Card key={i} user={user} postInfo={post} updateDetailsPage={setDetailsPage}/> );
   }
 
-  const navigate = useNavigate();
   function handleLogOut() {
     localStorage.removeItem("userToken");
     localStorage.setItem("isAuthenticated", false);
     navigate("/");
   }
 
-  let isAuthenticated = localStorage.getItem("isAuthenticated")
   let logOutBtn = null
-  
   if (isAuthenticated === "true") {
     logOutBtn = <button onClick={handleLogOut} className="text-lg hover:text-xl">Log Out</button>
   }
@@ -64,19 +82,19 @@ function App() {
           <div className="flex justify-between">
             <Link to="/home" className="text-center p-4 my-5 text-lg hover:bg-slate-100 rounded-lg">Home</Link>
             <Link to="/auth/login" className="text-center p-4 my-5 text-lg hover:bg-slate-100 rounded-lg">Log In</Link>
-            <Link to="/auth/Sign Up" className="text-center p-4 my-5 text-lg hover:bg-slate-100 rounded-lg">Sign Up</Link>
+            <Link to="/auth/signup" className="text-center p-4 my-5 text-lg hover:bg-slate-100 rounded-lg">Sign Up</Link>
           </div> 
           }
       </div> 
 
       <Routes>
-        <Route path="/" element={<LandingPage />} />
+        <Route path="/" element={<LandingPage user={user} />} />
         <Route path="/content" element={<ContentSchedulePage postDisplay={postDisplay} detailsPage={detailsPage}/>} />
+        <Route path="/content/:id" element={<DetailsPage postInfo={detailsPage} updatePosts={setDetailsPage} user={user}/>} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/auth/:formType" element={<AuthFormPage />} />
-        <Route path="/profile" element={<ProfilePage />} />
-        <Route path="/content/:id" element={<DetailsPage postInfo={detailsPage} updatePosts={setDetailsPage}/>} />
-        <Route path="/generate" element={<GeneratePage postInfo={detailsPage}/>} />
+        <Route path="/profile" element={<ProfilePage user={user} updateUser={setUser} />} />
+        <Route path="/generate" element={<GeneratePage postInfo={detailsPage} user={user}/>} />
       </Routes> 
 
     </div>
@@ -84,3 +102,17 @@ function App() {
 }
 
 export default App;
+
+
+// useEffect(() => {
+//   let authStatus = localStorage.getItem("isAuthenticated")
+//   console.log('grabbing posts')
+//   console.log(isAuthenticated)
+//   if (authStatus === "true") {
+//     const authHeader = { headers: { 'Authorization': localStorage.getItem('userToken') } }
+//     setAuthHeader(authHeader)
+//     // console.log(localStorage.getItem('userToken'))
+//     getContent(authHeader)
+//       .then(res => setContent(res))
+//   }
+// }, [location])

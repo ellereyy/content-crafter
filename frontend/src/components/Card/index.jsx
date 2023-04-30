@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-export default function Card({ postInfo, updateDetailsPage }) {
+export default function Card({ postInfo, updateDetailsPage, user }) {
     return (
         <div className="bg-white rounded-lg overflow-hidden shadow-lg transform hover:-translate-y-1 transition-all duration-300 m-10">
             <Link 
@@ -8,10 +8,8 @@ export default function Card({ postInfo, updateDetailsPage }) {
                 onClick={() => updateDetailsPage(postInfo)}
             >
                 <img src={postInfo.image} className="w-full h-64 object-cover" />
-                <div className="px-6 py-4">
-                    <div className="font-bold text-xl mb-2">{postInfo.title}</div>
-                    <p className="text-gray-700 text-base">{postInfo.caption}</p>
-                </div>
+                <p className="text-gray-700 text-base p-5"><strong>@{user.handle}</strong> {postInfo.caption}</p>
+                <p className="px-5 pb-3 font-bold">{new Date(postInfo.date).toLocaleDateString()}</p>
             </Link>
         </div>
     )

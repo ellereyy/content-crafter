@@ -1,10 +1,20 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { postContent, getContent, getCurrentUser } from "../../../utils/backend";
+import { postContent } from "../../../utils/backend";
 
 import '../../index.css';
 
-export default function GeneratePage() {
+export default function GeneratePage({ user }) {
+
+    function handleInputChange(event) {
+        setCreateFormData({
+            ...createFormData,
+            [event.target.name]: event.target.value
+        });
+    }
+
+    let userGoals = user.goals
+    console.log('GENERATE PAGE GOALS:', userGoals)
 
     const API_KEY_DISP = import.meta.env.VITE_OPENAI_KEY
     const navigate = useNavigate();
@@ -14,6 +24,7 @@ export default function GeneratePage() {
         image: '',
         description: '',
     });
+
     const [generatedData, setGeneratedData] = useState({
         image: '',
         description: '',
@@ -22,27 +33,9 @@ export default function GeneratePage() {
         date: '',
     });
 
-    const [goals, setGoals] = useState({});
-
-    useEffect(() => {
-        getCurrentUser()
-          .then(goals => setGoals(goals))
-          .then(console.log(goals))
-    }, []);
-
-    let goalInput = goals.goals;
-    console.log(goalInput)
-
-    function handleInputChange(event) {
-        setCreateFormData({
-            ...createFormData,
-            [event.target.name]: event.target.value
-        });
-    }
-
     const APIBody = {
         "model": "text-davinci-003",
-        "prompt": `Generate a caption with hashtags for an Instagram post about the following image: ${createFormData.description}. Make sure the caption is catchy, includes important details about the image and is optimized for maximum engagement. The user would like to ${goalInput} on their page.`,
+        "prompt": `Create a social media caption for a ${user.industry} company that provides ${user.goals}. The post features an image with the following description: ${createFormData.description}, showcasing the ${user.competitiveAdvantage}. Here are some keywords to consider ${createFormData.keywords} ${user.brandingKeywords}`,
 
         "temperature": 0,
         "max_tokens": 200,
@@ -93,7 +86,6 @@ export default function GeneratePage() {
         setLoading(false)
     }
     
-
     function handleSubmit(event) {
         event.preventDefault()
         postContent(generatedData)

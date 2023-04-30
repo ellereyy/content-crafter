@@ -2,26 +2,22 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { updateCurrentUser, getCurrentUser } from '../../../utils/backend'
 
-export default function ProfilePage() {
+export default function ProfilePage({ user, updateUser }) {
   const navigate = useNavigate();
-  const [user, setUser] = useState({});
+
+  const [editPreferences, setEditPreferences] = useState(false)
   const [userPreferences, setUserPreferences] = useState({
-    name: '',
-    handle: '',
-    goals: '',
-  })
-
-  useEffect(() => {
-    getCurrentUser()
-      .then(user => setUser(user))
-      .then(console.log(user))
-  }, []);
-
-  let userId = user._id
-
-  if (!user) {
-    return <p>no user data</p>;
-  } 
+    name: user.name,
+    businessName: user.businessName,
+    handle: user.handle,
+    goals: user.goals,
+    industry: user.industry,
+    brandingKeywords: user.brandingKeywords,
+    competitiveAdvantage: user.competitiveAdvantage,
+    valueProposition: user.valueProposition,
+    missionStatement: user.missionStatement,
+  });
+  
 
   function handleInputChange(event) {
     setUserPreferences({
@@ -32,57 +28,158 @@ export default function ProfilePage() {
 
   function handleSubmit(event) {
     event.preventDefault()
-    updateCurrentUser(userPreferences, userId)
-    navigate('/generate')
+    setEditPreferences(false)
+    updateCurrentUser(userPreferences, user._id)
+      // .then(() => updateUser(userPreferences))
+    // navigate('/generate')
   }
+  
 
   return (
     <div className="bg-slate-100 rounded-xl shadow-xl p-5 m-3">
 
       <h1 className="text-2xl font-bold mb-6">Profile</h1>
-      <h1>Welcome, {user.name}!</h1>
+      <h2 className="text-lg mb-4 font-bold">Welcome, {user.name}!</h2>
 
 
-      <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <label htmlFor="name" className="block font-bold mb-2">
-            Name
-          </label>
-          <input 
-            name="name" 
-            placeholder={user.name}
-            value={userPreferences.name} 
-            onChange={handleInputChange} 
-            className="px-2 py-1 rounded w-full border" 
-          />
+      {editPreferences === false ? (
+        <div>
+          <div className="flex flex-col mb-4">
+            <p className="text-sm font-medium text-gray-600 mb-2">Name:</p>
+            <p className="text-lg font-bold mb-2">{user.name}</p>
+          </div>
+          <div className="flex flex-col mb-4">
+            <p className="text-sm font-medium text-gray-600 mb-2">Business Name:</p>
+            <p className="text-lg font-bold mb-2">{user.businessName}</p>
+          </div>
+          <div className="flex flex-col mb-4">
+            <p className="text-sm font-medium text-gray-600 mb-2">Instagram Handle:</p>
+            <p className="text-lg font-bold mb-2">{user.handle}</p>
+          </div>
+          <div className="flex flex-col mb-4">
+            <p className="text-sm font-medium text-gray-600 mb-2">Goals:</p>
+            <p className="text-lg font-bold mb-2">{user.goals}</p>
+          </div>
+          <div className="flex flex-col mb-4">
+            <p className="text-sm font-medium text-gray-600 mb-2">Industry:</p>
+            <p className="text-lg font-bold mb-2">{user.industry}</p>
+          </div>
+          <div className="flex flex-col mb-4">
+            <p className="text-sm font-medium text-gray-600 mb-2">Branding Keywords:</p>
+            <p className="text-lg font-bold mb-2">{user.brandingKeywords}</p>
+          </div>
+          <div className="flex flex-col mb-4">
+            <p className="text-sm font-medium text-gray-600 mb-2">Competitive Advantage:</p>
+            <p className="text-lg font-bold mb-2">{user.competitiveAdvantage}</p>
+          </div>
+          <div className="flex flex-col mb-4">
+            <p className="text-sm font-medium text-gray-600 mb-2">Value Proposition:</p>
+            <p className="text-lg font-bold mb-2">{user.valueProposition}</p>
+          </div>
+          <div className="flex flex-col mb-4">
+            <p className="text-sm font-medium text-gray-600 mb-2">Mission Statement:</p>
+            <p className="text-lg font-bold mb-2">{user.missionStatement}</p>
+          </div>
+          <button 
+            onClick={() => { setEditPreferences(true) }}
+            className="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded">
+            Edit User Preferences
+          </button>
         </div>
-        <div className="mb-4">
-          <label htmlFor="handle" className="block font-bold mb-2">
-            Instagram Handle
-          </label>
-          <input 
-            name="handle"
-            placeholder={user.handle}
-            value={userPreferences.handle} 
-            onChange={handleInputChange} 
-            className="px-2 py-1 rounded w-full" 
-          />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="goals" className="block font-bold mb-2">Goals</label>
-          <textarea 
-            name="goals" 
-            placeholder={user.goals}
-            value={userPreferences.goals} 
-            onChange={handleInputChange} 
-            className="px-2 py-1 rounded w-full"
+      ) : (
+        <form onSubmit={handleSubmit} className="max-w-md mx-auto">
+          <div className="mb-4">
+            <label htmlFor="name" className="block text-gray-700 font-bold mb-2">Name:</label>
+            <input 
+              type="text"
+              name="name" 
+              value={userPreferences.name} 
+              onChange={handleInputChange} 
+              className="px-3 py-2 rounded-lg border-2 border-gray-300 w-full focus:outline-none focus:border-teal-500" 
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="handle" className="block text-gray-700 font-bold mb-2">Instagram Handle:</label>
+            <input 
+              type="text"
+              name="handle"
+              value={userPreferences.handle} 
+              onChange={handleInputChange} 
+              className="px-3 py-2 rounded-lg border-2 border-gray-300 w-full focus:outline-none focus:border-teal-500" 
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="businessName" className="block text-gray-700 font-bold mb-2">Business Name:</label>
+            <input 
+              name="businessName" 
+              value={userPreferences.businessName} 
+              onChange={handleInputChange} 
+              className="px-3 py-2 rounded-lg border-2 border-gray-300 w-full focus:outline-none focus:border-teal-500" 
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="goals" className="block text-gray-700 font-bold mb-2">Goals:</label>
+            <textarea 
+              name="goals" 
+              value={userPreferences.goals} 
+              onChange={handleInputChange} 
+              className="px-3 py-2 rounded-lg border-2 border-gray-300 w-full focus:outline-none focus:border-teal-500"
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="industry" className="block text-gray-700 font-bold mb-2">Industry:</label>
+            <input
+              name="industry"
+              value={userPreferences.industry}
+              onChange={handleInputChange}
+              className="px-3 py-2 rounded-lg border-2 border-gray-300 w-full focus:outline-none focus:border-teal-500"
+            />
+          </div>
+          <div className="mb-4"> 
+            <label htmlFor="brandingKeywords" className="block text-gray-700 font-bold mb-2">Branding Keywords:</label>
+            <input
+              name="brandingKeywords"
+              value={userPreferences.brandingKeywords}
+              onChange={handleInputChange}
+              className="px-3 py-2 rounded-lg border-2 border-gray-300 w-full focus:outline-none focus:border-teal-500"
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="competitiveAdvantage" className="block text-gray-700 font-bold mb-2">Competitive Advantage:</label>
+            <input
+              name="competitiveAdvantage"
+              value={userPreferences.competitiveAdvantage}
+              onChange={handleInputChange}
+              className="px-3 py-2 rounded-lg border-2 border-gray-300 w-full focus:outline-none focus:border-teal-500"
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="valueProposition" className="block text-gray-700 font-bold mb-2">Value Proposition:</label>
+            <input
+              name="valueProposition"
+              value={userPreferences.valueProposition}
+              onChange={handleInputChange}
+              className="px-3 py-2 rounded-lg border-2 border-gray-300 w-full focus:outline-none focus:border-teal-500"
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="missionStatement" className="block text-gray-700 font-bold mb-2">Mission Statement:</label>
+            <input
+              name="missionStatement"
+              value={userPreferences.missionStatement}
+              onChange={handleInputChange}
+              className="px-3 py-2 rounded-lg border-2 border-gray-300 w-full focus:outline-none focus:border-teal-500"
+            />
+          </div>
+          <button 
+            type="submit" 
+            className="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded"
           >
-          </textarea>
-        </div>
-        <button type="submit" className="bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded">
-          Save Profile
-        </button>
-      </form>
+            Save Profile
+          </button>
+        </form>
+
+      )}
     </div>
   )
 }

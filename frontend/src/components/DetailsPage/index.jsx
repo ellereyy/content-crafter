@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 
-import { getContent, deleteContent, updateContent } from "../../../utils/backend"
+import { getContent, deleteContent, updateContent, getPost } from "../../../utils/backend"
 
-export default function DetailsPage({ updatePosts, postInfo }) {
+export default function DetailsPage({ updatePosts, postInfo, user }) {
 
     const navigate = useNavigate()
 
@@ -12,15 +12,6 @@ export default function DetailsPage({ updatePosts, postInfo }) {
         image: postInfo.image,
         caption: postInfo.caption
     })
-
-    // const { id } = useParams()
-
-    // useEffect(() => {
-    //     if (!postInfo) {
-    //         getContent(`/api/posts/${id}`)
-    //             .then(res => updatePosts(res.data))
-    //     }
-    // }, [])
 
     function handleDelete() {
         deleteContent(postInfo._id)
@@ -40,6 +31,9 @@ export default function DetailsPage({ updatePosts, postInfo }) {
         updateContent(editDetails, postInfo._id)
             .then(() => updatePosts(editDetails))
     }
+    const date = new Date(postInfo.date);
+    const formattedDate = `Post at: ${date.toLocaleDateString()} | ${date.toLocaleTimeString()}`;
+
     
     return (
         <>
@@ -50,7 +44,8 @@ export default function DetailsPage({ updatePosts, postInfo }) {
 
             {showEditForm === false ?
                 <div className="flex flex-col">
-                    <p className="py-5 text-lg">{postInfo.caption}</p>
+                    <p className="py-5 text-lg"> <strong>@{user.handle}</strong> {postInfo.caption}</p>
+                    <p>{formattedDate}</p>
                     <div className="flex justify-between p-5">
                         <button 
                             onClick={() => { setShowEditForm(true) }}
@@ -63,9 +58,7 @@ export default function DetailsPage({ updatePosts, postInfo }) {
                         </button>
                     </div>
                 </div>
-
-                :
-
+            :
                 <form onSubmit={handleEditSubmit} className="flex flex-col mt-2">
                     <input 
                         name="image"
@@ -80,11 +73,17 @@ export default function DetailsPage({ updatePosts, postInfo }) {
                         className="my-3 p-2 rounded-lg"
                         rows={5}
                     />
+                    <input 
+                        name="date"
+                        value={editDetails.date}
+                        onChange={handleEditChange}
+                        className="my-3 p-2 rounded-lg"
+                    />
                     <button type="submit" className="bg-slate-500 py-2 my-2 rounded text-white hover:bg-slate-600">
                         Submit
                     </button>
                 </form>
-                }
+            }
             </div>
 
 
@@ -96,3 +95,16 @@ export default function DetailsPage({ updatePosts, postInfo }) {
         </>
     )
 }
+
+
+    // const { id } = useParams()
+    // useEffect(() => {
+    //     if (postInfo = []) {
+    //         console.log('🚫')
+    //         getContent()
+    //             .then(res => {
+    //                 updatePosts(res.id)
+    //                 console.log('🚫', res)
+    //             })
+    //     }
+    // }, [])
