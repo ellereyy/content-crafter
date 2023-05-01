@@ -6,9 +6,9 @@ SOCAI is a web application that helps users generate caption content and suggest
 
 ## Screenshots
 
-![SOCAI Landing Page](test.png)
-![SOCAI Dashboard](test.png)
-![SOCAI Profile](test.png)
+![SOCAI Landing Page](frontend/src/assets/socai-sched.png)
+![SOCAI Dashboard](frontend/src/assets/socai-home.png)
+![SOCAI Profile](frontend/src/assets/socai-gen.png)
 
 ## Technologies Used
 
