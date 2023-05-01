@@ -6,38 +6,23 @@ import { getContent, deleteContent, updateContent, getPost } from "../../../util
 export default function DetailsPage({ updatePosts, postInfo, user }) {
 
     const navigate = useNavigate()
-
     const [showEditForm, setShowEditForm] = useState(false)
     const [editDetails, setEditDetails] = useState({
         image: postInfo.image,
-        caption: postInfo.caption
+        caption: postInfo.caption,
+        date: postInfo.date
     })
- 
-    let { id } = useParams()
-    // console.log(id)
-    useEffect(() => {
-        if (!postInfo.caption) {
-            console.log('🚫 post info is empty')
-            // getContent()
-            //     .then(res => {
-            //         updatePosts(res.id)
-            //         console.log('🚫', res)
-            //     })
-        }
-    }, [])
 
     function handleDelete() {
         deleteContent(postInfo._id)
             .then(() => navigate('/content'))
     }
-
     function handleEditChange(event) {
         setEditDetails({
             ...editDetails,
             [event.target.name]: event.target.value
         });
     }
-
     function handleEditSubmit(event) {
         event.preventDefault()
         setShowEditForm(false)
@@ -45,9 +30,8 @@ export default function DetailsPage({ updatePosts, postInfo, user }) {
             .then(() => updatePosts(editDetails))
     }
     const date = new Date(postInfo.date);
-    const formattedDate = `Post at: ${date.toLocaleDateString()} | ${date.toLocaleTimeString()}`;
+    const formattedDate = date.toLocaleDateString();
 
-    
     return (
         <>
             <h1 className="text-2xl font-bold mb-6">Post Details</h1>
@@ -73,24 +57,28 @@ export default function DetailsPage({ updatePosts, postInfo, user }) {
                 </div>
             :
                 <form onSubmit={handleEditSubmit} className="flex flex-col mt-2">
+                    <label className="font-bold mb-1 text-gray-800">Image URL:</label>
                     <input 
                         name="image"
                         value={editDetails.image}
                         onChange={handleEditChange}
-                        className="my-3 p-2 rounded-lg"
+                        className="my-3 p-2 border rounded-lg"
                     />
+                    <label className="font-bold mb-1 text-gray-800">Caption:</label>
                     <textarea 
                         name="caption"
                         value={editDetails.caption}
                         onChange={handleEditChange}
-                        className="my-3 p-2 rounded-lg"
+                        className="my-3 p-2 border rounded-lg"
                         rows={5}
                     />
+                    <label className="font-bold mb-1 text-gray-800">Date:</label>
                     <input 
                         name="date"
-                        value={editDetails.date}
+                        type="date"
+                        value={postInfo.date}
                         onChange={handleEditChange}
-                        className="my-3 p-2 rounded-lg"
+                        className="my-3 p-2 border rounded-lg"
                     />
                     <button type="submit" className="bg-slate-500 py-2 my-2 rounded text-white hover:bg-slate-600">
                         Submit
@@ -98,7 +86,6 @@ export default function DetailsPage({ updatePosts, postInfo, user }) {
                 </form>
             }
             </div>
-
 
             <div>
                 <Link to="/content">
@@ -108,5 +95,3 @@ export default function DetailsPage({ updatePosts, postInfo, user }) {
         </>
     )
 }
-
-

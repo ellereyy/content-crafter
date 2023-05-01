@@ -24,30 +24,23 @@ function App() {
   const location = useLocation();
 
   useEffect(() => {
-    console.log('running user useEffect')
     if (isAuthenticated === 'true') {
-      // console.log('running user useEffect for conditional', isAuthenticated)
       getCurrentUser()
         .then(user => { 
           setUser(user)
-          // console.log(`User: ${user.name}`)
         })
     }
   }, [location]);
 
   useEffect(() => {
-    console.log('running content useEffect')
     if (isAuthenticated === 'true') {
-      // console.log('running content useEffect for conditional', isAuthenticated)
       getContent()
         .then(content => {
           setContent(content)
-          // console.log(`Content: ${content.length} posts`)
         })
     }
   }, [location])
 
-  // console.log(user)
 
   let sortedContent = content.sort((a, b) => new Date(a.date) - new Date(b.date));
 
@@ -65,7 +58,6 @@ function App() {
     setUser({});
     setContent([]);
     navigate("/")
-    console.log(user, content, isAuthenticated)
   }
 
   let logOutBtn = null

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { postContent } from "../../../utils/backend";
 
 import '../../index.css';
@@ -27,7 +27,11 @@ export default function GeneratePage({ user }) {
         caption: '',
         date: '',
     });
-    const [time, setTime] = useState('')
+
+    const currentDate = new Date(Date.now() + 1 * 24 * 60 * 60 * 1000);
+    const futureDate = new Date(Date.now() + 15 * 24 * 60 * 60 * 1000);
+    const randomDate = new Date(currentDate.getTime() + Math.random() * (futureDate.getTime() - currentDate.getTime()));
+    const datePicker = randomDate.toISOString().slice(0, 10);
 
     const APIBody = {
         "model": "text-davinci-003",
@@ -42,19 +46,18 @@ export default function GeneratePage({ user }) {
     async function generateAi(event) {
         event.preventDefault()
         setLoading(true)
-        console.log('calling ai api....')
+        // console.log('calling ai api....')
         await fetch("https://api.openai.com/v1/completions", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${API_KEY_DISP}`
             },
-            body: JSON.stringify(APIBodyTime)
+            body: JSON.stringify(APIBody)
         }).then((data) =>  {
             return data.json()
         }).then((data) => {
             const aiResponse = data.choices[0].text.trim()
-            console.log(aiResponse)
             setGeneratedData({
                 image: createFormData.image,
                 description: createFormData.description,
@@ -62,13 +65,13 @@ export default function GeneratePage({ user }) {
                 targetAudience: createFormData.targetAudience,
                 goals: createFormData.goals,
                 caption: aiResponse,
+                date: datePicker,
             })
         })
         .finally(() => setLoading(false))
     }
 
     function handleInputChange(event) {
-        // console.log(event.target.name, event.target.value)
         setCreateFormData({
             ...createFormData,
             [event.target.name]: event.target.value

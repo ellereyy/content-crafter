@@ -16,17 +16,6 @@ export default function ProfilePage({ user, setUser }) {
     missionStatement: user.missionStatement,
   });
 
-  // console.log(userPreferences.name)
-
-  useEffect(()=> {
-    if (!userPreferences.name) {
-      console.log('🚫 userPreferences is undefined')
-      // getCurrentUser()
-      //   .then(user => setUser(user))
-        // .then(console.log(userPreferences.name))
-    }
-  }, [])
-
   function handleInputChange(event) {
     setUserPreferences({
         ...userPreferences,

@@ -13,8 +13,6 @@ export default function LandingPage({ user }) {
     welcome = <p className="text-xl">Welcome! Get Started</p>;
   }
 
-  // console.log(user.email)
-
   return (
     <div className="flex flex-col items-center justify-center">
 

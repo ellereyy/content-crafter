@@ -9,7 +9,7 @@ const seedPosts =
     keywords: "backcountry, hiking, nature",
     targetAudience: "Adventure seekers looking for a challenge",
     caption: "Join us on an unforgettable backcountry hike through the mountains! Our expert guides will lead you on a challenging but rewarding journey through some of the most beautiful natural scenery in the world.",
-    date: new Date("2023-05-01T12:00:00Z"),
+    date: "2023-05-01",
     userId: new mongoose.Types.ObjectId('644ad59f9f1e02894322664b'),
 },
   {
@@ -18,7 +18,7 @@ const seedPosts =
     keywords: "backcountry, hiking, river",
     targetAudience: "Hikers looking for an exciting new challenge",
     caption: "Looking for a new hiking challenge? Our backcountry guides can take you on an adventure you'll never forget! From crossing rivers to scaling mountains, we'll help you push your limits and experience the beauty of nature like never before.",
-    date: new Date("2023-05-05T10:00:00Z"),
+    date: "2023-05-06",
     userId: new mongoose.Types.ObjectId('644ad59f9f1e02894322664b'),
   },
   {
@@ -27,7 +27,7 @@ const seedPosts =
     keywords: "backcountry, hiking, view",
     targetAudience: "Nature enthusiasts looking for a unique experience",
     caption: "Get off the beaten path and explore the backcountry with our expert guides! From breathtaking mountain vistas to stunning forest landscapes, we'll take you on a journey through some of the most beautiful natural scenery in the world.",
-    date: new Date("2023-05-10T14:00:00Z"),
+    date: "2023-05-10",
     userId: new mongoose.Types.ObjectId('644ad59f9f1e02894322664b'),
   }
 ]
