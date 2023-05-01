@@ -46,8 +46,6 @@ export default function ProfilePage({ user, setUser }) {
     <div className="bg-slate-100 rounded-xl shadow-xl p-5 m-3">
 
       <h1 className="text-2xl font-bold mb-6">Profile</h1>
-      <h2 className="text-lg mb-4 font-bold">Welcome, {user.name}!</h2>
-
 
       {editPreferences === false ? (
         <div>

@@ -11,6 +11,7 @@ import AuthFormPage from '../AuthFormPage'
 import LandingPage from '../LandingPage/index.jsx'
 
 import { getContent, getCurrentUser } from '../../../utils/backend.js'
+import '../../index.css'
 
 function App() {
 
@@ -44,13 +45,20 @@ function App() {
 
   let sortedContent = content.sort((a, b) => new Date(a.date) - new Date(b.date));
 
-  let postDisplay = <p>No posts to display</p>
+  let postDisplay = (
+    <div className='mt-3'>
+      <p>No posts to display</p>
+      <br />
+      <Link to="/generate" className="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded">
+        Create a new post
+      </Link>
+    </div>
+  )
   if (sortedContent.length > 0) {
     postDisplay = sortedContent.map((post, i) => (
       <Card key={i} user={user} postInfo={post} updateDetailsPage={setDetailsPage}/>
     ));
   }
-  
 
   function handleLogOut() {
     localStorage.removeItem("userToken");
@@ -63,6 +71,17 @@ function App() {
   let logOutBtn = null
   if (isAuthenticated === "true") {
     logOutBtn = <button onClick={handleLogOut} className="text-lg hover:text-xl">Log Out</button>
+  }
+
+  let helloHeader = null
+  if (isAuthenticated === "true" && user.name) {
+    helloHeader = (
+      <div className="w-full">
+          <h1 className="text-2xl font-bold my-2 py-10 px-3 text-white">
+            Hello, @{user.handle}!
+          </h1>
+      </div>
+    );
   }
 
   return (
@@ -81,7 +100,7 @@ function App() {
               <Link to="/content" className="text-center p-4 my-5 text-lg hover:bg-slate-100 rounded-lg">Scheduled Posts</Link>          
               <Link to="/generate" className="text-center p-4 my-5 text-lg hover:bg-slate-100 rounded-lg">Generate Content</Link>
             </div> 
-            <p className="w-full bg-slate-200">{user.name}</p>
+            <div className="img-bg"> {helloHeader} </div>
           </div>
           :
           <div className="flex justify-between">
