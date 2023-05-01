@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
+import DetailsPage from '../DetailsPage';
 
 export default function Card({ postInfo, updateDetailsPage, user }) {
+
     return (
         <div className="bg-white rounded-lg overflow-hidden shadow-lg transform hover:-translate-y-1 transition-all duration-300 m-10">
             <Link 
@@ -13,4 +15,5 @@ export default function Card({ postInfo, updateDetailsPage, user }) {
             </Link>
         </div>
     )
+
 }

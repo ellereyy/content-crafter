@@ -80,11 +80,6 @@ router.get('/', async (req, res) => {
     }
 })
 
-// router.get('/:id', function (req, res) {
-//     db.Post.findById(req.params.id)
-//         .then(post => res.json(post))
-// })
-
 router.put('/:id', (req, res) => {
     db.User.findByIdAndUpdate(
         req.params.id,
@@ -116,7 +111,10 @@ module.exports = router
 
 
 
-
+// router.get('/:id', function (req, res) {
+//     db.Post.findById(req.params.id)
+//         .then(post => res.json(post))
+// })
 
 
 // edit the user model

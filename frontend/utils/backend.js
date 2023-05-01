@@ -40,7 +40,7 @@ export async function deleteContent(id) {
 ------------------------------------------------------------------------ */
 
 export async function updateCurrentUser(user, id) {
-  console.log('✨ updating user')
+  console.log('✨ updating user', user)
   const { data } = await axios.put(`/api/users/${id}`, user);
   return data;
 }

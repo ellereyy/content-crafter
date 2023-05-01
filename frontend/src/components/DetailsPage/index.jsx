@@ -12,6 +12,19 @@ export default function DetailsPage({ updatePosts, postInfo, user }) {
         image: postInfo.image,
         caption: postInfo.caption
     })
+ 
+    let { id } = useParams()
+    // console.log(id)
+    useEffect(() => {
+        if (!postInfo.caption) {
+            console.log('🚫 post info is empty')
+            // getContent()
+            //     .then(res => {
+            //         updatePosts(res.id)
+            //         console.log('🚫', res)
+            //     })
+        }
+    }, [])
 
     function handleDelete() {
         deleteContent(postInfo._id)
@@ -97,14 +110,3 @@ export default function DetailsPage({ updatePosts, postInfo, user }) {
 }
 
 
-    // const { id } = useParams()
-    // useEffect(() => {
-    //     if (postInfo = []) {
-    //         console.log('🚫')
-    //         getContent()
-    //             .then(res => {
-    //                 updatePosts(res.id)
-    //                 console.log('🚫', res)
-    //             })
-    //     }
-    // }, [])

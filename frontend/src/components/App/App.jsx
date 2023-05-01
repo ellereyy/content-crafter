@@ -14,37 +14,40 @@ import { getContent, getCurrentUser } from '../../../utils/backend.js'
 
 function App() {
 
-  // const [authHeader, setAuthHeader] = useState({})
   const [content, setContent] = useState([])
   const [detailsPage, setDetailsPage] = useState([])
   const [user, setUser] = useState({});
+  
 
   let isAuthenticated = localStorage.getItem("isAuthenticated")
-  // console.log('Authentication satus:', isAuthenticated)
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
+    console.log('running user useEffect')
     if (isAuthenticated === 'true') {
-      // console.log('3. Checking auth for user:', isAuthenticated)
+      // console.log('running user useEffect for conditional', isAuthenticated)
       getCurrentUser()
         .then(user => { 
           setUser(user)
-          console.log(`User: ${user.name}`)
+          // console.log(`User: ${user.name}`)
         })
     }
-  }, []);
+  }, [location]);
 
   useEffect(() => {
+    console.log('running content useEffect')
     if (isAuthenticated === 'true') {
-      // console.log('2. Checking auth for posts:', isAuthenticated)
+      // console.log('running content useEffect for conditional', isAuthenticated)
       getContent()
         .then(content => {
           setContent(content)
-          console.log(`Content: ${content.length} posts`)
+          // console.log(`Content: ${content.length} posts`)
         })
     }
   }, [location])
+
+  // console.log(user)
 
   let postDisplay = <p>No posts to display</p>
   if (content.length > 0) {
@@ -55,7 +58,10 @@ function App() {
   function handleLogOut() {
     localStorage.removeItem("userToken");
     localStorage.setItem("isAuthenticated", false);
-    navigate("/");
+    setUser({});
+    setContent([]);
+    navigate("/")
+    console.log(user, content, isAuthenticated)
   }
 
   let logOutBtn = null
@@ -93,7 +99,7 @@ function App() {
         <Route path="/content/:id" element={<DetailsPage postInfo={detailsPage} updatePosts={setDetailsPage} user={user}/>} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/auth/:formType" element={<AuthFormPage />} />
-        <Route path="/profile" element={<ProfilePage user={user} updateUser={setUser} />} />
+        <Route path="/profile" element={<ProfilePage user={user} setUser={setUser} />} />
         <Route path="/generate" element={<GeneratePage postInfo={detailsPage} user={user}/>} />
       </Routes> 
 
@@ -102,17 +108,3 @@ function App() {
 }
 
 export default App;
-
-
-// useEffect(() => {
-//   let authStatus = localStorage.getItem("isAuthenticated")
-//   console.log('grabbing posts')
-//   console.log(isAuthenticated)
-//   if (authStatus === "true") {
-//     const authHeader = { headers: { 'Authorization': localStorage.getItem('userToken') } }
-//     setAuthHeader(authHeader)
-//     // console.log(localStorage.getItem('userToken'))
-//     getContent(authHeader)
-//       .then(res => setContent(res))
-//   }
-// }, [location])
