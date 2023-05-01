@@ -9,6 +9,12 @@ export default function LandingPage({ user }) {
     welcome = <p className="text-xl">Hello {user.name}! Create a new post or view your scheduled posts.</p>;
   }
 
+  if (isAuthenticated === "true" & user.name === undefined) {
+    welcome = <p className="text-xl">Welcome! Get Started</p>;
+  }
+
+  // console.log(user.email)
+
   return (
     <div className="flex flex-col items-center justify-center">
 

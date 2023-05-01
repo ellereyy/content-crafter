@@ -79,11 +79,14 @@ function App() {
 
       <div className="flex flex-col">
         {isAuthenticated === "true" ? 
-          <div className="flex justify-between">
-            <Link to="/profile" className="text-center p-4 my-5 text-lg hover:bg-slate-100 rounded-lg">Profile</Link>
-            <Link to="/content" className="text-center p-4 my-5 text-lg hover:bg-slate-100 rounded-lg">Scheduled Posts</Link>          
-            <Link to="/generate" className="text-center p-4 my-5 text-lg hover:bg-slate-100 rounded-lg">Generate Content</Link>
-          </div> 
+          <div>
+            <div className="flex justify-between">
+              <Link to="/profile" className="text-center p-4 my-5 text-lg hover:bg-slate-100 rounded-lg">Profile</Link>
+              <Link to="/content" className="text-center p-4 my-5 text-lg hover:bg-slate-100 rounded-lg">Scheduled Posts</Link>          
+              <Link to="/generate" className="text-center p-4 my-5 text-lg hover:bg-slate-100 rounded-lg">Generate Content</Link>
+            </div> 
+            <p className="w-full bg-slate-200">{user.name}</p>
+          </div>
           :
           <div className="flex justify-between">
             <Link to="/home" className="text-center p-4 my-5 text-lg hover:bg-slate-100 rounded-lg">Home</Link>

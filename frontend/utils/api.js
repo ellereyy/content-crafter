@@ -28,6 +28,8 @@
 // }
 
 
+// `Create a social media caption for a ${user.industry} company that provides ${user.goals}. The post features an image with the following description: ${createFormData.description}, showcasing the ${user.competitiveAdvantage}. Here are some keywords to consider ${createFormData.keywords} ${user.brandingKeywords}`
+
 
 // "Generate a caption for an Instagram post promoting our brand, using the following details:\n\nTitle: [post title]\nCaption keywords: [comma-separated list of keywords]\nCall to action: [call to action]\nVisual style: [visual style]\nHashtags: [comma-separated list of hashtags]\nPost time: [post time]\n\nOur brand is [branding keywords] and our mission is [mission statement]. Our competitive advantage is [competitive advantage] and our value proposition is [value proposition]. We are targeting [target audience] in the [industry] industry."
 
