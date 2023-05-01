@@ -11,6 +11,7 @@ import AuthFormPage from '../AuthFormPage'
 import LandingPage from '../LandingPage/index.jsx'
 
 import { getContent, getCurrentUser } from '../../../utils/backend.js'
+import '../../index.css'
 
 function App() {
 
@@ -24,35 +25,39 @@ function App() {
   const location = useLocation();
 
   useEffect(() => {
-    console.log('running user useEffect')
     if (isAuthenticated === 'true') {
-      // console.log('running user useEffect for conditional', isAuthenticated)
       getCurrentUser()
         .then(user => { 
           setUser(user)
-          // console.log(`User: ${user.name}`)
         })
     }
   }, [location]);
 
   useEffect(() => {
-    console.log('running content useEffect')
     if (isAuthenticated === 'true') {
-      // console.log('running content useEffect for conditional', isAuthenticated)
       getContent()
         .then(content => {
           setContent(content)
-          // console.log(`Content: ${content.length} posts`)
         })
     }
   }, [location])
 
-  // console.log(user)
 
-  let postDisplay = <p>No posts to display</p>
-  if (content.length > 0) {
-    postDisplay = content
-      .map((post, i) => <Card key={i} user={user} postInfo={post} updateDetailsPage={setDetailsPage}/> );
+  let sortedContent = content.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+  let postDisplay = (
+    <div className='mt-3'>
+      <p>No posts to display</p>
+      <br />
+      <Link to="/generate" className="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded">
+        Create a new post
+      </Link>
+    </div>
+  )
+  if (sortedContent.length > 0) {
+    postDisplay = sortedContent.map((post, i) => (
+      <Card key={i} user={user} postInfo={post} updateDetailsPage={setDetailsPage}/>
+    ));
   }
 
   function handleLogOut() {
@@ -61,12 +66,22 @@ function App() {
     setUser({});
     setContent([]);
     navigate("/")
-    console.log(user, content, isAuthenticated)
   }
 
   let logOutBtn = null
   if (isAuthenticated === "true") {
     logOutBtn = <button onClick={handleLogOut} className="text-lg hover:text-xl">Log Out</button>
+  }
+
+  let helloHeader = null
+  if (isAuthenticated === "true" && user.name) {
+    helloHeader = (
+      <div className="w-full">
+          <h1 className="text-2xl font-bold my-2 py-10 px-3 text-white">
+            Hello, @{user.handle}!
+          </h1>
+      </div>
+    );
   }
 
   return (
@@ -79,11 +94,14 @@ function App() {
 
       <div className="flex flex-col">
         {isAuthenticated === "true" ? 
-          <div className="flex justify-between">
-            <Link to="/profile" className="text-center p-4 my-5 text-lg hover:bg-slate-100 rounded-lg">Profile</Link>
-            <Link to="/content" className="text-center p-4 my-5 text-lg hover:bg-slate-100 rounded-lg">Scheduled Posts</Link>          
-            <Link to="/generate" className="text-center p-4 my-5 text-lg hover:bg-slate-100 rounded-lg">Generate Content</Link>
-          </div> 
+          <div>
+            <div className="flex justify-between">
+              <Link to="/profile" className="text-center p-4 my-5 text-lg hover:bg-slate-100 rounded-lg">Profile</Link>
+              <Link to="/content" className="text-center p-4 my-5 text-lg hover:bg-slate-100 rounded-lg">Scheduled Posts</Link>          
+              <Link to="/generate" className="text-center p-4 my-5 text-lg hover:bg-slate-100 rounded-lg">Generate Content</Link>
+            </div> 
+            <div className="img-bg"> {helloHeader} </div>
+          </div>
           :
           <div className="flex justify-between">
             <Link to="/home" className="text-center p-4 my-5 text-lg hover:bg-slate-100 rounded-lg">Home</Link>
