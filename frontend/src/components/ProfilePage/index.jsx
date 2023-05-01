@@ -13,8 +13,6 @@ export default function ProfilePage({ user, setUser }) {
     goals: user.goals,
     industry: user.industry,
     brandingKeywords: user.brandingKeywords,
-    competitiveAdvantage: user.competitiveAdvantage,
-    valueProposition: user.valueProposition,
     missionStatement: user.missionStatement,
   });
 
@@ -74,7 +72,7 @@ export default function ProfilePage({ user, setUser }) {
           </div>
           <div className="flex flex-col mb-4">
             <p className="text-sm font-medium text-gray-600 mb-2">Instagram Handle:</p>
-            <p className="text-lg font-bold mb-2">{user.handle}</p>
+            <p className="text-lg font-bold mb-2">@{user.handle}</p>
           </div>
           <div className="flex flex-col mb-4">
             <p className="text-sm font-medium text-gray-600 mb-2">Goals:</p>
@@ -83,18 +81,6 @@ export default function ProfilePage({ user, setUser }) {
           <div className="flex flex-col mb-4">
             <p className="text-sm font-medium text-gray-600 mb-2">Industry:</p>
             <p className="text-lg font-bold mb-2">{user.industry}</p>
-          </div>
-          <div className="flex flex-col mb-4">
-            <p className="text-sm font-medium text-gray-600 mb-2">Branding Keywords:</p>
-            <p className="text-lg font-bold mb-2">{user.brandingKeywords}</p>
-          </div>
-          <div className="flex flex-col mb-4">
-            <p className="text-sm font-medium text-gray-600 mb-2">Competitive Advantage:</p>
-            <p className="text-lg font-bold mb-2">{user.competitiveAdvantage}</p>
-          </div>
-          <div className="flex flex-col mb-4">
-            <p className="text-sm font-medium text-gray-600 mb-2">Value Proposition:</p>
-            <p className="text-lg font-bold mb-2">{user.valueProposition}</p>
           </div>
           <div className="flex flex-col mb-4">
             <p className="text-sm font-medium text-gray-600 mb-2">Mission Statement:</p>
@@ -121,7 +107,7 @@ export default function ProfilePage({ user, setUser }) {
             </div>
             <div className="mb-4">
               <label htmlFor="handle" className="block text-gray-700 font-bold mb-2">Instagram Handle:</label>
-              <input 
+              <span className="font-bold">@</span><input 
                 type="text"
                 name="handle"
                 value={userPreferences.handle} 
@@ -152,33 +138,6 @@ export default function ProfilePage({ user, setUser }) {
               <input
                 name="industry"
                 value={userPreferences.industry}
-                onChange={handleInputChange}
-                className="px-3 py-2 rounded-lg border-2 border-gray-300 w-full focus:outline-none focus:border-teal-500"
-              />
-            </div>
-            <div className="mb-4"> 
-              <label htmlFor="brandingKeywords" className="block text-gray-700 font-bold mb-2">Branding Keywords:</label>
-              <input
-                name="brandingKeywords"
-                value={userPreferences.brandingKeywords}
-                onChange={handleInputChange}
-                className="px-3 py-2 rounded-lg border-2 border-gray-300 w-full focus:outline-none focus:border-teal-500"
-              />
-            </div>
-            <div className="mb-4">
-              <label htmlFor="competitiveAdvantage" className="block text-gray-700 font-bold mb-2">Competitive Advantage:</label>
-              <input
-                name="competitiveAdvantage"
-                value={userPreferences.competitiveAdvantage}
-                onChange={handleInputChange}
-                className="px-3 py-2 rounded-lg border-2 border-gray-300 w-full focus:outline-none focus:border-teal-500"
-              />
-            </div>
-            <div className="mb-4">
-              <label htmlFor="valueProposition" className="block text-gray-700 font-bold mb-2">Value Proposition:</label>
-              <input
-                name="valueProposition"
-                value={userPreferences.valueProposition}
                 onChange={handleInputChange}
                 className="px-3 py-2 rounded-lg border-2 border-gray-300 w-full focus:outline-none focus:border-teal-500"
               />

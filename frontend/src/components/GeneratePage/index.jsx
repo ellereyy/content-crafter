@@ -16,6 +16,7 @@ export default function GeneratePage({ user }) {
         keywords: '',
         targetAudience: '',
         goals: '',
+        creative: '',
     });
     const [generatedData, setGeneratedData] = useState({
         image: '',
@@ -26,18 +27,18 @@ export default function GeneratePage({ user }) {
         caption: '',
         date: '',
     });
+    const [time, setTime] = useState('')
 
     const APIBody = {
         "model": "text-davinci-003",
-        "prompt": `Create a social media caption for a company called ${user.businessName} with the following information about a photo:\n\nImage Description: ${createFormData.description}\nMarketing Keywords: ${createFormData.keywords}\nTarget Audience: ${createFormData.targetAudience}\nGoals of this post: ${createFormData.goals}\n\nCaption:`,
-
-        "temperature": 0,
-        "max_tokens": 200,
+        "prompt": `Create an instagram caption for a company called ${user.businessName} in the ${user.industry} industry with the following information about a photo:\n\nImage Description: ${createFormData.description}\nPrimary marketing goal: ${createFormData.goals}\nSecondary marketing goal: ${createFormData.keywords}\nTarget Audience: ${createFormData.targetAudience}\nAdditonal creative direction: ${createFormData.creative}\n\nCaption: `,
+        "temperature": 0.7,
+        "max_tokens": 250,
         "top_p": 1.0,
-        "frequency_penalty": 0.5,
+        "frequency_penalty": 0.2,
         "presence_penalty": 0.0
     }
-    
+
     async function generateAi(event) {
         event.preventDefault()
         setLoading(true)
@@ -48,7 +49,7 @@ export default function GeneratePage({ user }) {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${API_KEY_DISP}`
             },
-            body: JSON.stringify(APIBody)
+            body: JSON.stringify(APIBodyTime)
         }).then((data) =>  {
             return data.json()
         }).then((data) => {
@@ -66,24 +67,8 @@ export default function GeneratePage({ user }) {
         .finally(() => setLoading(false))
     }
 
-    // mock ai api call for testing 
-    async function fakeGenerate(event) {
-        event.preventDefault()
-        setLoading(true)
-        console.log('calling fake ai api....')
-    
-        await new Promise(resolve => setTimeout(resolve, 1000))
-    
-        setGeneratedData({
-            image: createFormData.image,
-            description: createFormData.description,
-            caption: 'instagram caption goes here!! #ad',
-        })
-    
-        setLoading(false)
-    }
-
     function handleInputChange(event) {
+        // console.log(event.target.name, event.target.value)
         setCreateFormData({
             ...createFormData,
             [event.target.name]: event.target.value
@@ -104,11 +89,7 @@ export default function GeneratePage({ user }) {
                 <h1 className="text-2xl font-bold pb-1">Generate Content</h1>
                 <p>Use this tool to generate content for your social media posts. Simply enter an image url and a description of the image, and we'll generate a caption for you!</p>
             </div>
-            <div className="py-4">
-                <p>User Profile Information:</p>
-                <p>These are your profile settings that will be used to generate content.</p>
-                <p>Goals: {user.goals}</p>
-            </div>
+            
             <p className="pt-4 font-bold text-lg">Content Create Form:</p>
             <form onSubmit={generateAi} className="flex flex-col">
                 <label className="flex flex-col mb-2">
@@ -132,28 +113,8 @@ export default function GeneratePage({ user }) {
                     />
                 </label>
                 <label className="flex flex-col mb-2">
-                    Goals:
-                    <textarea 
-                        name="goals"
-                        placeholder="What would you like to get out of this post? I.e. increase sales, or increase brand awareness"
-                        value={createFormData.goals}
-                        onChange={handleInputChange}
-                        className="border border-gray-400 p-2 rounded mt-2"
-                    />
-                </label>
-                <label className="flex flex-col mb-2">
-                    Keywords:
-                    <textarea 
-                        name="keywords"
-                        placeholder="add any keywords you'd like to include here"
-                        value={createFormData.keywords}
-                        onChange={handleInputChange}
-                        className="border border-gray-400 p-2 rounded mt-2"
-                    />
-                </label>
-                <label className="flex flex-col mb-2">
                     Target Audience:
-                    <textarea 
+                    <input 
                         name="targetAudience"
                         placeholder="age, gender, location, etc."
                         value={createFormData.targetAudience}
@@ -161,6 +122,84 @@ export default function GeneratePage({ user }) {
                         className="border border-gray-400 p-2 rounded mt-2"
                     />
                 </label>
+                <label className="flex flex-col mb-2"> Goals: 
+                    <label className="p-1">
+                        <input 
+                            type="radio" 
+                            name="goals" 
+                            value="Increase engagement" 
+                            onChange={handleInputChange}
+                            checked={createFormData.goals === "Increase engagement"} 
+                            className="mr-2"
+                        />
+                        Increase engagement
+                    </label>
+                    <label className="p-1">
+                        <input 
+                            type="radio" 
+                            name="goals" 
+                            value="Drive website traffic" 
+                            onChange={handleInputChange}
+                            checked={createFormData.goals === "Drive website traffic"} 
+                            className="mr-2"
+                        />
+                        Drive website traffic
+                    </label>
+                    <label className="p-1">
+                        <input 
+                            type="radio" 
+                            name="goals" 
+                            value="Boost sales" 
+                            onChange={handleInputChange}
+                            checked={createFormData.goals === "Boost sales"} 
+                            className="mr-2"
+                        />
+                        Boost sales
+                    </label>
+                    <label className="p-1">
+                        <input 
+                            type="radio" 
+                            name="goals" 
+                            value="Increase brand awareness" 
+                            onChange={handleInputChange}
+                            checked={createFormData.goals === "Increase brand awareness"} 
+                            className="mr-2"
+                        />
+                        Increase brand awareness
+                    </label>
+                    <label className="p-1">
+                        <input 
+                            type="radio" 
+                            name="goals" 
+                            value="Highlight new products or services" 
+                            onChange={handleInputChange}
+                            checked={createFormData.goals === "Highlight new products or services"} 
+                            className="mr-2" 
+                        />
+                        Highlight new products or services
+                    </label>
+                </label>
+                <label className="flex flex-col mb-2">
+                    Elaborate on any additional goals you may have for this post:
+                    <textarea 
+                        name="keywords"
+                        placeholder='i.e. "promote our flash sale"'
+                        value={createFormData.keywords}
+                        onChange={handleInputChange}
+                        className="border border-gray-400 p-2 rounded mt-2"
+                    />
+                </label>
+                <label className="flex flex-col mb-2">
+                    Any additional thoughts on the creative direction? Add it here:
+                    <textarea 
+                        name="creative"
+                        placeholder='i.e. "use a playful voice, focus on humor" or "add emojis" or "include at least 5 puns"'
+                        value={createFormData.creative}
+                        onChange={handleInputChange}
+                        className="border border-gray-400 p-2 rounded mt-2"
+                    />
+                </label>
+
                 <button type="submit" className="bg-slate-500 text-white px-5 py-2 rounded mt-4 hover:bg-slate-600">
                     Generate Post
                 </button>
@@ -172,11 +211,20 @@ export default function GeneratePage({ user }) {
                         <h2 className="text-xl font-bold mb-2">Post</h2>
                         <img src={generatedData.image} className="mb-2" />
                         <p className="mb-2"><span className="font-bold">Caption:</span> {generatedData.caption}</p>
-                        <Link to="/profile">
-                            <button onClick={handleSubmit} className="bg-slate-500 text-white px-5 py-2 rounded hover:bg-slate-600">
+                        <div className="flex flex-col items-center mt-5">
+                            <button 
+                                onClick={handleSubmit} 
+                                className="my-2 w-full bg-teal-500 text-white px-5 py-2 rounded hover:bg-slate-600"
+                            >
                                 Add to Calendar
                             </button>
-                        </Link>
+                            <button 
+                                onClick={generateAi} 
+                                className="my-2 w-4/5 bg-slate-500 text-white px-5 py-2 rounded hover:bg-slate-600"
+                            >
+                                Generate new caption
+                            </button>
+                        </div>
                     </div>
                     : null
                 }
@@ -184,11 +232,3 @@ export default function GeneratePage({ user }) {
         </div>
     );
 };
-
-            // console.log(generatedCaption)
-            // console.log(generatedHashtags)
-            // console.log(generatedDate)
-
-            // const generatedCaption = data.choices[0].text.split('\n')[0]
-            // const generatedHashtags = data.choices[0].text.split('\n')[1]
-            // const generatedDate = data.choices[0].text.split('\n')[2]
