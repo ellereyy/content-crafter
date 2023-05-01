@@ -2,7 +2,7 @@
 
 Welcome to Socai! The best social media planning app for people who don't love social media. 
 
-NOTE: view full app on ``` deploy``` branch
+NOTE: view full app on ```deploy``` branch
 
 SOCAI is a web application that helps users generate caption content and suggested post dates for their social media profiles in order to save time and money. With SOCAI, users can schedule their social media posts and enter parameters about their social media goals to receive custom content. The app also allows users to view all of the generated content in order based on the schedule timeline, and view past posts if they’ve already been done. Users can create a profile about their business, input data about their social media account and their goals, and upload photos that they’ll post on social media with a brief description of what the content should look like.
 
