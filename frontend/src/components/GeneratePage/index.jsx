@@ -37,7 +37,7 @@ export default function GeneratePage({ user }) {
         "model": "text-davinci-003",
         "prompt": `Create an instagram caption for a company called ${user.businessName} in the ${user.industry} industry with the following information about a photo:\n\nImage Description: ${createFormData.description}\nPrimary marketing goal: ${createFormData.goals}\nSecondary marketing goal: ${createFormData.keywords}\nTarget Audience: ${createFormData.targetAudience}\nAdditonal creative direction: ${createFormData.creative}\n\nCaption: `,
         "temperature": 0.7,
-        "max_tokens": 250,
+        "max_tokens": 300,
         "top_p": 1.0,
         "frequency_penalty": 0.2,
         "presence_penalty": 0.0
@@ -58,6 +58,7 @@ export default function GeneratePage({ user }) {
             return data.json()
         }).then((data) => {
             const aiResponse = data.choices[0].text.trim()
+            console.log('data choices:', data.choices)
             setGeneratedData({
                 image: createFormData.image,
                 description: createFormData.description,
