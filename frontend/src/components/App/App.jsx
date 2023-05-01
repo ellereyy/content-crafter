@@ -49,11 +49,15 @@ function App() {
 
   // console.log(user)
 
+  let sortedContent = content.sort((a, b) => new Date(a.date) - new Date(b.date));
+
   let postDisplay = <p>No posts to display</p>
-  if (content.length > 0) {
-    postDisplay = content
-      .map((post, i) => <Card key={i} user={user} postInfo={post} updateDetailsPage={setDetailsPage}/> );
+  if (sortedContent.length > 0) {
+    postDisplay = sortedContent.map((post, i) => (
+      <Card key={i} user={user} postInfo={post} updateDetailsPage={setDetailsPage}/>
+    ));
   }
+  
 
   function handleLogOut() {
     localStorage.removeItem("userToken");

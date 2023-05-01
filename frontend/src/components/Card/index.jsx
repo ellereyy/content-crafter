@@ -15,5 +15,4 @@ export default function Card({ postInfo, updateDetailsPage, user }) {
             </Link>
         </div>
     )
-
 }
