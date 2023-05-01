@@ -232,6 +232,7 @@ export default function GeneratePage({ user }) {
                     : null
                 }
             </div>
+
         </div>
     );
 };
