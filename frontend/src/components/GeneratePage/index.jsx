@@ -58,7 +58,7 @@ export default function GeneratePage({ user }) {
             return data.json()
         }).then((data) => {
             const aiResponse = data.choices[0].text.trim()
-            console.log('data choices:', data.choices)
+            // console.log('data choices:', data.choices)
             setGeneratedData({
                 image: createFormData.image,
                 description: createFormData.description,
