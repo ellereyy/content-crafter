@@ -98,6 +98,10 @@ export default function GeneratePage({ user }) {
         <>
             <div className="flex flex-col bg-slate-100 rounded-xl shadow-xl p-5 m-3">
                 <h1 className="text-2xl font-bold mb-6">Generate Content</h1>
+                <p className="mb-4">Use this tool to generate content for your social media posts. Simply enter an image url and a description of the image, and we'll generate a caption for you!</p>
+                <div>
+                    {user.goals}
+                </div>
                 <form onSubmit={generateAi} className="flex flex-col">
                     <label className="flex flex-col mb-2">
                         Image:
