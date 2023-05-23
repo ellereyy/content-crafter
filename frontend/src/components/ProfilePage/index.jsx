@@ -13,7 +13,7 @@ export default function ProfilePage({ user, setUser }) {
     goals: user.goals,
     industry: user.industry,
     brandingKeywords: user.brandingKeywords,
-    missionStatement: user.missionStatement,
+    // missionStatement: user.missionStatement,
   });
 
   function handleInputChange(event) {
@@ -69,10 +69,10 @@ export default function ProfilePage({ user, setUser }) {
             <p className="text-sm font-medium text-gray-600 mb-2">Industry:</p>
             <p className="text-lg font-bold mb-2">{user.industry}</p>
           </div>
-          <div className="flex flex-col mb-4">
+          {/* <div className="flex flex-col mb-4">
             <p className="text-sm font-medium text-gray-600 mb-2">Mission Statement:</p>
             <p className="text-lg font-bold mb-2">{user.missionStatement}</p>
-          </div>
+          </div> */}
           <button 
             onClick={() => { setEditPreferences(true) }}
             className="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded">
@@ -129,7 +129,7 @@ export default function ProfilePage({ user, setUser }) {
                 className="px-3 py-2 rounded-lg border-2 border-gray-300 w-full focus:outline-none focus:border-teal-500"
               />
             </div>
-            <div className="mb-4">
+            {/* <div className="mb-4">
               <label htmlFor="missionStatement" className="block text-gray-700 font-bold mb-2">Mission Statement:</label>
               <textarea
                 name="missionStatement"
@@ -137,7 +137,7 @@ export default function ProfilePage({ user, setUser }) {
                 onChange={handleInputChange}
                 className="px-3 py-2 rounded-lg border-2 border-gray-300 w-full focus:outline-none focus:border-teal-500"
               ></textarea>
-            </div>
+            </div> */}
             <div className="mb-4 flex justify-between">
               <button 
                 type="submit" 
