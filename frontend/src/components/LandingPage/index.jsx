@@ -21,9 +21,7 @@ export default function LandingPage({ user }) {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center">
-
-      <div className="w-3/4 p-10 m-10">
+    <div className="flex flex-col items-center justify-center m-auto w-3/4 px-10 mt-5">
         <h1 className="text-3xl font-bold text-center">Socai</h1>
 
         <div className="text-center py-5">
@@ -64,7 +62,6 @@ export default function LandingPage({ user }) {
           </div>
         </div>
 
-      </div>
     </div>
   );
 }

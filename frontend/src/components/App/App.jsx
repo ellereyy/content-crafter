@@ -104,7 +104,7 @@ function App() {
           </div>
           :
           <div className="flex justify-between">
-            <Link to="/home" className="text-center p-4 my-5 text-lg hover:bg-slate-100 rounded-lg">Home</Link>
+            <Link to="/about" className="text-center p-4 my-5 text-lg hover:bg-slate-100 rounded-lg">About</Link>
             <Link to="/auth/login" className="text-center p-4 my-5 text-lg hover:bg-slate-100 rounded-lg">Log In</Link>
             <Link to="/auth/signup" className="text-center p-4 my-5 text-lg hover:bg-slate-100 rounded-lg">Sign Up</Link>
           </div> 
@@ -115,7 +115,7 @@ function App() {
         <Route path="/" element={<LandingPage user={user} />} />
         <Route path="/content" element={<ContentSchedulePage postDisplay={postDisplay} detailsPage={detailsPage}/>} />
         <Route path="/content/:id" element={<DetailsPage postInfo={detailsPage} updatePosts={setDetailsPage} user={user}/>} />
-        <Route path="/home" element={<HomePage />} />
+        <Route path="/about" element={<HomePage />} />
         <Route path="/auth/:formType" element={<AuthFormPage />} />
         <Route path="/profile" element={<ProfilePage user={user} setUser={setUser} />} />
         <Route path="/generate" element={<GeneratePage postInfo={detailsPage} user={user}/>} />

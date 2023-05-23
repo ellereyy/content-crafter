@@ -70,11 +70,20 @@ View the wireframes on Figma: [SOCAI Wireframes](https://www.figma.com/file/Zg8K
 
 ## Next Steps
 
-I would like to add analytics and reporting, which will allow users to track the performance of their social media profiles. 
+Improve landing page once user has logged in
 
-I'd also like to integrate multer so users do not need to use a url for image uploading. In addition to this I'd like to research photo generating APIs for users that do not have photo content to use. 
+Improve auth forms
+- add messages for incorrect login info 
+- login vs. signup nav bar 
 
-Improve the UI. 
+Update forms to improve how this app is used. (i.e. add/remove user input options to generate better content for the user more easily)
+
+
+Stretch goals: 
+- Add Instagram API so users can use this app as a full scheduling app
+- I would like to add analytics and reporting, which will allow users to track the performance of their social media profiles. 
+- I'd also like to integrate multer so users do not need to use a url for image uploading. In addition to this I'd like to research photo generating APIs for users that do not have photo content to use. 
+- Improve the UI. 
 
 ## Sources
 
