@@ -7,6 +7,6 @@ export default function ContentSchedulePage({ postDisplay }) {
                 {postDisplay}
             </div>
         </div>
-
     )
+
 }

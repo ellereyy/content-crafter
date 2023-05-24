@@ -41,8 +41,7 @@ function App() {
         })
     }
   }, [location])
-
-
+  
   let sortedContent = content.sort((a, b) => new Date(a.date) - new Date(b.date));
 
   let postDisplay = (
@@ -58,6 +57,30 @@ function App() {
     postDisplay = sortedContent.map((post, i) => (
       <Card key={i} user={user} postInfo={post} updateDetailsPage={setDetailsPage}/>
     ));
+  }
+
+  const currentDate = new Date();
+  const thisWeek = new Date();
+  thisWeek.setDate(currentDate.getDate() + 7);
+
+  let upcomingPreview = content
+    .filter(post => {
+      const postDate = new Date(post.date);
+      return postDate >= currentDate && postDate <= thisWeek;
+    })
+    .sort((a, b) => new Date(a.date) - new Date(b.date));
+
+  let upcomingPostsDisplay;
+  if (upcomingPreview.length > 0) {
+    upcomingPostsDisplay = upcomingPreview.map((post, i) => (
+      <Card key={i} user={user} postInfo={post} updateDetailsPage={setDetailsPage} />
+    ));
+  } else {
+    upcomingPostsDisplay = (
+      <div className='mt-3'>
+        <p>No upcoming posts</p>
+      </div>
+    );
   }
 
   function handleLogOut() {
@@ -112,7 +135,7 @@ function App() {
       </div> 
 
       <Routes>
-        <Route path="/" element={<LandingPage user={user} />} />
+        <Route path="/" element={<LandingPage user={user} postDisplay={postDisplay} upcomingPostsDisplay={upcomingPostsDisplay}/> } />
         <Route path="/content" element={<ContentSchedulePage postDisplay={postDisplay} detailsPage={detailsPage}/>} />
         <Route path="/content/:id" element={<DetailsPage postInfo={detailsPage} updatePosts={setDetailsPage} user={user}/>} />
         <Route path="/about" element={<HomePage />} />
