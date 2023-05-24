@@ -46,7 +46,7 @@ export default function GeneratePage({ user }) {
     async function generateAi(event) {
         event.preventDefault()
         setLoading(true)
-        // console.log('calling ai api....')
+        console.log('calling ai api....')
         await fetch("https://api.openai.com/v1/completions", {
             method: "POST",
             headers: {
