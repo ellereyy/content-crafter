@@ -28,10 +28,20 @@ export default function GeneratePage({ user }) {
         date: '',
     });
 
+    let dateFx = function() {
+        const currentDate = new Date(Date.now() + 1 * 24 * 60 * 60 * 1000);
+        const futureDate = new Date(Date.now() + 15 * 24 * 60 * 60 * 1000);
+        const randomDate = new Date(currentDate.getTime() + Math.random() * (futureDate.getTime() - currentDate.getTime()));
+        const datePicker = randomDate.toISOString().slice(0, 10);
+        return datePicker
+    }
+
     const currentDate = new Date(Date.now() + 1 * 24 * 60 * 60 * 1000);
     const futureDate = new Date(Date.now() + 15 * 24 * 60 * 60 * 1000);
     const randomDate = new Date(currentDate.getTime() + Math.random() * (futureDate.getTime() - currentDate.getTime()));
     const datePicker = randomDate.toISOString().slice(0, 10);
+
+    // console.log('DATE PICKER: ' + datePicker())
 
     const APIBody = {
         "model": "text-davinci-003",

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
+// import moment from 'moment';
 
 import { getContent, deleteContent, updateContent, getPost } from "../../../utils/backend"
 
@@ -31,6 +32,11 @@ export default function DetailsPage({ updatePosts, postInfo, user }) {
     }
     const date = new Date(postInfo.date);
     const formattedDate = date.toLocaleDateString();
+    // const momentDate = moment(postInfo.date).format('YYYY-MM-DD')
+
+    // console.log('date props:' + postInfo.date)
+    // console.log('date var:' + date)
+    console.log('formatted date:' + formattedDate)
 
     return (
         <>
@@ -76,7 +82,15 @@ export default function DetailsPage({ updatePosts, postInfo, user }) {
                     <input 
                         name="date"
                         type="date"
-                        value={postInfo.date}
+                        value={formattedDate}
+                        onChange={handleEditChange}
+                        className="my-3 p-2 border rounded-lg"
+                    />
+                    <label className="font-bold mb-1 text-gray-800">Test:</label>
+                    <input 
+                        name="test"
+                        type="date"
+                        value={formattedDate}
                         onChange={handleEditChange}
                         className="my-3 p-2 border rounded-lg"
                     />
