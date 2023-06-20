@@ -37,39 +37,48 @@ export default function LandingPage({ user, postDisplay, upcomingPostsDisplay })
     )
   }
 
+  let title;
+  if (isAuthenticated === 'true') {
+    title = (
+      <h1 className="text-3xl font-bold text-center">Dashboard</h1>
+    )
+  } else {
+    <h1 className="text-3xl font-bold text-center">Socai</h1>
+  }
+
   return (
     <div>
       <div className="flex flex-col items-center justify-center m-auto px-10 mt-5">
-          <h1 className="text-3xl font-bold text-center">Socai</h1>
+        {title}
 
-          <div className="text-center py-5">
-            {welcome}
-          </div>
+        <div className="text-center py-5">
+          {welcome}
+        </div>
 
-          <div>
-            {isAuthenticated === "true" ? (
-              <div className="flex items-center justify-center">
-                <Link to="/profile" className="bg-teal-400 hover:bg-teal-500 text-white text-center font-bold py-2 px-4 rounded mx-3">
-                  View/edit profile
-                </Link>
-                <Link to="/generate" className="bg-teal-500 hover:bg-teal-600 text-white text-center font-bold py-2 px-4 rounded mx-3">
-                  Create a new post
-                </Link>
-                <Link to="/content" className="bg-teal-700 hover:bg-teal-800 text-white text-center font-bold py-2 px-4 rounded mx-3">
-                  View/edit scheduled posts
-                </Link>
-              </div>
-            ) : (
-              <div className="flex flex-col items-center justify-center">
-                <Link to="/auth/login" className="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded mb-4">
-                  Log in
-                </Link>
-                <Link to="/auth/signup" className="bg-teal-600 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded">
-                  Sign up
-                </Link>
-              </div>
-            )}
-          </div>
+        <div>
+          {isAuthenticated === "true" ? (
+            <div className="flex items-center justify-center">
+              <Link to="/profile" className="bg-teal-400 hover:bg-teal-500 text-white text-center font-bold py-2 px-4 rounded mx-3">
+                View/edit profile
+              </Link>
+              <Link to="/generate" className="bg-teal-500 hover:bg-teal-600 text-white text-center font-bold py-2 px-4 rounded mx-3">
+                Create a new post
+              </Link>
+              <Link to="/content" className="bg-teal-700 hover:bg-teal-800 text-white text-center font-bold py-2 px-4 rounded mx-3">
+                View/edit scheduled posts
+              </Link>
+            </div>
+          ) : (
+            <div className="flex flex-col items-center justify-center">
+              <Link to="/auth/login" className="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded mb-4">
+                Log in
+              </Link>
+              <Link to="/auth/signup" className="bg-teal-600 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded">
+                Sign up
+              </Link>
+            </div>
+          )}
+        </div>
       </div>
 
       <div className="mt-8">

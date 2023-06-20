@@ -41,9 +41,10 @@ export default function ProfilePage({ user, setUser }) {
   }
   
 
+
   return (
     <div className='mt-3'>
-    <h1 className="text-2xl font-bold mb-6">Profile</h1>
+    {/* <h1 className="text-2xl font-bold mb-6">Profile</h1> */}
       <div className="bg-slate-100 rounded-xl shadow-xl p-5 m-3">
 
         {editPreferences === false ? (

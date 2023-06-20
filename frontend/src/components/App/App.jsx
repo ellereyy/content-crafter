@@ -18,6 +18,7 @@ function App() {
   const [content, setContent] = useState([])
   const [detailsPage, setDetailsPage] = useState([])
   const [user, setUser] = useState({});
+  // const [title, setTitle] = useState();
   
 
   let isAuthenticated = localStorage.getItem("isAuthenticated")
@@ -118,7 +119,9 @@ function App() {
       <div className="flex flex-col">
         {isAuthenticated === "true" ? 
           <div>
-            <div className="img-bg mt-10 rounded-lg"> {helloHeader}</div>            
+            <Link to="/">
+              <div className="img-bg mt-10 rounded-lg"> {helloHeader}</div>   
+            </Link>         
             <div className="flex justify-between">
               <Link to="/profile" className="text-center p-4 my-5 text-lg hover:bg-slate-100 rounded-lg">Profile</Link>
               <Link to="/content" className="text-center p-4 my-5 text-lg hover:bg-slate-100 rounded-lg">Scheduled Posts</Link>          

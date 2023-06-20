@@ -113,7 +113,7 @@ export default function GeneratePage({ user }) {
 
     return (
         <div className='mt-3'>
-            <h1 className="text-2xl font-bold mb-6">Generate Content</h1>
+            {/* <h1 className="text-2xl font-bold mb-6">Generate Content</h1> */}
             <div className="flex flex-col bg-slate-100 rounded-xl shadow-xl p-5 m-3">
                 <div className="mb-3">
                     <h1 className="text-2xl font-bold pb-1">Content Generator</h1>
