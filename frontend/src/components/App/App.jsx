@@ -118,12 +118,12 @@ function App() {
       <div className="flex flex-col">
         {isAuthenticated === "true" ? 
           <div>
+            <div className="img-bg mt-10 rounded-lg"> {helloHeader}</div>            
             <div className="flex justify-between">
               <Link to="/profile" className="text-center p-4 my-5 text-lg hover:bg-slate-100 rounded-lg">Profile</Link>
               <Link to="/content" className="text-center p-4 my-5 text-lg hover:bg-slate-100 rounded-lg">Scheduled Posts</Link>          
               <Link to="/generate" className="text-center p-4 my-5 text-lg hover:bg-slate-100 rounded-lg">Generate Content</Link>
             </div> 
-            <div className="img-bg"> {helloHeader} </div>
           </div>
           :
           <div className="flex justify-between">
