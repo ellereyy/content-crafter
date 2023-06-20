@@ -78,19 +78,13 @@ export default function DetailsPage({ updatePosts, postInfo, user }) {
                         className="my-3 p-2 border rounded-lg"
                         rows={5}
                     />
-                    <label className="font-bold mb-1 text-gray-800">Date:</label>
+                    <label className="font-bold mb-1 text-gray-800">
+                        Date:
+                        <span className="text-gray-400"> {formattedDate}</span>
+                    </label>
                     <input 
                         name="date"
                         type="date"
-                        value={formattedDate}
-                        onChange={handleEditChange}
-                        className="my-3 p-2 border rounded-lg"
-                    />
-                    <label className="font-bold mb-1 text-gray-800">Test:</label>
-                    <input 
-                        name="test"
-                        type="date"
-                        value={formattedDate}
                         onChange={handleEditChange}
                         className="my-3 p-2 border rounded-lg"
                     />
