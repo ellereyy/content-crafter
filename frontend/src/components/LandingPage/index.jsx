@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 
 export default function LandingPage({ user, postDisplay, upcomingPostsDisplay }) {
+
   const isAuthenticated = localStorage.getItem("isAuthenticated");
 
   let welcome = <p className="text-xl">Welcome! Join Socai to start creating and scheduling your social media content today.</p>;
@@ -84,7 +85,7 @@ export default function LandingPage({ user, postDisplay, upcomingPostsDisplay })
       <div className="mt-8">
         {previewPost}
       </div>
-
+      
     </div>
   );
-}
+};
